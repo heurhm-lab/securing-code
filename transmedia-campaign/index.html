@@ -1,0 +1,1350 @@
+<title>Low Battery Campaign Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: app shell. Header carries the campaign's overall "charge"; a tab bar switches between
+   working surfaces (story map, threads, workflow, voice, strategy); any piece opens in a right-hand drawer. */
+:root{
+  --bg:#F2F5F4; --surface:#FFFFFF; --sunk:#E7EDEB; --ink:#132120; --muted:#55686A; --line:#D3DDDA;
+  --accent:#0D6E64; --accent-ink:#FFFFFF; --accent-soft:#D3ECE8;
+  --low:#C8402B; --low-soft:#FADFD8; --mid:#A86B12; --mid-soft:#F5E6C8; --ok:#2E7D4F; --ok-soft:#D9EEE0;
+  --ch-tt:#B02C78; --ch-ig:#B45309; --ch-yt:#B91C1C; --ch-em:#2557B0; --ch-app:#0D6E64; --ch-cr:#6538C2;
+  --shadow:0 1px 2px rgba(19,33,32,.06),0 10px 28px rgba(19,33,32,.10);
+  --scrim:rgba(19,33,32,.35);
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1514; --surface:#162120; --sunk:#1D2A29; --ink:#E4EEEC; --muted:#93A8A5; --line:#2A3A38;
+    --accent:#4CC2B4; --accent-ink:#06201D; --accent-soft:#16403B;
+    --low:#FF7B66; --low-soft:#47211B; --mid:#E9B25A; --mid-soft:#3E3018; --ok:#6FCF97; --ok-soft:#173A27;
+    --ch-tt:#F06AB8; --ch-ig:#F59E4B; --ch-yt:#F87171; --ch-em:#7AA7F5; --ch-app:#4CC2B4; --ch-cr:#A88BF5;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.4); --scrim:rgba(0,0,0,.55);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1514; --surface:#162120; --sunk:#1D2A29; --ink:#E4EEEC; --muted:#93A8A5; --line:#2A3A38;
+  --accent:#4CC2B4; --accent-ink:#06201D; --accent-soft:#16403B;
+  --low:#FF7B66; --low-soft:#47211B; --mid:#E9B25A; --mid-soft:#3E3018; --ok:#6FCF97; --ok-soft:#173A27;
+  --ch-tt:#F06AB8; --ch-ig:#F59E4B; --ch-yt:#F87171; --ch-em:#7AA7F5; --ch-app:#4CC2B4; --ch-cr:#A88BF5;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.4); --scrim:rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:20px}
+@media (max-width:600px){.wrap{padding-inline:16px}}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* header */
+.top{border-bottom:1px solid var(--line);background:var(--surface)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.brand h1{font-size:28px;font-weight:800;letter-spacing:-.02em}
+.brand h1 b{color:var(--low);font-weight:800}
+.brand p{color:var(--muted);font-size:13px}
+.charge{display:flex;align-items:center;gap:12px}
+.charge .big{font-family:var(--f-display);font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}
+.bigbatt{position:relative;width:72px;height:32px;border:2.5px solid var(--ink);border-radius:7px;padding:3px}
+.bigbatt::after{content:"";position:absolute;right:-7px;top:9px;width:4px;height:9px;background:var(--ink);border-radius:0 2px 2px 0}
+.bigbatt span{display:block;height:100%;border-radius:3px;background:var(--low);transition:width .4s}
+.charge .lbl{font-size:12px;color:var(--muted);line-height:1.3}
+
+/* tabs */
+.tabs{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs button{background:none;border:0;padding:12px 14px;cursor:pointer;color:var(--muted);font-weight:700;white-space:nowrap;border-bottom:3px solid transparent}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tabs button:hover{color:var(--ink)}
+main .wrap{padding-block:22px 48px;display:grid;gap:20px}
+
+/* generic */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+.panel h2{font-size:20px}
+.panel h3{font-size:16px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);padding:7px 12px;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.sm{padding:4px 9px;font-size:13px}
+select,input[type="date"],input[type="text"]{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:14px}
+textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;line-height:1.5;resize:vertical}
+label.field{display:grid;gap:4px;font-size:12px;color:var(--muted);font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;border-radius:999px;padding:2px 8px;background:var(--sunk);color:var(--ink);white-space:nowrap}
+.chdot{width:9px;height:9px;border-radius:50%;background:var(--ch);flex:none}
+
+/* stage pills + mini battery */
+.pill{font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.pill[data-s="draft"]{background:var(--low-soft);color:var(--low)}
+.pill[data-s="edit"],.pill[data-s="review"]{background:var(--mid-soft);color:var(--mid)}
+.pill[data-s="approved"]{background:var(--ok-soft);color:var(--ok)}
+.pill[data-s="live"]{background:var(--accent);color:var(--accent-ink)}
+.pill.late{background:var(--low);color:var(--surface)}
+.batt{display:inline-flex;gap:2px;padding:2px;border:1.5px solid var(--muted);border-radius:4px;position:relative;vertical-align:middle}
+.batt::after{content:"";position:absolute;right:-4px;top:4px;width:2px;height:5px;background:var(--muted);border-radius:0 1px 1px 0}
+.batt i{width:5px;height:9px;border-radius:1px;background:var(--sunk)}
+.batt[data-l="1"] i:nth-child(-n+1),.batt[data-l="2"] i:nth-child(-n+2){background:var(--low)}
+.batt[data-l="3"] i:nth-child(-n+3),.batt[data-l="4"] i:nth-child(-n+4){background:var(--mid)}
+.batt[data-l="5"] i{background:var(--accent)}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:2px;align-content:start}
+.kpi .v{font-family:var(--f-display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:14px;color:var(--muted);font-weight:500}
+.kpi .d{font-size:13px;color:var(--muted)}
+.kpi.warn .v{color:var(--low)}
+
+/* toolbar */
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between}
+.toolbar .row{align-items:end}
+
+/* story map */
+.scroll-x{overflow-x:auto;min-width:0}
+table.map{border-collapse:separate;border-spacing:6px;width:100%;min-width:1080px;table-layout:fixed;margin:-6px}
+table.map th{text-align:left;vertical-align:top;font-weight:400}
+table.map thead th{padding:6px 8px 8px}
+table.map thead th .n{font-family:var(--f-display);font-weight:700;font-size:15px;display:flex;align-items:center;gap:7px}
+table.map thead th .r{font-size:12px;color:var(--muted)}
+.prog{height:4px;background:var(--sunk);border-radius:2px;margin-top:6px;overflow:hidden}
+.prog span{display:block;height:100%;background:var(--ch,var(--accent))}
+table.map tbody th{width:190px;padding:10px 10px 10px 4px}
+.beat .wk{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.beat h3{font-size:20px;margin:2px 0 4px;letter-spacing:-.01em}
+.beat p{font-size:12.5px;color:var(--muted);line-height:1.4}
+.cell{width:100%;height:100%;min-height:138px;text-align:left;display:flex;flex-direction:column;gap:6px;padding:10px 11px 10px 13px;background:var(--surface);border:1px solid var(--line);border-radius:9px;cursor:pointer;position:relative;overflow:hidden}
+.cell::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ch)}
+.cell:hover{border-color:var(--ch);box-shadow:var(--shadow)}
+.cell .t{font-weight:700;font-size:14px;line-height:1.3}
+.cell .m{font-size:12px;color:var(--muted);margin-top:auto}
+.cell .top{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.threads{display:flex;flex-wrap:wrap;gap:4px}
+.th{font-family:var(--f-mono);font-size:10.5px;border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--muted);white-space:nowrap}
+.th b{color:var(--ink);font-weight:500}
+.dim{opacity:.28}
+td.map-td{vertical-align:top;height:1px}
+
+/* threads view */
+.tlane{display:grid;grid-template-columns:230px repeat(6,minmax(130px,1fr));gap:6px;min-width:1050px}
+.tlane .head{font-family:var(--f-mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:4px 6px}
+.tlane .name{padding:10px 8px 10px 0}
+.tlane .name h3{font-size:17px}
+.tlane .name p{font-size:12.5px;color:var(--muted);line-height:1.4;margin-top:3px}
+.tlane .slot{background:var(--sunk);border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:6px;min-height:64px}
+.step{display:grid;gap:3px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:6px 8px;cursor:pointer;font-size:12px}
+.step:hover{border-color:var(--ch)}
+.step .s1{display:flex;align-items:center;gap:6px;font-weight:700}
+.role{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.warnlist{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.warnlist li{border-left:3px solid var(--low);background:var(--low-soft);padding:8px 12px;border-radius:0 8px 8px 0;font-size:14px}
+.oklist li{border-left-color:var(--ok);background:var(--ok-soft)}
+
+/* workflow */
+.board{display:grid;grid-template-columns:repeat(6,minmax(200px,1fr));gap:10px;min-width:1240px}
+.col{background:var(--sunk);border-radius:var(--r);padding:10px;display:flex;flex-direction:column;gap:8px;min-height:200px}
+.col header{display:grid;gap:1px;padding:2px 4px 6px}
+.col header b{font-family:var(--f-display);font-size:15px;display:flex;justify-content:space-between}
+.col header span{font-size:12px;color:var(--muted)}
+.who{font-family:var(--f-mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-radius:4px;padding:1px 5px;background:var(--surface);color:var(--muted);border:1px solid var(--line)}
+.who.ai{color:var(--ch-cr);border-color:var(--ch-cr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:grid;gap:5px;font-size:13px;position:relative}
+.card::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 2px 2px 0;background:var(--ch)}
+.card .t{font-weight:700;line-height:1.3;cursor:pointer;background:none;border:0;padding:0;text-align:left}
+.card .t:hover{text-decoration:underline}
+.card .m{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:6px;align-items:center}
+.card .mv{display:flex;gap:4px}
+.card .why{font-size:11.5px;color:var(--low)}
+.cap{display:grid;gap:14px}
+.caprow{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:center}
+@media (max-width:640px){.caprow{grid-template-columns:1fr}}
+.capname b{display:block}
+.capname span{font-size:12px;color:var(--muted)}
+.bars{position:relative;display:grid;gap:4px;padding-block:2px}
+.bar{height:16px;border-radius:4px;background:var(--sunk);position:relative;overflow:visible}
+.bar span{display:block;height:100%;border-radius:4px}
+.bar.manual span{background:var(--muted);opacity:.55}
+.bar.ai span{background:var(--accent)}
+.bar.over span{background:var(--low);opacity:1}
+.capline{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);border-radius:1px}
+.capline::after{content:attr(data-l);position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:10.5px;color:var(--muted);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* voice */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.persona{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
+.pillars{display:grid;gap:12px;margin-top:14px}
+.pillar{border-top:1px solid var(--line);padding-top:12px;display:grid;gap:6px}
+.pillar h3{font-size:16px}
+.saynot{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13.5px}
+@media (max-width:500px){.saynot{grid-template-columns:1fr}}
+.say,.not{border-radius:8px;padding:8px 10px}
+.say{background:var(--ok-soft)}
+.not{background:var(--low-soft)}
+.say b,.not b{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.say b{color:var(--ok)} .not b{color:var(--low)}
+.swap{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:13.5px;margin-top:8px}
+.swap s{color:var(--low)}
+table.plain{border-collapse:collapse;width:100%;font-size:13.5px}
+table.plain th,table.plain td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.plain th{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.dial{display:inline-flex;gap:2px;vertical-align:middle}
+.dial i{width:7px;height:7px;border-radius:50%;background:var(--sunk);border:1px solid var(--line)}
+.dial i.on{background:var(--ink);border-color:var(--ink)}
+
+/* lint results */
+.score{display:flex;align-items:center;gap:12px}
+.score .num{font-family:var(--f-display);font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.score .num.good{color:var(--ok)} .score .num.meh{color:var(--mid)} .score .num.bad{color:var(--low)}
+.issues{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.issues li{font-size:13.5px;padding:7px 10px;border-radius:7px;background:var(--sunk);display:grid;gap:2px}
+.issues li .sev{font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em}
+.issues li[data-sev="critical"]{background:var(--low-soft)} .issues li[data-sev="critical"] .sev{color:var(--low)}
+.issues li[data-sev="warn"]{background:var(--mid-soft)} .issues li[data-sev="warn"] .sev{color:var(--mid)}
+.issues li[data-sev="tip"] .sev{color:var(--muted)}
+.issues q{font-style:italic}
+.aibox{border:1px dashed var(--ch-cr);border-radius:8px;padding:10px 12px;font-size:13.5px;display:grid;gap:8px}
+.aibox .eyebrow{color:var(--ch-cr)}
+.ai-off{font-size:13px;color:var(--muted)}
+
+/* strategy */
+.bigidea{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px}
+@media (max-width:900px){.bigidea{grid-template-columns:1fr}}
+.bigidea h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.025em;line-height:1.05}
+.bigidea .lede{font-size:17px;margin-top:12px;max-width:62ch}
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.person{border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;gap:6px;align-content:start}
+.person h3{font-size:19px}
+.person .lvl{font-family:var(--f-mono);font-size:12px;color:var(--low)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.flow .node{flex:1 1 150px;border:1px solid var(--line);border-top:4px solid var(--ch);border-radius:8px;padding:10px 12px;display:grid;gap:3px;align-content:start;background:var(--surface)}
+.flow .node b{font-family:var(--f-display);font-size:15px}
+.flow .node span{font-size:12.5px;color:var(--muted)}
+.flow .arr{align-self:center;color:var(--muted);font-family:var(--f-mono)}
+.prose{max-width:70ch;display:grid;gap:10px}
+.prose ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--bg);z-index:21;box-shadow:var(--shadow);display:flex;flex-direction:column;border-left:1px solid var(--line)}
+.dhead{background:var(--surface);border-bottom:1px solid var(--line);padding:calc(14px + env(safe-area-inset-top,0px)) 18px 14px;display:grid;gap:8px;position:relative}
+.dhead::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--ch)}
+.dhead h2{font-size:22px;padding-right:40px}
+.dclose{position:absolute;right:12px;top:calc(12px + env(safe-area-inset-top,0px));width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:18px;line-height:1}
+.dbody{overflow-y:auto;padding:16px 18px calc(32px + env(safe-area-inset-bottom,0px));display:grid;gap:16px;align-content:start}
+.dsec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;gap:10px;min-width:0}
+.dsec > header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.dsec h3{font-size:16px}
+.brief{font-family:var(--f-mono);font-size:12.5px;line-height:1.55;white-space:pre-wrap;background:var(--sunk);border-radius:8px;padding:12px;max-height:360px;overflow:auto;margin:0}
+.gate{font-size:13px;color:var(--muted)}
+.gate.block{color:var(--low)}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px}
+.hint{font-size:12.5px;color:var(--muted)}
+
+.foot{border-top:1px solid var(--line)}
+.foot .wrap{padding-block:14px;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
+.sync::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--muted);margin-right:6px}
+.sync[data-k="db"]::before{background:var(--ok)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font-size:14px;z-index:40;max-width:calc(100% - 32px);box-shadow:var(--shadow)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div>
+        <h1>Low Battery <b>2%</b></h1>
+        <p>Transmedia campaign planner for <strong>Tend</strong> · six weeks · six channels · one story</p>
+      </div>
+    </div>
+    <div class="charge" title="Every piece contributes up to 5 bars as it moves from brief to live">
+      <div class="bigbatt" aria-hidden="true"><span id="charge-fill" style="width:0%"></span></div>
+      <div><div class="big" id="charge-num">0%</div></div>
+      <div class="lbl">Campaign charge<br><span id="charge-sub">loading…</span></div>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Views">
+  <div class="wrap" role="tablist">
+    <button role="tab" data-tab="map" aria-selected="true">Story map</button>
+    <button role="tab" data-tab="threads" aria-selected="false">Story threads</button>
+    <button role="tab" data-tab="workflow" aria-selected="false">AI + human workflow</button>
+    <button role="tab" data-tab="voice" aria-selected="false">Voice check</button>
+    <button role="tab" data-tab="plan" aria-selected="false">Campaign architecture</button>
+  </div>
+</nav>
+<main><div class="wrap" id="view"></div></main>
+<footer class="foot"><div class="wrap">
+  <span class="sync" id="sync" data-k="local">Checking for team sync…</span>
+  <span id="ai-status">Checking for Claude…</span>
+</div></footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="d-title"></aside>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+"use strict";
+/* ============================================================
+   CAMPAIGN DATA: the narrative architecture
+   ============================================================ */
+const DEFAULT_LAUNCH = "2026-11-02";
+
+const ROLES = [
+  {id:"lead",   name:"Content lead",            cap:18, does:"Owns the story, voice, briefs, email and creators"},
+  {id:"social", name:"Social & video producer", cap:22, does:"Shoots, edits and posts TikTok, Stories and YouTube"},
+  {id:"life",   name:"Lifecycle & product",     cap:10, does:"In-app content, check-ins and release QA"},
+  {id:"clin",   name:"Clinical advisor",        cap:4,  does:"Part-time. Signs off anything that touches distress"},
+];
+const REVIEW_HOURS = {lead:0.5, clin:0.5};          // per piece, every week
+const BRIEF_HOURS  = {manual:1, ai:0.25};            // content lead, per piece
+
+const CHANNELS = [
+  {id:"tt", name:"TikTok", role:"Discovery", job:"The serialized story: one episode a week from inside the group chat.",
+   format:"30–45s vertical episode + 2 cutdowns", day:1, leadDays:6, owner:"social", hours:{manual:12, ai:7},
+   dial:{warmth:3, wit:5, depth:2}, limits:{emoji:2, hashtags:5, words:14, bangs:1},
+   kpi:"3-second hold rate, completion rate, follows per episode",
+   deliver:"A 30–45 second script with timestamps, shot notes and on-screen text; a caption under 150 characters with 3–5 hashtags; and 3 alternative opening hooks for the first 2 seconds.",
+   ai:["Script draft and 3 hook variants","On-screen text and captions","Hashtag sets","Cutdown picks from the edit transcript"],
+   human:["Casting, performance and filming on batched shoot days","Final edit and audio choice","Trend and cultural check","Sign-off on anything that touches distress"]},
+  {id:"ig", name:"Instagram Stories", role:"Participation", job:"The inner monologue: the characters' private thoughts, and the audience gets a say in what happens.",
+   format:"5–7 frame story set with a poll, slider or question box", day:2, leadDays:4, owner:"social", hours:{manual:6, ai:3},
+   dial:{warmth:5, wit:3, depth:2}, limits:{emoji:3, hashtags:2, words:12, bangs:1},
+   kpi:"Sticker taps, replies, poll participation",
+   deliver:"Frame-by-frame copy for 5–7 frames (at most 12 words of on-screen text each), the interactive sticker with its options, alt text, and a one-line note for the designer per frame.",
+   ai:["Frame copy and sticker options","Clustering audience replies into themes","Alt text for every frame"],
+   human:["Design in brand templates","Moderating replies and escalating any that signal crisis","Choosing which audience answer becomes canon"]},
+  {id:"yt", name:"YouTube", role:"Depth", job:"Behind the 2%: credentialed experts and creators unpack the week's theme, so the story earns trust.",
+   format:"6–10 min feature + 2 Shorts", day:3, leadDays:10, owner:"social", hours:{manual:16, ai:10},
+   dial:{warmth:4, wit:2, depth:5}, limits:{emoji:1, hashtags:3, words:22, bangs:1},
+   kpi:"Average view duration, subscribers, click-through to the app",
+   deliver:"A run of show (cold open, three segments, close) with interview questions for the expert, a title plus 3 alternates, a description with chapters, and 2 Shorts concepts.",
+   ai:["Research outline and interview questions","Title, description and chapters","Shorts moments from the transcript"],
+   human:["Booking credentialed experts (remote interviews keep costs down)","Clinical fact-check of every claim","Edit and thumbnail"]},
+  {id:"em", name:"Email", role:"Intimacy", job:"The drafts folder: a weekly letter built from the messages the characters never sent.",
+   format:"250–400 word letter, one practice, one link", day:6, leadDays:5, owner:"lead", hours:{manual:5, ai:2.5},
+   dial:{warmth:5, wit:2, depth:4}, limits:{emoji:1, hashtags:0, words:18, bangs:1},
+   kpi:"Open rate, reply rate, clicks to the in-app practice",
+   deliver:"Three subject lines with preview text, then the letter (250–400 words) written as one of the characters or as Tend, ending with one small practice and one link.",
+   ai:["First draft of the letter","Subject line and preview text variants","Segment-specific intros"],
+   human:["Voice polish: the letter has to sound like a person","Clinical check","Test send and accessibility QA"]},
+  {id:"app", name:"In-app", role:"Habit", job:"Where the story lives with you: daily check-ins and 3-minute sessions that mirror the week's beat.",
+   format:"Check-in prompt set, one 3-min session, feature microcopy", day:0, leadDays:14, owner:"life", hours:{manual:8, ai:4.5},
+   dial:{warmth:5, wit:1, depth:3}, limits:{emoji:1, hashtags:0, words:14, bangs:0},
+   kpi:"Day-7 check-in retention, session completion",
+   deliver:"Five check-in prompts (at most 14 words each), a 3-minute guided session script with timing marks, and microcopy for any feature screen (titles, buttons, empty states).",
+   ai:["Prompt and microcopy variants","Session script draft","Localization-ready string tables"],
+   human:["Clinical review of every session","Product QA and accessibility","Release coordination"]},
+  {id:"cr", name:"Creator collabs", role:"Amplification", job:"Other voices: two or three micro-creators a week stitch, duet or answer the episode in their own words.",
+   format:"Creator brief + do/don't sheet for 2–3 micro-creators", day:4, leadDays:7, owner:"lead", hours:{manual:6, ai:3},
+   dial:{warmth:4, wit:4, depth:2}, limits:{emoji:3, hashtags:5, words:16, bangs:1},
+   kpi:"Stitches and duets, earned reach, comment sentiment",
+   deliver:"A one-page creator brief: the prompt, what to show, 3 example openers, the mandatory disclosure (#ad or Paid partnership), and a short do/don't list.",
+   ai:["Creator brief and outreach drafts","Do/don't sheet from the voice bible","Comment sentiment summaries"],
+   human:["Vetting creators: history, audience, sensitivity","Contracts and disclosure","Approving final posts"]},
+];
+
+const BEATS = [
+  {wk:1, act:"Act I · Setup", title:"2%", goal:"Recognition. The audience sees themselves in three people pretending they're fine.",
+   summary:"Jules, Dev and Sam share an apartment, a group chat called \"house plants\" and a dying plant named Gerald. Everyone says they're fine. Every phone is at 2%."},
+  {wk:2, act:"Act I · Setup", title:"What's draining you", goal:"Naming. Give people language for the specific things that drain them.",
+   summary:"Each roommate finds out where their energy actually goes. Dev types a message to the chat and deletes it. The audience votes on whether to save Gerald."},
+  {wk:3, act:"Act II · Turn", title:"The unsent message", goal:"Permission. Show that saying \"I'm not okay\" is survivable.",
+   summary:"Dev finally sends \"hey. are we actually okay?\" Silence, then three dots. The audience picks how Jules replies."},
+  {wk:4, act:"Act II · Turn", title:"Small charges", goal:"Possibility. Introduce tiny practices, with Tend as a tool rather than a savior.",
+   summary:"Each roommate tries one 3-minute thing. Jules sends the reply the audience chose. Sam opens Tend. Someone finally waters Gerald."},
+  {wk:5, act:"Act III · Real life", title:"Low days still count", goal:"Realism. Progress isn't linear, and a bad day doesn't erase it.",
+   summary:"Sam's 2am spiral comes back. This time she texts the chat. Jules skips a shift to rest and doesn't apologize for it."},
+  {wk:6, act:"Act III · Real life", title:"Tending, not fixed", goal:"Invitation. Hand the story to the audience: send your own unsent message.",
+   summary:"Gerald has one new leaf. The chat gets renamed \"actually okay-ish\". Nobody is fully charged, and that's the point."},
+];
+
+const THREADS = [
+  {id:"gerald", short:"Gerald", name:"Gerald the plant", desc:"The roommates' half-dead houseplant. Its health quietly tracks the story; in-app, every user grows their own."},
+  {id:"unsent", short:"Unsent", name:"Dev's unsent message", desc:"Dev drafts texts and never sends them. The campaign's turning point, then the audience's own call to action."},
+  {id:"todo",   short:"To-do",  name:"Jules's to-do list", desc:"The list on the fridge that never ends. Productivity guilt, until \"rest\" gets written on it."},
+  {id:"2am",    short:"2am",    name:"Sam's 2am scroll", desc:"New city, no friends yet, screen time at 2:04am. Loneliness and sleep, handled gently."},
+  {id:"chat",   short:"Chat",   name:"The group chat name", desc:"\"house plants\" becomes \"actually okay-ish\". A small rename that marks the whole arc."},
+];
+
+const PIECES = [
+  // Week 1 · 2%
+  {wk:1, ch:"tt", title:"POV: the group chat is three people pretending", focus:"All three",
+   angle:"Split screen of all three typing \"lol im fine\" while their battery icons drop to 2%. Gerald droops in the background, Jules's to-do list is on the fridge, and the chat is called \"house plants\".",
+   threads:[["gerald","setup"],["todo","setup"],["chat","setup"]], cta:"Follow for episode 2"},
+  {wk:1, ch:"ig", title:"2:04 AM", focus:"Sam",
+   angle:"Sam's story: a screen-time screenshot at 2:04am, a half-unpacked room, then a slider: \"Be honest. What % are you at?\"",
+   threads:[["2am","setup"]], cta:"Answer the slider"},
+  {wk:1, ch:"yt", title:"Why we say \"I'm fine\"", focus:"Theme: masking",
+   angle:"A licensed therapist and a creator unpack masking: why \"fine\" is the default answer and what it costs. The cold open uses the TikTok episode.",
+   threads:[], cta:"Subscribe, then try a check-in in Tend"},
+  {wk:1, ch:"em", title:"Welcome to the drafts folder", focus:"Dev",
+   angle:"Launch letter. Introduces the idea of unsent messages and shares Dev's first draft: \"do you guys ever feel like you're watching your own life on mute\".",
+   threads:[["unsent","setup"]], cta:"Reply with one word for how you actually are"},
+  {wk:1, ch:"app", title:"Day 0: what's your battery at?", focus:"The user",
+   angle:"Onboarding check-in rebuilt around the battery metaphor. Finishing it plants a seed that becomes your own Gerald in week 4.",
+   threads:[["gerald","develop"]], cta:"Do your first check-in"},
+  {wk:1, ch:"cr", title:"\"I'm fine\" stitch kit", focus:"Creators",
+   angle:"Three micro-creators stitch episode 1 with the \"I'm fine\" text they actually sent this week.",
+   threads:[], cta:"Stitch with your own \"I'm fine\""},
+  // Week 2 · What's draining you
+  {wk:2, ch:"tt", title:"Battery usage, but it's your life", focus:"All three, Jules leads",
+   angle:"Each roommate opens Battery Usage and the apps are life things: \"Group project 34%\", \"Mom's voice notes 22%\", \"Pretending at work 18%\".",
+   threads:[["todo","develop"]], cta:"Comment your top drain"},
+  {wk:2, ch:"ig", title:"Typing… (deleted)", focus:"Dev",
+   angle:"Dev's story: the chat window, \"typing…\", then nothing. Next frame, a poll: \"Save Gerald?\" Last frame, a question box: \"What drained you this week?\"",
+   threads:[["unsent","develop"],["gerald","develop"]], cta:"Vote, then answer the question box"},
+  {wk:2, ch:"yt", title:"Productivity guilt is not a personality", focus:"Theme: productivity guilt",
+   angle:"Jules's theme, unpacked by an occupational psychologist and a student creator: why rest feels like something you have to earn.",
+   threads:[["todo","develop"]], cta:"Save the 3-minute reset in Tend"},
+  {wk:2, ch:"em", title:"An honest list of what drained us", focus:"The audience",
+   angle:"A letter stitched together from anonymized answers to the Stories question box, plus one practice for noticing drains as they happen.",
+   threads:[], cta:"Tag three drains in today's check-in"},
+  {wk:2, ch:"app", title:"Drain map", focus:"The user",
+   angle:"New check-in step: tag what drained you and what charged you. The weekly view shows your patterns without judgment.",
+   threads:[], cta:"Tag what drained you today"},
+  {wk:2, ch:"cr", title:"Creator drain audits", focus:"Creators",
+   angle:"Two creators share their own \"battery usage\" screen using a template we provide.",
+   threads:[], cta:"Make your own drain audit"},
+  // Week 3 · The unsent message
+  {wk:3, ch:"tt", title:"Dev hits send", focus:"Dev",
+   angle:"Dev types \"hey. are we actually okay?\" and, for once, sends it. The chat goes silent. Then three dots. End on the dots.",
+   threads:[["unsent","develop"],["chat","develop"]], cta:"What should Jules say? Vote on our Stories"},
+  {wk:3, ch:"ig", title:"What would you text back?", focus:"Jules",
+   angle:"Three possible replies from Jules: deflect, joke, or honest. The audience votes, and the winning reply becomes canon in episode 4.",
+   threads:[["unsent","develop"]], cta:"Vote for Jules's reply"},
+  {wk:3, ch:"yt", title:"The 2am spiral, explained", focus:"Theme: loneliness and sleep", sensitive:true,
+   angle:"Sleep, loneliness and the doomscroll, with a sleep researcher and a creator who moved cities alone. Sam's thread, handled gently.",
+   threads:[["2am","develop"]], cta:"Try the wind-down session in Tend"},
+  {wk:3, ch:"em", title:"The message Dev almost didn't send", focus:"Dev", sensitive:true,
+   angle:"Dev's full unsent draft, then a practice: three low-stakes ways to open a hard conversation. The topic is heavier this week, so the footer carries the 988 line.",
+   threads:[["unsent","develop"]], cta:"Try one opener this week"},
+  {wk:3, ch:"app", title:"Unsent drafts journal", focus:"The user",
+   angle:"A private journaling prompt: \"Write the message you haven't sent. You don't have to send it.\" Nothing leaves the device.",
+   threads:[["unsent","develop"]], cta:"Write one unsent draft"},
+  {wk:3, ch:"cr", title:"The text I finally sent", focus:"Creators",
+   angle:"Creators share, with permission, a text they finally sent a friend and what happened next.",
+   threads:[["unsent","develop"]], cta:"Send one text today"},
+  // Week 4 · Small charges
+  {wk:4, ch:"tt", title:"3 minutes", focus:"All three, Sam leads",
+   angle:"Each roommate tries one 3-minute thing. Jules sends the reply the audience chose. Sam opens Tend on the bus. Someone finally waters Gerald.",
+   threads:[["gerald","develop"],["2am","develop"],["unsent","develop"]], cta:"Try a 3-minute reset (link in bio)"},
+  {wk:4, ch:"ig", title:"Jules's new list", focus:"Jules",
+   angle:"The fridge list again, with one new item at the top: \"rest (non-negotiable)\". An Add Yours sticker collects the audience's non-negotiables.",
+   threads:[["todo","develop"]], cta:"Add yours"},
+  {wk:4, ch:"yt", title:"We tried 3-minute resets for 7 days", focus:"Theme: small practices",
+   angle:"Creator challenge vlog with honest results, including the days it didn't work. Two Shorts cut from the best moments.",
+   threads:[], cta:"Download Tend and start a 3-minute reset"},
+  {wk:4, ch:"em", title:"Small charges that actually work", focus:"The audience",
+   angle:"Practices readers sent in, lightly edited, plus three in-app sessions matched to each roommate.",
+   threads:[], cta:"Open the session that sounds most like you"},
+  {wk:4, ch:"app", title:"Grow your own Gerald", focus:"The user",
+   angle:"Your Day-0 seed becomes your own plant. It grows with check-ins and never dies if you skip a day. Three 3-minute sessions themed to Jules, Dev and Sam.",
+   threads:[["gerald","develop"],["2am","develop"]], cta:"Meet your plant"},
+  {wk:4, ch:"cr", title:"3-minute reset duets", focus:"Creators",
+   angle:"Creators duet episode 4 doing their own 3-minute reset in real time.",
+   threads:[], cta:"Duet with your reset"},
+  // Week 5 · Low days still count
+  {wk:5, ch:"tt", title:"The bad night", focus:"Sam", sensitive:true,
+   angle:"Sam's 2am is back. The difference: this time she texts the chat. Dev is awake too. Nothing gets solved; they just stay on the phone.",
+   threads:[["2am","develop"],["chat","develop"]], cta:"Text someone who's up late"},
+  {wk:5, ch:"ig", title:"Progress isn't a straight line", focus:"Theme: non-linear progress",
+   angle:"A quiz sticker (\"A bad day erases your progress: true or false?\") followed by frames drawn as a wobbly line chart of a real week.",
+   threads:[], cta:"Take the quiz"},
+  {wk:5, ch:"yt", title:"Rest, setbacks and why streaks lie", focus:"Theme: setbacks", sensitive:true,
+   angle:"A therapist answers audience questions collected in weeks 2–4.",
+   threads:[], cta:"Ask a question for next time"},
+  {wk:5, ch:"em", title:"A letter for a low day", focus:"Tend", sensitive:true,
+   angle:"A letter written to be saved and opened later. Gentle and short, and it ends with real resources, including the 988 line.",
+   threads:[], cta:"Save this for a low day"},
+  {wk:5, ch:"app", title:"Streak-free mode", focus:"Jules",
+   angle:"Streaks become \"days you showed up\", and missed days carry no penalty. Jules's \"rest counts\" session launches.",
+   threads:[["todo","payoff"]], cta:"Try the \"rest counts\" session"},
+  {wk:5, ch:"cr", title:"Honest low-day check-ins", focus:"Creators",
+   angle:"Creators post a low-day check-in with no fix and no silver lining.",
+   threads:[], cta:"Check in, even on a low day"},
+  // Week 6 · Tending, not fixed
+  {wk:6, ch:"tt", title:"One new leaf", focus:"All three",
+   angle:"Finale. Gerald has one new leaf. The chat is renamed \"actually okay-ish\". Nobody is fully charged, and they're okay with that.",
+   threads:[["gerald","payoff"],["chat","payoff"]], cta:"Send your unsent message in Tend"},
+  {wk:6, ch:"ig", title:"Rename your group chat", focus:"All three",
+   angle:"The rename, revealed in Stories, then an Add Yours sticker: rename your own group chat to something honest.",
+   threads:[["chat","payoff"]], cta:"Add yours: your honest chat name"},
+  {wk:6, ch:"yt", title:"Low Battery: the whole story", focus:"Recap",
+   angle:"Supercut of all six episodes with behind-the-scenes footage and the real experiences that inspired them.",
+   threads:[], cta:"Watch the full story, then join Tend"},
+  {wk:6, ch:"em", title:"From Sam, 2:04am, six weeks later", focus:"Sam",
+   angle:"A letter from Sam: still in the new city, still up late sometimes, but not alone in it. Invites readers to send their own unsent message in the app.",
+   threads:[["2am","payoff"]], cta:"Send your unsent message"},
+  {wk:6, ch:"app", title:"Unsent → sent", focus:"The user",
+   angle:"An anonymous, moderated wall of \"messages I finally sent\". Users can post theirs or keep it private.",
+   threads:[["unsent","payoff"]], cta:"Share yours, or keep it to yourself"},
+  {wk:6, ch:"cr", title:"Tag your 2% friend", focus:"Creators",
+   angle:"Creators stitch the finale and tag the friend they want to check on.",
+   threads:[], cta:"Tag a friend to check on"},
+].map(p => ({...p, id:`w${p.wk}-${p.ch}`}));
+
+const STAGES = [
+  {id:"brief",    name:"Brief",       who:"Human", ai:false, does:"Content lead approves the auto-built brief"},
+  {id:"draft",    name:"First draft", who:"AI",    ai:true,  does:"Claude drafts from the brief and voice bible"},
+  {id:"edit",     name:"Human edit",  who:"Human", ai:false, does:"The owner rewrites, adds lived detail, cuts"},
+  {id:"review",   name:"Review",      who:"Human", ai:false, does:"Voice check 70+, then clinical sign-off"},
+  {id:"approved", name:"Approved",    who:"Human", ai:false, does:"Scheduled; edits send it back to review"},
+  {id:"live",     name:"Live",        who:"Live",  ai:false, does:"Published"},
+];
+
+const VOICE = {
+  persona:"The friend who's been to therapy and doesn't make it weird.",
+  pillars:[
+    {name:"Honest, not heavy", rule:"Name the hard thing plainly. Don't dramatize it.", say:"Some weeks the to-do list wins.", not:"Burnout is DESTROYING our generation."},
+    {name:"Warm, not saccharine", rule:"Kindness without sparkle words.", say:"That sounds like a lot. Want to try something small?", not:"You are a beautiful soul who deserves ALL the love ✨✨"},
+    {name:"Specific, not generic", rule:"The real moment beats the category.", say:"The 2:04am scroll.", not:"Stress and anxiety in today's world."},
+    {name:"Invite, don't instruct", rule:"Offer options. Never prescribe.", say:"You could try three slow breaths.", not:"You need to start meditating."},
+    {name:"Wry, never mocking", rule:"Laugh at situations, never at feelings.", say:"Gerald has seen things.", not:"lol imagine being this emotionally broke"},
+  ],
+  use:["tend","small","for now","okay-ish","check in","low battery","enough","try","honest"],
+  guardrails:[
+    "Tend is a support tool, not therapy. No clinical claims, no diagnoses, no promised outcomes.",
+    "Anything that touches crisis, self-harm or hopelessness carries the 988 Suicide & Crisis Lifeline (call or text 988 in the US) or the local equivalent, and goes to the clinical advisor.",
+    "Never depict methods of self-harm. No before-and-after transformation framing.",
+    "No shame-based streaks or urgency. Missing a day is fine.",
+    "Creator content is always disclosed: #ad or the Paid partnership label.",
+    "The roommates are fictional composites. Experts are credentialed and named on screen.",
+  ],
+};
+
+const AVOID = [
+  {word:"cure, heal", re:/\b(cure[sd]?|heal(s|ed)? (you|your|anxiety|depression))\b/gi, use:"support", why:"Clinical outcome claim.", sev:"critical"},
+  {word:'"so OCD", "so depressed"', re:/\b(so|very|super|kinda|totally) (ocd|bipolar|adhd|depressed|schizo)\b/gi, use:"describe the behavior", why:"Diagnosis used as an adjective.", sev:"critical"},
+  {word:"fix", re:/\bfix(es|ed|ing)?\b/gi, use:"tend, support", why:"We support people; we don't fix them.", sev:"warn"},
+  {word:"hack", re:/\b(life ?)?hacks?\b/gi, use:"practice, small thing", why:"Off-voice: treats feelings as a productivity problem.", sev:"warn"},
+  {word:"crush it", re:/\bcrush(ing)? it\b/gi, use:"(cut it)", why:"Hustle language.", sev:"warn"},
+  {word:"self-care Sunday", re:/\bself[- ]?care sunday\b/gi, use:"a small thing today", why:"Cliché.", sev:"warn"},
+  {word:"just breathe", re:/\bjust breathe\b/gi, use:"take a breath with me", why:"Dismissive.", sev:"warn"},
+  {word:"toxic", re:/\btoxic\b/gi, use:"describe the actual behavior", why:"Vague and loaded.", sev:"warn"},
+  {word:"journey", re:/\bjourney\b/gi, use:"(cut it, or say what happens)", why:"Cliché.", sev:"warn"},
+  {word:"game-changer", re:/\bgame[- ]?changer\b/gi, use:"(cut it)", why:"Hype.", sev:"warn"},
+  {word:"crazy, insane", re:/\b(crazy|insane|psycho|nuts)\b/gi, use:"wild, a lot", why:"Stigmatizing language.", sev:"warn"},
+  {word:"good vibes", re:/#?\b(good|positive) ?vibes( only)?\b/gi, use:"(cut it)", why:"Toxic positivity.", sev:"warn"},
+  {word:"wellness", re:/\bwellness\b/gi, use:"name the actual feeling or moment", why:"Generic.", sev:"tip"},
+  {word:"mindset", re:/\bmindset\b/gi, use:"name the actual thought", why:"Generic.", sev:"tip"},
+  {word:"stress", re:/\bstress(ed)?\b/gi, use:"say what is happening", why:"Generic. Be specific.", sev:"tip"},
+];
+const RE_IMPERATIVE = /\byou (should|need to|must|have to|gotta)\b/gi;
+const RE_PROMISE = /\b(will (make you|fix|cure|heal|stop|end) \w+|guarantee[ds]?|never feel \w+ again|100% (better|happier|calm))/gi;
+const RE_URGENCY = /\b(don'?t break (your|the) streak|last chance|hurry|before it'?s too late|limited time)\b/gi;
+const RE_CRISIS = /\b(suicid\w*|kill(ing)? (myself|yourself)|self[- ]harm\w*|end (it all|my life)|want(ed)? to die|hopeless(ness)?|crisis)\b/i;
+const RE_CRISIS_LINE = /\b988\b|crisis line|crisis text line|findahelpline/i;
+const RE_DISCLOSE = /#ad\b|paid partnership/i;
+const RE_EMOJI = /\p{Extended_Pictographic}/gu;
+const RE_HASHTAG = /(^|\s)#[\p{L}\p{N}_]+/gu;
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const CH = Object.fromEntries(CHANNELS.map(c => [c.id, c]));
+const ROLE = Object.fromEntries(ROLES.map(r => [r.id, r]));
+const THREAD = Object.fromEntries(THREADS.map(t => [t.id, t]));
+const PIECE = Object.fromEntries(PIECES.map(p => [p.id, p]));
+const STAGE_IDX = Object.fromEntries(STAGES.map((s,i) => [s.id, i]));
+const CH_ORDER = CHANNELS.map(c => c.id);
+const beatOf = p => BEATS[p.wk - 1];
+const ROLE_GLYPH = {setup:"○", develop:"◐", payoff:"●"};
+const fmt = d => d.toLocaleDateString(undefined, {weekday:"short", month:"short", day:"numeric"});
+const h = n => (Math.round(n*10)/10).toString().replace(/\.0$/,"") + "h";
+
+const state = {pieces:{}, settings:{launch:DEFAULT_LAUNCH}, readOnly:false};
+const backend = {kind:"local", db:null};
+const ai = {sample:null, status:"checking"};
+const reviews = {};                     // Claude voice reviews, per piece, this visit only
+let tab = "map", mapThread = "", mapRole = "", flowWeek = "all", capWeek = 1, openId = null;
+
+function today(){ const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); }
+function launchDate(){
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(state.settings.launch || DEFAULT_LAUNCH) || /^(\d{4})-(\d{2})-(\d{2})$/.exec(DEFAULT_LAUNCH);
+  return new Date(+m[1], +m[2]-1, +m[3]);
+}
+function addDays(d, n){ const x = new Date(d); x.setDate(x.getDate()+n); return x; }
+const publishDate = p => addDays(launchDate(), (p.wk-1)*7 + CH[p.ch].day);
+const dueDate = p => addDays(publishDate(p), -CH[p.ch].leadDays);
+
+function ps(id){
+  const p = PIECE[id];
+  return Object.assign({status:"brief", owner:CH[p.ch].owner, draft:"", notes:"", safetyOk:false}, state.pieces[id] || {});
+}
+const stageIdx = id => STAGE_IDX[ps(id).status] ?? 0;
+const isLate = id => stageIdx(id) < STAGE_IDX.approved && dueDate(PIECE[id]) < today();
+const label = p => `W${p.wk} ${CH[p.ch].name}`;
+
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 3200);
+}
+async function copy(text, btn){
+  try { await navigator.clipboard.writeText(text); toast("Copied"); }
+  catch { const pre = btn?.closest(".dsec, .panel")?.querySelector(".brief, textarea");
+    if (pre){ const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+    toast("Couldn't copy automatically. The text is selected; press Ctrl+C or ⌘C."); }
+}
+const batt = lvl => `<span class="batt" data-l="${lvl}" aria-hidden="true">${"<i></i>".repeat(5)}</span>`;
+function pill(id){
+  const s = ps(id);
+  if (isLate(id)) return `<span class="pill late">Overdue · ${esc(STAGES[stageIdx(id)].name)}</span>`;
+  return `<span class="pill" data-s="${s.status}">${esc(STAGES[stageIdx(id)].name)}</span>`;
+}
+
+/* ============================================================
+   VOICE CHECK (runs locally, no AI needed)
+   ============================================================ */
+function lintVoice(text, chId){
+  const c = CH[chId] || CH.tt, issues = [], t = text || "";
+  if (!t.trim()) return {score:null, issues:[], critical:0};
+  const add = (sev, msg, quote) => issues.push({sev, msg, quote});
+  for (const a of AVOID){
+    const found = [...new Set((t.match(a.re) || []).map(s => s.trim()))];
+    for (const q of found) add(a.sev, `${a.why} Try: ${a.use}.`, q);
+  }
+  for (const q of new Set(t.match(RE_IMPERATIVE) || [])) add("warn", "Instructs instead of inviting. Try \"you could\" or \"if you want\".", q);
+  for (const q of new Set(t.match(RE_PROMISE) || [])) add("critical", "Promises an outcome. Tend supports; it doesn't guarantee results.", q);
+  for (const q of new Set(t.match(RE_URGENCY) || [])) add("warn", "Urgency or streak shame. Missing a day is fine.", q);
+  if (RE_CRISIS.test(t) && !RE_CRISIS_LINE.test(t)) add("critical", "Touches crisis or self-harm without a crisis resource. Add the 988 line (or local equivalent) and route to the clinical advisor.", (t.match(RE_CRISIS)||[""])[0]);
+  if (chId === "cr" && !RE_DISCLOSE.test(t)) add("critical", "Creator content must carry a disclosure: #ad or the Paid partnership label.", "");
+  const emoji = (t.match(RE_EMOJI) || []).length;
+  if (emoji > c.limits.emoji) add("warn", `${emoji} emoji. ${c.name} allows up to ${c.limits.emoji}.`, "");
+  const tags = (t.match(RE_HASHTAG) || []).length;
+  if (tags > c.limits.hashtags) add("warn", `${tags} hashtags. ${c.name} allows up to ${c.limits.hashtags}.`, "");
+  const bangs = (t.match(/!/g) || []).length;
+  if (bangs > c.limits.bangs) add("warn", `${bangs} exclamation marks. ${c.name} allows ${c.limits.bangs}. Calm reads as caring.`, "");
+  const prose = t.split("\n").filter(l => /[a-z]/.test(l)).join("\n");   // skip all-caps section labels
+  const caps = (prose.match(/\b[A-Z]{4,}\b/g) || []).filter(w => !["TIKTOK","POV","YOUTUBE","CTA","ASMR"].includes(w));
+  if (caps.length) add("tip", "All-caps words read as shouting.", caps.slice(0,3).join(", "));
+  const sentences = t.split(/(?<=[.!?])\s+|\n+/).map(s => s.trim()).filter(s => s.split(/\s+/).length > 2);
+  const longOnes = sentences.filter(s => s.split(/\s+/).length > c.limits.words * 1.6);
+  if (longOnes.length) add("tip", `${longOnes.length} sentence${longOnes.length>1?"s":""} well over the ${c.limits.words}-word target for ${c.name}.`, longOnes[0].slice(0,80) + (longOnes[0].length>80?"…":""));
+  const pen = {critical:25, warn:8, tip:3};
+  const score = Math.max(0, 100 - issues.reduce((s,i) => s + pen[i.sev], 0));
+  const order = {critical:0, warn:1, tip:2};
+  issues.sort((a,b) => order[a.sev] - order[b.sev]);
+  return {score, issues, critical:issues.filter(i => i.sev === "critical").length};
+}
+function lintHTML(r){
+  if (r.score == null) return `<p class="hint">Write or paste a draft to see its voice score.</p>`;
+  const cls = r.score >= 85 ? "good" : r.score >= 70 ? "meh" : "bad";
+  const verdict = r.critical ? "Blocked: fix the critical issues before approval." : r.score >= 85 ? "On voice." : r.score >= 70 ? "Close. Clear the warnings if you can." : "Off voice. Needs another pass.";
+  return `<div class="score"><span class="num ${cls}">${r.score}</span><div><b>${verdict}</b><div class="hint">70+ with no critical issues is required for approval.</div></div></div>
+    ${r.issues.length ? `<ul class="issues">${r.issues.map(i => `<li data-sev="${i.sev}"><span class="sev">${i.sev}</span><span>${i.quote ? `<q>${esc(i.quote)}</q> · ` : ""}${esc(i.msg)}</span></li>`).join("")}</ul>` : `<p class="hint" style="margin-top:8px">No issues found by the rule check.</p>`}`;
+}
+
+/* ============================================================
+   BRIEFS + PROMPTS
+   ============================================================ */
+function threadSteps(tid){
+  return PIECES.filter(p => p.threads.some(([t]) => t === tid))
+    .map(p => ({p, role:p.threads.find(([t]) => t === tid)[1]}))
+    .sort((a,b) => a.p.wk - b.p.wk || CH_ORDER.indexOf(a.p.ch) - CH_ORDER.indexOf(b.p.ch));
+}
+function voiceBlock(chId){
+  const c = CH[chId];
+  return [
+    `Sound like: ${VOICE.persona}`,
+    `Dial for ${c.name}: warmth ${c.dial.warmth}/5 · wit ${c.dial.wit}/5 · depth ${c.dial.depth}/5`,
+    `Limits: about ${c.limits.words} words per sentence · up to ${c.limits.emoji} emoji · up to ${c.limits.hashtags} hashtags · ${c.limits.bangs} exclamation mark${c.limits.bangs===1?"":"s"} max`,
+    ...VOICE.pillars.map(p => `- ${p.name}: ${p.rule} Say "${p.say}" Not "${p.not}"`),
+    `Words we use: ${VOICE.use.join(", ")}`,
+    `Words we avoid: fix, cure, hack, crush it, self-care Sunday, just breathe, toxic, journey, game-changer, crazy/insane, good vibes, "you should"`,
+  ].join("\n");
+}
+function buildBrief(p){
+  const c = CH[p.ch], b = beatOf(p), prev = BEATS[p.wk-2], s = ps(p.id);
+  const lines = [];
+  lines.push(`LOW BATTERY · W${p.wk} "${b.title}" · ${c.name}`);
+  lines.push(`Piece: ${p.title}`);
+  lines.push(`Publishes ${fmt(publishDate(p))} · Draft due ${fmt(dueDate(p))} · Owner: ${ROLE[s.owner]?.name || s.owner}`);
+  lines.push("", "OBJECTIVE");
+  lines.push(`${c.role}. ${c.job}`);
+  lines.push(`This week's beat (${b.act}): ${b.goal}`);
+  lines.push("", "THE STORY SO FAR");
+  lines.push(prev ? `Last week (W${prev.wk} "${prev.title}"): ${prev.summary}` : "This is the opening beat. Nobody knows the characters yet.");
+  lines.push(`This week: ${b.summary}`);
+  lines.push("", "THIS PIECE");
+  lines.push(p.angle);
+  lines.push(`Character focus: ${p.focus}`);
+  lines.push(`Format: ${c.format}`);
+  lines.push("", "CONTINUITY (keep these threads straight)");
+  if (!p.threads.length) lines.push("No running threads in this piece. Echo the week's beat; don't advance a character arc or invent new story facts.");
+  for (const [tid, role] of p.threads){
+    const steps = threadSteps(tid), t = THREAD[tid];
+    lines.push(`- ${t.name}: this piece is the ${role.toUpperCase()}. ${t.desc}`);
+    for (const st of steps){
+      if (st.p.id === p.id) continue;
+      const when = st.p.wk < p.wk ? "Before" : st.p.wk > p.wk ? "After" : "Same week";
+      lines.push(`    ${when}: ${label(st.p)} "${st.p.title}" (${st.role}) · ${STAGES[stageIdx(st.p.id)].name.toLowerCase()}`);
+    }
+  }
+  lines.push("", "VOICE FOR THIS CHANNEL", voiceBlock(p.ch));
+  lines.push("", "MANDATORIES");
+  lines.push(`- CTA: ${p.cta}`);
+  if (p.sensitive) lines.push("- SENSITIVE TOPIC: include the 988 Suicide & Crisis Lifeline (call or text 988, US) or the local equivalent. Clinical advisor must sign off.");
+  if (p.ch === "cr") lines.push("- Disclosure: #ad or the Paid partnership label on every creator post.");
+  lines.push("- No clinical claims, no promised outcomes, no streak shame.");
+  lines.push("", "AI / HUMAN SPLIT");
+  lines.push(`AI drafts: ${c.ai.join("; ")}.`);
+  lines.push(`Human owns: ${c.human.join("; ")}.`);
+  lines.push("", "MEASURE", c.kpi);
+  lines.push("", "REVIEW CHECKLIST",
+    "[ ] Consistent with the story so far (threads above)",
+    "[ ] Voice check 70+ with no critical issues",
+    "[ ] Clinical and safety sign-off",
+    "[ ] CTA, links and accessibility (captions, alt text) checked");
+  return lines.join("\n");
+}
+function draftPrompt(p){
+  return [
+    `You are writing a first draft for "Low Battery", a six-week transmedia campaign for Tend, a mental wellness app for Gen Z and Millennials. A human editor will rewrite, fact-check and approve everything you write, so give them strong raw material.`,
+    "", "GUARDRAILS (non-negotiable)", ...VOICE.guardrails.map(g => "- " + g),
+    "", "BRIEF", buildBrief(p),
+    "", "DELIVERABLE", CH[p.ch].deliver,
+    "", `Write plain text with short labels for each part. No preamble and no closing remarks. Stay consistent with the story so far and do not invent events that contradict it. Respect the voice limits for ${CH[p.ch].name}.`,
+  ].join("\n");
+}
+function reviewPrompt(text, chId){
+  return [
+    `You are the voice editor for Tend, a mental wellness app. Review this ${CH[chId].name} draft against the voice bible and guardrails.`,
+    "", "VOICE BIBLE", voiceBlock(chId),
+    "", "GUARDRAILS", ...VOICE.guardrails.map(g => "- " + g),
+    "", "DRAFT", text.slice(0, 12000),
+    "", `Reply with only JSON: {"score": 0-100, "summary": "one sentence", "notes": [{"quote": "exact words from the draft", "issue": "what's off", "fix": "rewritten words"}]}. At most 6 notes, most important first. Judge tone and safety, not grammar.`,
+  ].join("\n");
+}
+
+/* ============================================================
+   STATE: shared db when available, otherwise this browser
+   ============================================================ */
+const LS_KEY = "lowbattery.planner.v1";
+function loadLocal(){
+  try { const v = JSON.parse(localStorage.getItem(LS_KEY) || "null"); if (v && typeof v === "object"){ state.pieces = v.pieces || {}; state.settings = {...state.settings, ...(v.settings || {})}; } } catch {}
+}
+function saveLocal(){ try { localStorage.setItem(LS_KEY, JSON.stringify({pieces:state.pieces, settings:state.settings})); } catch {} }
+
+const writing = {}, queued = {};
+async function persist(id){
+  if (backend.kind !== "db"){ saveLocal(); return; }
+  if (writing[id]){ queued[id] = true; return; }
+  writing[id] = true;
+  try {
+    const ref = id === "__settings" ? backend.db.doc("settings/main") : backend.db.collection("pieces").doc(id);
+    await ref.set(id === "__settings" ? {...state.settings} : {...state.pieces[id]});
+  } catch (e){ dbError(e); }
+  finally { writing[id] = false; if (queued[id]){ queued[id] = false; persist(id); } }
+}
+function dbError(e){
+  const code = e && e.code;
+  if (code === "invalid_argument"){ state.readOnly = true; renderAll(); refreshDrawer(); toast("You can view this plan, but your access doesn't allow changes."); }
+  else if (code === "quota_exceeded") toast("The shared plan is full. Clear some old drafts and try again.");
+  else if (code === "resource_exhausted") toast("Saving too fast. Your change will save on the next edit.");
+  else toast("Couldn't save to the shared plan just now. Try that change again.");
+}
+function updatePiece(id, patch){
+  if (state.readOnly) return;
+  state.pieces[id] = {...ps(id), ...patch, updatedAt:Date.now()};
+  persist(id); renderAll(); refreshDrawer();
+}
+function setLaunch(v){
+  if (state.readOnly || !/^\d{4}-\d{2}-\d{2}$/.test(v)) return;
+  state.settings.launch = v; persist("__settings"); renderAll();
+}
+
+async function connect(){
+  const c = window.claude;
+  if (!c || typeof c.use !== "function"){ setBackend("local"); setAI(null); return; }
+  c.use("sample").then(setAI, () => setAI(null));
+  const db = await c.use("db").catch(() => null);
+  if (!db){ setBackend("local"); return; }
+  backend.db = db; setBackend("db");
+  db.collection("pieces").onSnapshot(snap => {
+    const next = {}; snap.docs.forEach(d => { if (PIECE[d.id]) next[d.id] = {...d.data()}; });
+    for (const id in state.pieces) if (writing[id] && !next[id]) next[id] = state.pieces[id];
+    state.pieces = next; renderAll(); refreshDrawer();
+  }, () => { setBackend("local"); toast("Lost the connection to the shared plan. Changes now save in this browser."); });
+  db.doc("settings/main").onSnapshot(d => {
+    if (d.exists){ state.settings = {...state.settings, ...d.data()}; renderAll(); }
+  }, () => {});
+}
+function setBackend(k){
+  backend.kind = k; const el = $("#sync"); el.dataset.k = k;
+  el.textContent = k === "db" ? "Shared with your team. Changes save for everyone." : "Saved in this browser only. Open it in Claude to share it with your team.";
+}
+function setAI(sample){
+  ai.sample = sample || null; ai.status = sample ? "ready" : "off";
+  $("#ai-status").textContent = sample ? "Claude drafting is on. Each draft uses your own Claude usage." : "Claude drafting is unavailable here. Use “Copy AI prompt” with your AI tool.";
+  refreshDrawer(); if (tab === "voice") renderView();
+}
+const AI_ERR = {
+  not_granted:"Claude isn't allowed for this page. Use “Copy AI prompt” instead.",
+  sampling_disabled:"Claude isn't available for this account. Use “Copy AI prompt” instead.",
+  rate_limited:"Claude is busy for you right now. Wait a minute, then try again.",
+  session_expired:"Your session expired. Sign in again, then retry.",
+  refused:"Claude declined this one. Adjust the brief and try again.",
+  prompt_too_large:"The draft is too long to review. Trim it and retry.",
+  invalid_json:"Claude's review came back in the wrong shape. Try again.",
+  empty_completion:"Claude returned nothing. Try again.",
+};
+const aiErr = e => AI_ERR[e && e.code] || "Something interrupted Claude. Try again.";
+function aiGone(e){ if (["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(e && e.code)) setAI(null); }
+
+/* ============================================================
+   DERIVED NUMBERS
+   ============================================================ */
+function chargePct(){ return Math.round(PIECES.reduce((s,p) => s + stageIdx(p.id), 0) / (PIECES.length*5) * 100); }
+function threadWarnings(){
+  const out = [];
+  for (const t of THREADS){
+    const steps = threadSteps(t.id);
+    steps.forEach((s, i) => {
+      const si = stageIdx(s.p.id);
+      if (si < STAGE_IDX.approved) return;
+      const behind = steps.slice(0, i).filter(pr => pr.p.wk < s.p.wk && stageIdx(pr.p.id) < si);
+      if (behind.length) out.push({t, msg:`${label(s.p)} "${s.p.title}" is ${STAGES[si].name.toLowerCase()}, but the earlier beat ${behind.map(b => `${label(b.p)} (${STAGES[stageIdx(b.p.id)].name.toLowerCase()})`).join(", ")} isn't. Audiences will meet the ${s.role} before the setup.`});
+    });
+    steps.filter(s => isLate(s.p.id)).forEach(s => out.push({t, msg:`${label(s.p)} "${s.p.title}" is overdue and carries the ${t.name} thread. A gap here breaks continuity for every later beat.`}));
+  }
+  return out;
+}
+function capacity(wk){
+  const res = Object.fromEntries(ROLES.map(r => [r.id, {manual:0, ai:0}]));
+  for (const p of PIECES.filter(p => p.wk === wk)){
+    const c = CH[p.ch], o = res[ps(p.id).owner] ? ps(p.id).owner : c.owner;
+    res[o].manual += c.hours.manual; res[o].ai += c.hours.ai;
+    res.lead.manual += BRIEF_HOURS.manual; res.lead.ai += BRIEF_HOURS.ai;
+    for (const r in REVIEW_HOURS){ res[r].manual += REVIEW_HOURS[r]; res[r].ai += REVIEW_HOURS[r]; }
+  }
+  return res;
+}
+function campaignWeek(){
+  const d = Math.floor((today() - launchDate()) / 864e5);
+  if (d < 0) return {pre:true, days:-d, wk:1};
+  return {pre:false, wk:Math.min(6, Math.floor(d/7)+1), done:d >= 42};
+}
+
+/* ============================================================
+   RENDER: header + tabs
+   ============================================================ */
+function renderHeader(){
+  const pct = chargePct();
+  $("#charge-num").textContent = pct + "%";
+  const f = $("#charge-fill"); f.style.width = Math.max(pct, 2) + "%";
+  f.style.background = pct < 40 ? "var(--low)" : pct < 80 ? "var(--mid)" : "var(--accent)";
+  const cw = campaignWeek();
+  $("#charge-sub").textContent = cw.pre ? `Launches ${fmt(launchDate())} · ${cw.days} day${cw.days===1?"":"s"} to go` : cw.done ? "Campaign complete" : `Week ${cw.wk} of 6 is live`;
+}
+function renderAll(){ renderHeader(); renderView(); }
+function renderView(){
+  const v = $("#view");
+  const keep = document.activeElement && v.contains(document.activeElement) && document.activeElement.id;
+  if (tab === "voice" && $("#vc-text")){ renderVoiceResults(); return; } // don't wipe the checker while typing
+  v.innerHTML = ({map:viewMap, threads:viewThreads, workflow:viewWorkflow, voice:viewVoice, plan:viewPlan})[tab]();
+  if (tab === "voice") renderVoiceResults();
+  if (keep && document.getElementById(keep)) document.getElementById(keep).focus();
+}
+
+/* ---------- Story map ---------- */
+function viewMap(){
+  const live = PIECES.filter(p => ps(p.id).status === "live").length;
+  const appr = PIECES.filter(p => ps(p.id).status === "approved").length;
+  const prod = PIECES.filter(p => { const i = stageIdx(p.id); return i > 0 && i < STAGE_IDX.approved; }).length;
+  const t0 = today(), soon = addDays(t0, 7);
+  const dueSoon = PIECES.filter(p => stageIdx(p.id) < STAGE_IDX.approved && dueDate(p) >= t0 && dueDate(p) <= soon).length;
+  const late = PIECES.filter(p => isLate(p.id)).length;
+  const warns = threadWarnings(); const atRisk = new Set(warns.map(w => w.t.id)).size;
+  const cw = campaignWeek(); const cap = capacity(cw.wk);
+  const totM = Object.values(cap).reduce((s,x) => s + x.manual, 0), totA = Object.values(cap).reduce((s,x) => s + x.ai, 0);
+  const totCap = ROLES.reduce((s,r) => s + r.cap, 0);
+  const scored = PIECES.map(p => lintVoice(ps(p.id).draft, p.ch).score).filter(s => s != null);
+  const avg = scored.length ? Math.round(scored.reduce((a,b) => a+b, 0) / scored.length) : null;
+
+  const head = CHANNELS.map(c => {
+    const ids = PIECES.filter(p => p.ch === c.id).map(p => p.id);
+    const prog = Math.round(ids.reduce((s,id) => s + stageIdx(id), 0) / (ids.length*5) * 100);
+    return `<th style="--ch:var(--ch-${c.id})"><div class="n"><span class="chdot"></span>${esc(c.name)}</div><div class="r">${esc(c.role)} · ${esc(c.format.split(" + ")[0])}</div><div class="prog" title="${prog}% through production"><span style="width:${prog}%"></span></div></th>`;
+  }).join("");
+  const rows = BEATS.map(b => `<tr><th class="beat"><div class="wk">W${b.wk} · ${esc(b.act)}</div><h3>${esc(b.title)}</h3><p>${esc(b.goal)}</p><p class="mono" style="margin-top:6px">${fmt(addDays(launchDate(), (b.wk-1)*7))}</p></th>${
+    CHANNELS.map(c => { const p = PIECE[`w${b.wk}-${c.id}`]; return `<td class="map-td">${cellHTML(p)}</td>`; }).join("")}</tr>`).join("");
+
+  return `
+  <div class="kpis">
+    <div class="kpi"><span class="eyebrow">Production</span><span class="v">${live} <small>live</small> · ${appr} <small>approved</small></span><span class="d">${prod} in production · ${PIECES.length - live - appr - prod} at brief</span></div>
+    <div class="kpi ${late ? "warn" : ""}"><span class="eyebrow">Next 7 days</span><span class="v">${dueSoon} <small>drafts due</small></span><span class="d">${late ? `${late} overdue. Open the red cells.` : "Nothing overdue."}</span></div>
+    <div class="kpi ${atRisk ? "warn" : ""}"><span class="eyebrow">Story continuity</span><span class="v">${THREADS.length - atRisk}<small>/${THREADS.length} threads on track</small></span><span class="d">${atRisk ? "See Story threads for what's out of order." : "Every setup lands before its payoff."}</span></div>
+    <div class="kpi"><span class="eyebrow">Team load, week ${cw.wk}</span><span class="v">${h(totA)} <small>with AI</small></span><span class="d">vs ${h(totM)} without, against ${totCap}h of capacity</span></div>
+    <div class="kpi"><span class="eyebrow">Voice consistency</span><span class="v">${avg ?? "–"}${avg != null ? "<small>/100 avg</small>" : ""}</span><span class="d">${scored.length ? `Across ${scored.length} draft${scored.length===1?"":"s"}` : "No drafts yet"}</span></div>
+  </div>
+  <div class="panel" style="display:grid;gap:14px">
+    <div class="toolbar">
+      <div><h2>One story, six channels</h2><p class="muted" style="font-size:14px">Each row is a week's beat. Each column is a channel with its own job in the story. Open any cell for its brief, draft and review.</p></div>
+      <div class="row">
+        <label class="field" for="f-launch">Launch date<input type="date" id="f-launch" value="${esc(state.settings.launch)}" ${state.readOnly?"disabled":""}></label>
+        <label class="field" for="f-thread">Highlight thread<select id="f-thread"><option value="">All pieces</option>${THREADS.map(t => `<option value="${t.id}" ${mapThread===t.id?"selected":""}>${esc(t.name)}</option>`).join("")}</select></label>
+        <label class="field" for="f-role">Owner<select id="f-role"><option value="">Everyone</option>${ROLES.map(r => `<option value="${r.id}" ${mapRole===r.id?"selected":""}>${esc(r.name)}</option>`).join("")}</select></label>
+      </div>
+    </div>
+    <div class="legend"><span>${batt(1)} Workflow charge: one bar per stage</span><span>○ setup · ◐ develop · ● payoff</span></div>
+    <div class="scroll-x" style="padding:6px"><table class="map"><thead><tr><th style="width:190px"><span class="eyebrow">Week / beat</span></th>${head}</tr></thead><tbody>${rows}</tbody></table></div>
+  </div>`;
+}
+function cellHTML(p){
+  const s = ps(p.id);
+  const dim = (mapThread && !p.threads.some(([t]) => t === mapThread)) || (mapRole && s.owner !== mapRole);
+  return `<button class="cell ${dim ? "dim" : ""}" data-piece="${p.id}" style="--ch:var(--ch-${p.ch})" aria-label="${esc(label(p) + ": " + p.title)}">
+    <span class="top">${batt(stageIdx(p.id))}${pill(p.id)}</span>
+    <span class="t">${esc(p.title)}</span>
+    ${p.threads.length ? `<span class="threads">${p.threads.map(([t,r]) => `<span class="th" title="${esc(THREAD[t].name)}: ${r}">${ROLE_GLYPH[r]} <b>${esc(THREAD[t].short)}</b></span>`).join("")}</span>` : ""}
+    <span class="m">${fmt(publishDate(p))} · ${esc(ROLE[s.owner]?.name || "")}${p.sensitive ? " · sensitive" : ""}</span>
+  </button>`;
+}
+
+/* ---------- Threads ---------- */
+function viewThreads(){
+  const warns = threadWarnings();
+  const lanes = THREADS.map(t => {
+    const steps = threadSteps(t.id);
+    const done = steps.filter(s => ps(s.p.id).status === "live").length;
+    const slots = BEATS.map(b => `<div class="slot">${steps.filter(s => s.p.wk === b.wk).map(s => `
+      <button class="step" data-piece="${s.p.id}" style="--ch:var(--ch-${s.p.ch})">
+        <span class="s1"><span class="chdot"></span>${esc(CH[s.p.ch].name)}</span>
+        <span class="role">${ROLE_GLYPH[s.role]} ${s.role}</span>
+        <span>${batt(stageIdx(s.p.id))}</span>
+      </button>`).join("")}</div>`).join("");
+    return `<div class="name"><h3>${esc(t.name)}</h3><p>${esc(t.desc)}</p><p class="mono" style="font-size:12px;margin-top:6px">${done}/${steps.length} beats live</p></div>${slots}`;
+  }).join("");
+  return `
+  <div class="panel" style="display:grid;gap:12px">
+    <div><h2>Story threads</h2><p class="muted" style="font-size:14px;max-width:75ch">Threads are the story details that travel between channels. Someone who only watches TikTok and someone who only reads email should both get a complete story; someone who follows everything should be rewarded for it. A thread breaks when a payoff ships before its setup.</p></div>
+    ${warns.length ? `<ul class="warnlist">${warns.map(w => `<li><b>${esc(w.t.name)}:</b> ${esc(w.msg)}</li>`).join("")}</ul>` : `<ul class="warnlist oklist"><li>All threads are in order. Nothing is approved ahead of its setup, and nothing on a thread is overdue.</li></ul>`}
+  </div>
+  <div class="panel scroll-x"><div class="tlane">
+    <div class="head">Thread</div>${BEATS.map(b => `<div class="head">W${b.wk} · ${esc(b.title)}</div>`).join("")}
+    ${lanes}
+  </div></div>`;
+}
+
+/* ---------- Workflow ---------- */
+function viewWorkflow(){
+  const list = PIECES.filter(p => flowWeek === "all" || p.wk === +flowWeek);
+  const cols = STAGES.map((st, i) => {
+    const cards = list.filter(p => stageIdx(p.id) === i);
+    return `<section class="col"><header><b>${esc(st.name)} <span class="mono">${cards.length}</span></b><span><span class="who ${st.ai ? "ai" : ""}">${st.who}</span> ${esc(st.does)}</span></header>
+      ${cards.map(p => cardHTML(p, i)).join("") || `<span class="hint" style="padding:4px">Nothing here.</span>`}</section>`;
+  }).join("");
+  const cap = capacity(capWeek);
+  const max = Math.max(...ROLES.map(r => Math.max(r.cap, cap[r.id].manual))) * 1.08;
+  const capRows = ROLES.map(r => {
+    const m = cap[r.id].manual, a = cap[r.id].ai, pc = v => (v/max*100).toFixed(1) + "%";
+    return `<div class="caprow"><div class="capname"><b>${esc(r.name)}</b><span>${r.cap}h a week · ${esc(r.does)}</span></div>
+      <div class="bars">
+        <div class="bar manual ${m > r.cap ? "over" : ""}"><span style="width:${pc(m)}"></span></div>
+        <div class="bar ai ${a > r.cap ? "over" : ""}"><span style="width:${pc(a)}"></span></div>
+        <div class="capline" data-l="${r.cap}h" style="left:${pc(r.cap)}"></div>
+      </div></div>
+      <div class="caprow" style="margin-top:-10px"><span></span><span class="mono hint">${h(m)} without AI${m > r.cap ? ` (${h(m - r.cap)} over)` : ""} · ${h(a)} with AI${a > r.cap ? ` (${h(a - r.cap)} over)` : ` (${h(r.cap - a)} spare)`}</span></div>`;
+  }).join("");
+  return `
+  <div class="panel" style="display:grid;gap:14px">
+    <div class="toolbar"><div><h2>AI drafts. Humans decide.</h2><p class="muted" style="font-size:14px;max-width:80ch">Claude does the blank-page work: first drafts, variants, captions. People do what makes the story true: lived detail, performance, clinical judgment and the final call. Nothing reaches Approved without a voice score of 70+ and clinical sign-off, and editing an approved piece sends it back to Review.</p></div>
+      <label class="field" for="f-week">Week<select id="f-week"><option value="all">All weeks</option>${BEATS.map(b => `<option value="${b.wk}" ${String(flowWeek)===String(b.wk)?"selected":""}>W${b.wk} · ${esc(b.title)}</option>`).join("")}</select></label></div>
+    <div class="scroll-x"><div class="board">${cols}</div></div>
+  </div>
+  <div class="panel cap">
+    <div class="toolbar"><div><h2>Can a small team ship this?</h2><p class="muted" style="font-size:14px;max-width:75ch">Weekly hours by role for six pieces, counting briefs, production and review. Change who owns a piece in its drawer and this updates.</p></div>
+      <label class="field" for="f-capweek">Week<select id="f-capweek">${BEATS.map(b => `<option value="${b.wk}" ${capWeek===b.wk?"selected":""}>W${b.wk} · ${esc(b.title)}</option>`).join("")}</select></label></div>
+    <div class="legend"><span><i style="background:var(--muted);opacity:.55"></i>Without AI</span><span><i style="background:var(--accent)"></i>With AI drafting</span><span><i style="background:var(--low)"></i>Over capacity</span><span><i style="background:var(--ink);width:2px"></i>Weekly capacity</span></div>
+    ${capRows}
+  </div>`;
+}
+function cardHTML(p, i){
+  const next = i < STAGES.length - 1 ? gate(p.id, i+1) : "end";
+  return `<article class="card" style="--ch:var(--ch-${p.ch})">
+    <button class="t" data-piece="${p.id}">${esc(p.title)}</button>
+    <div class="m"><span>${esc(label(p))} · due ${fmt(dueDate(p))}</span>${isLate(p.id) ? `<span class="pill late">Overdue</span>` : ""}</div>
+    <div class="m"><span>${esc(ROLE[ps(p.id).owner]?.name || "")}</span>
+      <span class="mv">${i > 0 ? `<button class="btn sm" data-move="${p.id}" data-to="${i-1}" ${state.readOnly?"disabled":""} aria-label="Move back to ${esc(STAGES[i-1].name)}">←</button>` : ""}${i < STAGES.length-1 ? `<button class="btn sm" data-move="${p.id}" data-to="${i+1}" ${next || state.readOnly ? "disabled" : ""} aria-label="Move to ${esc(STAGES[i+1].name)}">→</button>` : ""}</span></div>
+    ${next && next !== "end" ? `<span class="why">${esc(next)}</span>` : ""}
+  </article>`;
+}
+function gate(id, toIdx){
+  const s = ps(id), cur = stageIdx(id);
+  if (toIdx <= cur) return null;
+  if (toIdx > cur + 1) return "Move one stage at a time.";
+  const to = STAGES[toIdx].id;
+  if ((to === "edit" || to === "review") && !s.draft.trim()) return "Needs a draft first.";
+  if (to === "approved"){
+    const r = lintVoice(s.draft, PIECE[id].ch);
+    if (r.critical) return "Fix critical voice or safety issues first.";
+    if (r.score < 70) return `Voice score is ${r.score}; it needs 70+.`;
+    if (!s.safetyOk) return "Needs clinical and safety sign-off.";
+  }
+  return null;
+}
+function moveTo(id, toIdx){
+  const why = gate(id, toIdx);
+  if (why){ toast(why); return; }
+  const patch = {status:STAGES[toIdx].id};
+  if (toIdx < STAGE_IDX.review) patch.safetyOk = false;
+  updatePiece(id, patch);
+}
+
+/* ---------- Voice ---------- */
+const VOICE_EXAMPLE = "Feeling stressed? You should try our new wellness hack! Tend will fix your anxiety in just 3 minutes 🔥🔥🔥 Don't break your streak! #selfcare #wellness #mentalhealth #anxiety #goodvibes #tend";
+let vcText = VOICE_EXAMPLE, vcCh = "tt", vcAI = null;
+function viewVoice(){
+  return `
+  <div class="two">
+    <div class="panel">
+      <span class="eyebrow">Voice bible</span>
+      <p class="persona" style="margin-top:6px">${esc(VOICE.persona)}</p>
+      <div class="pillars">${VOICE.pillars.map(p => `<div class="pillar"><h3>${esc(p.name)}</h3><p class="muted" style="font-size:14px">${esc(p.rule)}</p>
+        <div class="saynot"><div class="say"><b>Say</b>${esc(p.say)}</div><div class="not"><b>Not</b>${esc(p.not)}</div></div></div>`).join("")}</div>
+      <div class="pillar" style="margin-top:12px"><h3>Swap these words</h3>
+        <div class="swap">${AVOID.filter(a => a.sev !== "tip").map(a => `<s>${esc(a.word)}</s><span>${esc(a.use)}</span>`).join("")}</div>
+      </div>
+      <div class="pillar" style="margin-top:12px"><h3>Guardrails</h3><ul style="margin:0;padding-left:18px;display:grid;gap:5px;font-size:14px">${VOICE.guardrails.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
+    </div>
+    <div style="display:grid;gap:20px;min-width:0">
+      <div class="panel" style="display:grid;gap:12px">
+        <div><h2>Check any copy</h2><p class="muted" style="font-size:14px">Rule check runs instantly in your browser. The example below is deliberately off-voice; paste your own copy over it.</p></div>
+        <label class="field" for="vc-ch">Channel<select id="vc-ch">${CHANNELS.map(c => `<option value="${c.id}" ${vcCh===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select></label>
+        <label class="field" for="vc-text">Copy<textarea id="vc-text" rows="7">${esc(vcText)}</textarea></label>
+        <div id="vc-results"></div>
+        <div class="row"><button class="btn" id="vc-ai" ${ai.sample ? "" : "hidden"}>Ask Claude for a voice read</button><button class="btn" id="vc-clear">Clear</button></div>
+        <div id="vc-ai-out"></div>
+      </div>
+      <div class="panel scroll-x">
+        <h2 style="margin-bottom:8px">Channel dials</h2>
+        <p class="muted" style="font-size:14px;margin-bottom:8px">Same voice, different volume. Each channel turns warmth, wit and depth up or down.</p>
+        <table class="plain"><thead><tr><th>Channel</th><th>Warmth</th><th>Wit</th><th>Depth</th><th>Limits</th></tr></thead><tbody>
+        ${CHANNELS.map(c => `<tr><td><span class="chip" style="--ch:var(--ch-${c.id})"><span class="chdot"></span>${esc(c.name)}</span></td>${["warmth","wit","depth"].map(k => `<td>${dial(c.dial[k])}</td>`).join("")}<td class="mono" style="font-size:12px">${c.limits.words}w · ${c.limits.emoji} emoji · ${c.limits.hashtags} #</td></tr>`).join("")}
+        </tbody></table>
+      </div>
+    </div>
+  </div>`;
+}
+const dial = n => `<span class="dial" aria-label="${n} of 5">${[1,2,3,4,5].map(i => `<i class="${i<=n?"on":""}"></i>`).join("")}</span>`;
+function renderVoiceResults(){
+  const r = $("#vc-results"); if (!r) return;
+  r.innerHTML = lintHTML(lintVoice(vcText, vcCh));
+  const b = $("#vc-ai"); if (b) b.hidden = !ai.sample;
+  const out = $("#vc-ai-out"); if (out) out.innerHTML = vcAI ? aiReviewHTML(vcAI) : "";
+}
+function aiReviewHTML(r){
+  if (r.loading) return `<div class="aibox"><span class="eyebrow">Claude's read</span><span>Thinking…</span></div>`;
+  if (r.error) return `<div class="aibox"><span class="eyebrow">Claude's read</span><span>${esc(r.error)}</span></div>`;
+  const notes = Array.isArray(r.notes) ? r.notes.slice(0, 6) : [];
+  return `<div class="aibox"><span class="eyebrow">Claude's read · ${esc(String(r.score ?? "–"))}/100</span><span>${esc(r.summary || "")}</span>
+    ${notes.length ? `<ul class="issues" style="margin:0">${notes.map(n => `<li><span>${n.quote ? `<q>${esc(n.quote)}</q> · ` : ""}${esc(n.issue || "")}</span>${n.fix ? `<span class="hint">Try: ${esc(n.fix)}</span>` : ""}</li>`).join("")}</ul>` : ""}
+    <span class="hint">A second opinion for the human editor. The rule check and clinical sign-off still decide approval.</span></div>`;
+}
+async function askClaudeReview(text, chId, store, rerender){
+  if (!ai.sample || !text.trim()) return;
+  store({loading:true}); rerender();
+  try { const r = await ai.sample.json(reviewPrompt(text, chId), {modelTier:"quick"}); store(r && typeof r === "object" ? r : {error:"Claude's review came back empty."}); }
+  catch (e){ store({error:aiErr(e)}); aiGone(e); }
+  rerender();
+}
+
+/* ---------- Strategy / architecture ---------- */
+function viewPlan(){
+  return `
+  <div class="panel bigidea">
+    <div>
+      <span class="eyebrow">The big idea</span>
+      <h2 style="margin-top:8px">We treat our phones at 2% better than we treat ourselves.</h2>
+      <p class="lede">When a phone hits low battery, we notice, we plug in, we apologize to it. When <em>we</em> hit low battery, we type "lol I'm fine". <strong>Low Battery</strong> is a six-week serialized story about three roommates who stop pretending, told across six channels so that every touchpoint adds something the others can't.</p>
+      <p class="lede" style="font-weight:700">Tend line: You don't have to be fully charged. Just tend to it.</p>
+    </div>
+    <div class="prose" style="align-content:start">
+      <span class="eyebrow">Audience insight</span>
+      <p>Gen Z and Millennials are fluent in therapy language and tired of wellness content that sounds like an ad or a lecture. They trust peers, specifics and humor over polish. They will follow a story; they scroll past advice.</p>
+      <span class="eyebrow" style="margin-top:6px">Why transmedia</span>
+      <ul><li>Each channel owns a job (discover, participate, go deep, feel close, build a habit), not a repost.</li><li>Story threads reward people who follow more than one channel.</li><li>Every path ends in the app, where the story becomes your own practice.</li></ul>
+    </div>
+  </div>
+
+  <div class="panel" style="display:grid;gap:14px">
+    <div><span class="eyebrow">Characters</span><h2 style="margin-top:4px">Three roommates, one group chat, one dying plant</h2></div>
+    <div class="cast">
+      <div class="person"><span class="lvl">Battery: 2% · productivity guilt</span><h3>Jules, 24</h3><p>Grad student and barista. Keeps a to-do list on the fridge that never ends. Believes rest has to be earned.</p><p class="hint">Arc: writes "rest" on the list, and means it.</p></div>
+      <div class="person"><span class="lvl">Battery: 2% · social anxiety</span><h3>Dev, 27</h3><p>Remote designer. Writes long, honest texts to the group chat and deletes every one.</p><p class="hint">Arc: sends the message.</p></div>
+      <div class="person"><span class="lvl">Battery: 2% · loneliness</span><h3>Sam, 22</h3><p>Just moved cities for a first job. Doesn't know anyone yet. Screen time at 2:04am.</p><p class="hint">Arc: one small ritual and one real connection.</p></div>
+      <div class="person"><span class="lvl">Battery: unclear · thriving?</span><h3>Gerald</h3><p>The houseplant. Nobody waters him. His health quietly mirrors the apartment's.</p><p class="hint">Arc: one new leaf. Every user grows their own in-app.</p></div>
+    </div>
+  </div>
+
+  <div class="panel" style="display:grid;gap:14px">
+    <div><span class="eyebrow">Channel ecosystem</span><h2 style="margin-top:4px">How the audience moves through the story</h2></div>
+    <div class="flow">${CHANNELS.map((c, i) => `<div class="node" style="--ch:var(--ch-${c.id})"><span class="eyebrow">${esc(c.role)}</span><b>${esc(c.name)}</b><span>${esc(c.job)}</span></div>${i < CHANNELS.length-1 ? `<span class="arr" aria-hidden="true">→</span>` : ""}`).join("")}</div>
+    <p class="hint">Creator collabs feed new people back into TikTok; the email and in-app loops keep existing users in the story between episodes.</p>
+    <div class="scroll-x"><table class="plain"><thead><tr><th>Channel</th><th>Job in the story</th><th>Format &amp; cadence</th><th>Measure</th><th>Hours/wk (AI vs none)</th></tr></thead><tbody>
+      ${CHANNELS.map(c => `<tr><td><span class="chip" style="--ch:var(--ch-${c.id})"><span class="chdot"></span>${esc(c.name)}</span></td><td>${esc(c.job)}</td><td>${esc(c.format)}</td><td>${esc(c.kpi)}</td><td class="mono">${h(c.hours.ai)} vs ${h(c.hours.manual)}</td></tr>`).join("")}
+    </tbody></table></div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel prose">
+      <span class="eyebrow">AI–human operating model</span>
+      <h2>Who does what</h2>
+      <div class="scroll-x"><table class="plain"><thead><tr><th>Stage</th><th>AI</th><th>People</th></tr></thead><tbody>
+        <tr><td>Brief</td><td>Assembles the brief from the story bible, threads and voice rules</td><td>Content lead approves the angle</td></tr>
+        <tr><td>First draft</td><td>Drafts scripts, copy, variants and captions</td><td>None. This is the blank-page work</td></tr>
+        <tr><td>Human edit</td><td>Suggests cuts on request</td><td>Owner rewrites with lived detail, films, designs</td></tr>
+        <tr><td>Review</td><td>Rule check and second-opinion voice read</td><td>Content lead (voice), clinical advisor (safety)</td></tr>
+        <tr><td>Approved / Live</td><td>Nothing</td><td>Owner schedules; community replies are human</td></tr>
+      </tbody></table></div>
+      <p class="hint">Rule of thumb: AI may draft anything and decide nothing. Replies to real people in comments and DMs are always written by a person.</p>
+    </div>
+    <div class="panel prose">
+      <span class="eyebrow">Small-budget production</span>
+      <h2>Shoot once, cut many</h2>
+      <ul>
+        <li><b>Two shoot days, total.</b> Weeks 1–3 and 4–6 are each filmed in one day in one real apartment with three actors. Every TikTok episode, Stories frame and YouTube cold open comes from that footage.</li>
+        <li><b>Remote experts.</b> YouTube interviews are recorded over video call. Credentials go on screen.</li>
+        <li><b>Templates over shoots.</b> Stories use 4 reusable brand templates; the group-chat UI is one Figma file.</li>
+        <li><b>Micro-creators, not macro.</b> 2–3 creators a week at 10k–80k followers, briefed from this tool.</li>
+        <li><b>Audience as co-writer.</b> Polls in weeks 2 and 3 decide canon. That saves writing time and builds investment.</li>
+      </ul>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   DRAWER: one piece
+   ============================================================ */
+let saveTimer = null, draftCtl = null, drafting = false;
+function openDrawer(id){
+  openId = id; const p = PIECE[id];
+  const d = $("#drawer"); d.style.setProperty("--ch", `var(--ch-${p.ch})`);
+  d.innerHTML = drawerHTML(p); d.hidden = false; $("#scrim").hidden = false;
+  document.body.style.overflow = "hidden";
+  $("#d-draft").value = ps(id).draft || "";
+  $("#d-notes").value = ps(id).notes || "";
+  refreshDrawer(); $(".dclose", d).focus();
+}
+function closeDrawer(){
+  if (!openId) return;
+  flushDraft(); draftCtl?.abort();
+  $("#drawer").hidden = true; $("#scrim").hidden = true; document.body.style.overflow = "";
+  const back = document.querySelector(`[data-piece="${openId}"]`); openId = null; back?.focus();
+}
+function drawerHTML(p){
+  const c = CH[p.ch], b = beatOf(p);
+  return `
+  <div class="dhead">
+    <span class="eyebrow">W${p.wk} · ${esc(b.title)} · ${esc(c.name)} · ${esc(c.role)}</span>
+    <h2 id="d-title">${esc(p.title)}</h2>
+    <div class="row" style="font-size:13px" id="d-meta"></div>
+    <button class="dclose" aria-label="Close">×</button>
+  </div>
+  <div class="dbody">
+    <section class="dsec">
+      <div class="row" style="align-items:end">
+        <label class="field" for="d-status">Stage<select id="d-status"></select></label>
+        <label class="field" for="d-owner">Owner<select id="d-owner">${ROLES.filter(r => r.id !== "clin").map(r => `<option value="${r.id}">${esc(r.name)}</option>`).join("")}</select></label>
+      </div>
+      <p class="gate" id="d-gate"></p>
+    </section>
+
+    <section class="dsec">
+      <header><h3>Content brief</h3><div class="row"><button class="btn sm" id="d-copy-brief">Copy brief</button></div></header>
+      <p class="hint">Built from the story bible, the threads around this piece and the channel's voice rules. It updates as other pieces move.</p>
+      <pre class="brief" id="d-brief"></pre>
+    </section>
+
+    <section class="dsec">
+      <header><h3>Draft</h3><div class="row">
+        <button class="btn primary sm" id="d-ai">Draft with Claude</button>
+        <button class="btn sm" id="d-stop" hidden>Stop</button>
+        <button class="btn sm" id="d-copy-prompt">Copy AI prompt</button>
+      </div></header>
+      <p class="hint" id="d-ai-note"></p>
+      <label class="field" for="d-draft" style="color:var(--muted)">Script or copy · editing an AI draft moves it to Human edit
+        <textarea id="d-draft" rows="12" placeholder="Draft with Claude, paste from your AI tool, or write it yourself."></textarea></label>
+    </section>
+
+    <section class="dsec">
+      <header><h3>Voice check</h3><button class="btn sm" id="d-review">Ask Claude for a voice read</button></header>
+      <div id="d-lint"></div>
+      <div id="d-ai-review"></div>
+    </section>
+
+    <section class="dsec">
+      <h3>Sign-off</h3>
+      <label class="check" for="d-safety"><input type="checkbox" id="d-safety"><span><b>Clinical and safety review done.</b> The clinical advisor has checked claims, crisis resources${p.sensitive ? " (this piece is flagged sensitive: the 988 line is required)" : ""} and anything that touches distress.</span></label>
+      <p class="hint" id="d-safety-hint"></p>
+    </section>
+
+    <section class="dsec">
+      <h3>Notes for the team</h3>
+      <textarea id="d-notes" rows="3" placeholder="Feedback, links to footage, decisions…"></textarea>
+    </section>
+  </div>`;
+}
+function refreshDrawer(){
+  if (!openId) return;
+  const id = openId, p = PIECE[id], s = ps(id), i = stageIdx(id), ro = state.readOnly;
+  $("#d-meta").innerHTML = `${batt(i)} ${pill(id)} <span class="muted">Publishes ${fmt(publishDate(p))} · draft due ${fmt(dueDate(p))}</span>${p.sensitive ? ` <span class="pill" data-s="draft">Sensitive</span>` : ""}`;
+  $("#d-status").innerHTML = STAGES.map((st, k) => { const g = gate(id, k); return `<option value="${k}" ${k===i?"selected":""} ${g ? "disabled" : ""}>${esc(st.name)}${g && k===i+1 ? " (locked)" : ""}</option>`; }).join("");
+  $("#d-status").disabled = ro; $("#d-owner").value = s.owner; $("#d-owner").disabled = ro;
+  const g = i < STAGES.length - 1 ? gate(id, i+1) : null;
+  const gEl = $("#d-gate");
+  gEl.className = "gate" + (g ? " block" : "");
+  gEl.textContent = ro ? "View only: your access doesn't allow changes." : i === STAGES.length - 1 ? "Live. Nice work." : g ? `To move to ${STAGES[i+1].name}: ${g}` : `Next: ${STAGES[i+1].name}. ${STAGES[i+1].does}.`;
+  $("#d-brief").textContent = buildBrief(p);
+  const ta = $("#d-draft");
+  if (document.activeElement !== ta && !drafting && ta.value !== (s.draft || "")) ta.value = s.draft || "";
+  ta.readOnly = ro || drafting;
+  const nt = $("#d-notes");
+  if (document.activeElement !== nt && nt.value !== (s.notes || "")) nt.value = s.notes || "";
+  nt.readOnly = ro;
+  $("#d-ai").hidden = !ai.sample || drafting; $("#d-ai").disabled = ro; $("#d-stop").hidden = !drafting;
+  $("#d-review").hidden = !ai.sample;
+  if (!drafting) $("#d-ai-note").textContent = ai.sample
+    ? "Claude writes a first draft from the brief above. It's a starting point for a person, never a final."
+    : ai.status === "checking" ? "Checking whether Claude is available…" : "Claude isn't available in this view. Copy the AI prompt into your AI tool, then paste the result below.";
+  $("#d-lint").innerHTML = lintHTML(lintVoice(ta.value, p.ch));
+  $("#d-ai-review").innerHTML = reviews[id] ? aiReviewHTML(reviews[id]) : "";
+  const sc = $("#d-safety"); sc.checked = !!s.safetyOk;
+  sc.disabled = ro || i !== STAGE_IDX.review;
+  $("#d-safety-hint").textContent = i < STAGE_IDX.review ? "Unlocks when the piece reaches Review." : i > STAGE_IDX.review ? "Signed off. Editing the draft now sends it back to Review." : "";
+}
+function onDraftInput(){
+  const id = openId; if (!id) return;
+  $("#d-lint").innerHTML = lintHTML(lintVoice($("#d-draft").value, PIECE[id].ch));
+  clearTimeout(saveTimer); saveTimer = setTimeout(flushDraft, 900);
+}
+function flushDraft(){
+  clearTimeout(saveTimer); const id = openId; if (!id || state.readOnly || drafting) return;
+  const v = $("#d-draft").value, s = ps(id); if (v === (s.draft || "")) return;
+  const patch = {draft:v}, i = stageIdx(id);
+  if (s.status === "draft" && v.trim()) patch.status = "edit";
+  if (i >= STAGE_IDX.approved){ patch.status = "review"; patch.safetyOk = false; toast("Edited after approval, so it's back in Review."); }
+  if (s.status === "brief" && v.trim()) patch.status = "draft";
+  updatePiece(id, patch);
+}
+async function draftWithClaude(){
+  const id = openId; if (!ai.sample || !id || state.readOnly) return;
+  const p = PIECE[id], ta = $("#d-draft");
+  if (ta.value.trim() && !$("#d-ai").dataset.confirm){
+    $("#d-ai").dataset.confirm = "1"; $("#d-ai").textContent = "Replace current draft?";
+    setTimeout(() => { const b = $("#d-ai"); if (b){ delete b.dataset.confirm; b.textContent = "Draft with Claude"; } }, 4000);
+    return;
+  }
+  $("#d-ai").textContent = "Draft with Claude"; delete $("#d-ai").dataset.confirm;
+  draftCtl = new AbortController(); drafting = true; refreshDrawer();
+  $("#d-ai-note").textContent = "Thinking… Claude reads the brief, the story so far and the voice rules first.";
+  const before = ta.value;
+  try {
+    const {text, truncated} = await ai.sample(draftPrompt(p), {signal:draftCtl.signal, cache:false,
+      onText:({text}) => { if (openId === id){ ta.value = text; $("#d-ai-note").textContent = "Writing…"; } }});
+    drafting = false;
+    // A fresh AI draft restarts human editing: anything past First draft goes back to Human edit.
+    const patch = {draft:text, status:stageIdx(id) <= STAGE_IDX.draft ? "draft" : "edit"};
+    if (stageIdx(id) >= STAGE_IDX.review) patch.safetyOk = false;
+    updatePiece(id, patch);
+    if (openId === id) $("#d-ai-note").textContent = truncated ? "Claude's draft was cut short. Ask for less, or edit from here." : "First draft in. Now make it yours: edit, add lived detail, cut what doesn't sound like a person.";
+  } catch (e){
+    drafting = false;
+    if (openId === id){
+      ta.value = e && e.text ? e.text : before;
+      if (e && e.code !== "cancelled") $("#d-ai-note").textContent = aiErr(e);
+      else $("#d-ai-note").textContent = "Stopped.";
+      if (e && e.text) updatePiece(id, {draft:e.text, status:stageIdx(id) <= STAGE_IDX.draft ? "draft" : ps(id).status});
+    }
+    aiGone(e); refreshDrawer();
+  }
+}
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+function setTab(t, push){
+  tab = t;
+  document.querySelectorAll(".tabs [data-tab]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === t)));
+  $("#view").innerHTML = ""; renderView();
+  if (push){ try { history.replaceState(null, "", "#" + t); } catch {} }
+  try { localStorage.setItem(LS_KEY + ".tab", t); } catch {}
+}
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-tab]"); if (t){ setTab(t.dataset.tab, true); return; }
+  const mv = e.target.closest("[data-move]"); if (mv){ moveTo(mv.dataset.move, +mv.dataset.to); return; }
+  const pc = e.target.closest("[data-piece]"); if (pc){ openDrawer(pc.dataset.piece); return; }
+  if (e.target.closest(".dclose") || e.target.id === "scrim"){ closeDrawer(); return; }
+  const id = e.target.closest("button")?.id;
+  if (id === "d-copy-brief") copy(buildBrief(PIECE[openId]), e.target);
+  else if (id === "d-copy-prompt") copy(draftPrompt(PIECE[openId]), e.target);
+  else if (id === "d-ai") draftWithClaude();
+  else if (id === "d-stop") draftCtl?.abort();
+  else if (id === "d-review"){ const pid = openId; askClaudeReview($("#d-draft").value, PIECE[pid].ch, r => { reviews[pid] = r; }, () => { if (openId === pid) $("#d-ai-review").innerHTML = aiReviewHTML(reviews[pid]); }); }
+  else if (id === "vc-ai") askClaudeReview(vcText, vcCh, r => { vcAI = r; }, renderVoiceResults);
+  else if (id === "vc-clear"){ vcText = ""; vcAI = null; $("#vc-text").value = ""; renderVoiceResults(); $("#vc-text").focus(); }
+});
+document.addEventListener("change", e => {
+  const id = e.target.id;
+  if (id === "f-thread"){ mapThread = e.target.value; renderView(); }
+  else if (id === "f-role"){ mapRole = e.target.value; renderView(); }
+  else if (id === "f-launch") setLaunch(e.target.value);
+  else if (id === "f-week"){ flowWeek = e.target.value; renderView(); }
+  else if (id === "f-capweek"){ capWeek = +e.target.value; renderView(); }
+  else if (id === "vc-ch"){ vcCh = e.target.value; vcAI = null; renderVoiceResults(); }
+  else if (id === "d-status"){ flushDraft(); moveTo(openId, +e.target.value); refreshDrawer(); }
+  else if (id === "d-owner") updatePiece(openId, {owner:e.target.value});
+  else if (id === "d-safety"){ if (e.target.checked && !$("#d-draft").value.trim()){ e.target.checked = false; return; } updatePiece(openId, {safetyOk:e.target.checked}); }
+  else if (id === "d-notes") updatePiece(openId, {notes:e.target.value.slice(0, 4000)});
+});
+document.addEventListener("input", e => {
+  if (e.target.id === "d-draft") onDraftInput();
+  else if (e.target.id === "vc-text"){ vcText = e.target.value; vcAI = null; renderVoiceResults(); }
+});
+document.addEventListener("focusout", e => { if (e.target.id === "d-draft") flushDraft(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && openId) closeDrawer();
+  if (e.key === "Tab" && openId){
+    const f = [...$("#drawer").querySelectorAll("button:not([hidden]):not([disabled]),select:not([disabled]),textarea,input:not([disabled])")].filter(x => x.offsetParent !== null);
+    if (!f.length) return;
+    if (e.shiftKey && document.activeElement === f[0]){ e.preventDefault(); f[f.length-1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length-1]){ e.preventDefault(); f[0].focus(); }
+  }
+});
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+loadLocal();
+capWeek = campaignWeek().wk;
+flowWeek = String(capWeek);
+{
+  let start = (location.hash || "").slice(1);
+  if (!["map","threads","workflow","voice","plan"].includes(start)){ try { start = localStorage.getItem(LS_KEY + ".tab") || "map"; } catch { start = "map"; } }
+  if (!["map","threads","workflow","voice","plan"].includes(start)) start = "map";
+  setTab(start, false);
+}
+renderHeader();
+connect();
+</script>
