@@ -1,0 +1,460 @@
+event_id,employee_id,injected_pattern,section7_truth
+DE-00001,CL-E00003,Baseline,Not Section 7
+DE-00002,CL-E00006,Discipline after protected concerted activity,Likely protected
+DE-00003,CL-E00007,Baseline,Not Section 7
+DE-00004,CL-E00007,Baseline,Not Section 7
+DE-00005,CL-E00007,Baseline,Not Section 7
+DE-00006,CL-E00007,Baseline,Not Section 7
+DE-00007,CL-E00008,Baseline,Not Section 7
+DE-00008,CL-E00013,Baseline,Not Section 7
+DE-00009,CL-E00013,Baseline,Not Section 7
+DE-00010,CL-E00013,Baseline,Not Section 7
+DE-00011,CL-E00014,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00012,CL-E00016,Baseline,Not Section 7
+DE-00013,CL-E00016,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00014,CL-E00017,Baseline,Not Section 7
+DE-00015,CL-E00020,Baseline,Not Section 7
+DE-00016,CL-E00020,Baseline,Not Section 7
+DE-00017,CL-E00022,Standard not adjusted for accommodation,Not Section 7
+DE-00018,CL-E00024,Baseline,Not Section 7
+DE-00019,CL-E00024,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00020,CL-E00024,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00021,CL-E00025,Baseline,Not Section 7
+DE-00022,CL-E00026,Standard not adjusted for accommodation,Not Section 7
+DE-00023,CL-E00026,Baseline,Not Section 7
+DE-00024,CL-E00027,Baseline,Not Section 7
+DE-00025,CL-E00028,Baseline,Not Section 7
+DE-00026,CL-E00028,Points for protected leave,Not Section 7
+DE-00027,CL-E00028,Standard not adjusted for accommodation,Not Section 7
+DE-00028,CL-E00029,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00029,CL-E00029,Discipline after protected concerted activity,Likely protected
+DE-00030,CL-E00031,Baseline,Not Section 7
+DE-00031,CL-E00032,Standard not adjusted for accommodation,Not Section 7
+DE-00032,CL-E00037,Baseline,Not Section 7
+DE-00033,CL-E00037,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00034,CL-E00040,Baseline,Not Section 7
+DE-00035,CL-E00040,Baseline,Not Section 7
+DE-00036,CL-E00040,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00037,CL-E00040,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00038,CL-E00041,Discipline after protected concerted activity,Likely protected
+DE-00039,CL-E00043,Baseline,Not Section 7
+DE-00040,CL-E00043,Baseline,Not Section 7
+DE-00041,CL-E00044,Baseline,Not Section 7
+DE-00042,CL-E00044,Baseline,Not Section 7
+DE-00043,CL-E00047,Baseline,Not Section 7
+DE-00044,CL-E00048,Baseline,Not Section 7
+DE-00045,CL-E00048,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00046,CL-E00048,Baseline,Not Section 7
+DE-00047,CL-E00049,Baseline,Not Section 7
+DE-00048,CL-E00051,Baseline,Not Section 7
+DE-00049,CL-E00052,Standard not adjusted for accommodation,Not Section 7
+DE-00050,CL-E00054,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00051,CL-E00054,Baseline,Not Section 7
+DE-00052,CL-E00056,Baseline,Not Section 7
+DE-00053,CL-E00059,Baseline,Not Section 7
+DE-00054,CL-E00060,Baseline,Not Section 7
+DE-00055,CL-E00061,Baseline,Not Section 7
+DE-00056,CL-E00061,Baseline,Not Section 7
+DE-00057,CL-E00062,Baseline,Not Section 7
+DE-00058,CL-E00065,Discipline after protected concerted activity,Likely protected
+DE-00059,CL-E00065,Baseline,Not Section 7
+DE-00060,CL-E00065,Baseline,Not Section 7
+DE-00061,CL-E00065,Baseline,Not Section 7
+DE-00062,CL-E00067,Baseline,Not Section 7
+DE-00063,CL-E00068,Baseline,Not Section 7
+DE-00064,CL-E00069,Baseline,Not Section 7
+DE-00065,CL-E00069,Baseline,Not Section 7
+DE-00066,CL-E00070,Baseline,Not Section 7
+DE-00067,CL-E00071,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00068,CL-E00072,Baseline,Not Section 7
+DE-00069,CL-E00076,Baseline,Not Section 7
+DE-00070,CL-E00076,Baseline,Not Section 7
+DE-00071,CL-E00076,Baseline,Not Section 7
+DE-00072,CL-E00076,Baseline,Not Section 7
+DE-00073,CL-E00079,Baseline,Not Section 7
+DE-00074,CL-E00081,Baseline,Not Section 7
+DE-00075,CL-E00081,Baseline,Not Section 7
+DE-00076,CL-E00083,Baseline,Not Section 7
+DE-00077,CL-E00083,Baseline,Not Section 7
+DE-00078,CL-E00083,Baseline,Not Section 7
+DE-00079,CL-E00083,Baseline,Not Section 7
+DE-00080,CL-E00086,Baseline,Not Section 7
+DE-00081,CL-E00086,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00082,CL-E00086,Baseline,Not Section 7
+DE-00083,CL-E00090,Baseline,Not Section 7
+DE-00084,CL-E00093,Baseline,Not Section 7
+DE-00085,CL-E00093,Baseline,Not Section 7
+DE-00086,CL-E00093,Standard not adjusted for accommodation,Not Section 7
+DE-00087,CL-E00094,Baseline,Not Section 7
+DE-00088,CL-E00094,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00089,CL-E00099,Baseline,Not Section 7
+DE-00090,CL-E00101,Baseline,Not Section 7
+DE-00091,CL-E00101,Baseline,Not Section 7
+DE-00092,CL-E00104,Discipline after protected concerted activity,Likely protected
+DE-00093,CL-E00105,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00094,CL-E00106,Baseline,Not Section 7
+DE-00095,CL-E00107,Baseline,Not Section 7
+DE-00096,CL-E00112,Baseline,Not Section 7
+DE-00097,CL-E00113,Baseline,Not Section 7
+DE-00098,CL-E00117,Baseline,Not Section 7
+DE-00099,CL-E00120,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00100,CL-E00120,Baseline,Not Section 7
+DE-00101,CL-E00122,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00102,CL-E00123,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00103,CL-E00124,Baseline,Not Section 7
+DE-00104,CL-E00126,Baseline,Not Section 7
+DE-00105,CL-E00127,Baseline,Not Section 7
+DE-00106,CL-E00127,Baseline,Not Section 7
+DE-00107,CL-E00128,Baseline,Not Section 7
+DE-00108,CL-E00128,Baseline,Not Section 7
+DE-00109,CL-E00129,Baseline,Not Section 7
+DE-00110,CL-E00129,Baseline,Not Section 7
+DE-00111,CL-E00132,Baseline,Not Section 7
+DE-00112,CL-E00132,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00113,CL-E00132,Baseline,Not Section 7
+DE-00114,CL-E00133,Baseline,Not Section 7
+DE-00115,CL-E00137,Baseline,Not Section 7
+DE-00116,CL-E00138,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00117,CL-E00141,Baseline,Not Section 7
+DE-00118,CL-E00142,Baseline,Not Section 7
+DE-00119,CL-E00142,Baseline,Not Section 7
+DE-00120,CL-E00145,Baseline,Not Section 7
+DE-00121,CL-E00147,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00122,CL-E00147,Discipline after protected concerted activity,Likely protected
+DE-00123,CL-E00147,Baseline,Not Section 7
+DE-00124,CL-E00149,Points for protected leave,Not Section 7
+DE-00125,CL-E00150,Baseline,Not Section 7
+DE-00126,CL-E00152,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00127,CL-E00155,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00128,CL-E00156,Baseline,Not Section 7
+DE-00129,CL-E00159,Baseline,Not Section 7
+DE-00130,CL-E00159,Baseline,Not Section 7
+DE-00131,CL-E00161,Baseline,Not Section 7
+DE-00132,CL-E00161,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00133,CL-E00162,Baseline,Not Section 7
+DE-00134,CL-E00163,Baseline,Not Section 7
+DE-00135,CL-E00163,Baseline,Not Section 7
+DE-00136,CL-E00164,Baseline,Not Section 7
+DE-00137,CL-E00165,Baseline,Not Section 7
+DE-00138,CL-E00167,Baseline,Not Section 7
+DE-00139,CL-E00168,Baseline,Not Section 7
+DE-00140,CL-E00168,Baseline,Not Section 7
+DE-00141,CL-E00168,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00142,CL-E00169,Baseline,Not Section 7
+DE-00143,CL-E00170,Baseline,Not Section 7
+DE-00144,CL-E00170,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00145,CL-E00171,Baseline,Not Section 7
+DE-00146,CL-E00171,Baseline,Not Section 7
+DE-00147,CL-E00171,Baseline,Not Section 7
+DE-00148,CL-E00173,Baseline,Not Section 7
+DE-00149,CL-E00173,Baseline,Not Section 7
+DE-00150,CL-E00175,Baseline,Not Section 7
+DE-00151,CL-E00175,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00152,CL-E00175,Baseline,Not Section 7
+DE-00153,CL-E00177,Baseline,Not Section 7
+DE-00154,CL-E00177,Baseline,Not Section 7
+DE-00155,CL-E00178,Baseline,Not Section 7
+DE-00156,CL-E00181,Baseline,Not Section 7
+DE-00157,CL-E00182,Baseline,Not Section 7
+DE-00158,CL-E00182,Baseline,Not Section 7
+DE-00159,CL-E00182,Baseline,Not Section 7
+DE-00160,CL-E00183,Baseline,Not Section 7
+DE-00161,CL-E00185,Baseline,Not Section 7
+DE-00162,CL-E00185,Baseline,Not Section 7
+DE-00163,CL-E00186,Baseline,Not Section 7
+DE-00164,CL-E00186,Baseline,Not Section 7
+DE-00165,CL-E00186,Baseline,Not Section 7
+DE-00166,CL-E00188,Baseline,Not Section 7
+DE-00167,CL-E00188,Baseline,Not Section 7
+DE-00168,CL-E00189,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00169,CL-E00190,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00170,CL-E00193,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00171,CL-E00193,Baseline,Not Section 7
+DE-00172,CL-E00194,Baseline,Not Section 7
+DE-00173,CL-E00196,Baseline,Not Section 7
+DE-00174,CL-E00196,Baseline,Not Section 7
+DE-00175,CL-E00197,Baseline,Not Section 7
+DE-00176,CL-E00203,Baseline,Not Section 7
+DE-00177,CL-E00205,Discipline after protected concerted activity,Likely protected
+DE-00178,CL-E00208,Baseline,Not Section 7
+DE-00179,CL-E00209,Baseline,Not Section 7
+DE-00180,CL-E00209,Baseline,Not Section 7
+DE-00181,CL-E00209,Baseline,Not Section 7
+DE-00182,CL-E00210,Discipline after protected concerted activity,Likely protected
+DE-00183,CL-E00211,Baseline,Not Section 7
+DE-00184,CL-E00213,Baseline,Not Section 7
+DE-00185,CL-E00213,Baseline,Not Section 7
+DE-00186,CL-E00213,Baseline,Not Section 7
+DE-00187,CL-E00214,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00188,CL-E00215,Baseline,Not Section 7
+DE-00189,CL-E00218,Baseline,Not Section 7
+DE-00190,CL-E00218,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00191,CL-E00219,Baseline,Not Section 7
+DE-00192,CL-E00221,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00193,CL-E00224,Baseline,Not Section 7
+DE-00194,CL-E00225,Baseline,Not Section 7
+DE-00195,CL-E00226,Discipline after protected concerted activity,Likely protected
+DE-00196,CL-E00227,Baseline,Not Section 7
+DE-00197,CL-E00227,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00198,CL-E00228,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00199,CL-E00228,Baseline,Not Section 7
+DE-00200,CL-E00229,Discipline after protected concerted activity,Likely protected
+DE-00201,CL-E00229,Baseline,Not Section 7
+DE-00202,CL-E00231,Discipline after protected concerted activity,Likely protected
+DE-00203,CL-E00235,Baseline,Not Section 7
+DE-00204,CL-E00235,Baseline,Not Section 7
+DE-00205,CL-E00239,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00206,CL-E00239,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00207,CL-E00240,Baseline,Not Section 7
+DE-00208,CL-E00241,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00209,CL-E00242,Baseline,Not Section 7
+DE-00210,CL-E00242,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00211,CL-E00243,Baseline,Not Section 7
+DE-00212,CL-E00244,Baseline,Not Section 7
+DE-00213,CL-E00244,Standard not adjusted for accommodation,Not Section 7
+DE-00214,CL-E00245,Standard not adjusted for accommodation,Not Section 7
+DE-00215,CL-E00248,Baseline,Not Section 7
+DE-00216,CL-E00252,Baseline,Not Section 7
+DE-00217,CL-E00257,Baseline,Not Section 7
+DE-00218,CL-E00258,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00219,CL-E00259,Baseline,Not Section 7
+DE-00220,CL-E00261,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00221,CL-E00261,Baseline,Not Section 7
+DE-00222,CL-E00261,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00223,CL-E00262,Baseline,Not Section 7
+DE-00224,CL-E00264,Baseline,Not Section 7
+DE-00225,CL-E00264,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00226,CL-E00264,Baseline,Not Section 7
+DE-00227,CL-E00264,Points for protected leave,Not Section 7
+DE-00228,CL-E00265,Baseline,Not Section 7
+DE-00229,CL-E00265,Baseline,Not Section 7
+DE-00230,CL-E00267,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00231,CL-E00270,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00232,CL-E00271,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00233,CL-E00271,Baseline,Not Section 7
+DE-00234,CL-E00271,Baseline,Not Section 7
+DE-00235,CL-E00274,Baseline,Not Section 7
+DE-00236,CL-E00274,Baseline,Not Section 7
+DE-00237,CL-E00274,Baseline,Not Section 7
+DE-00238,CL-E00276,Baseline,Not Section 7
+DE-00239,CL-E00276,Baseline,Not Section 7
+DE-00240,CL-E00277,Baseline,Not Section 7
+DE-00241,CL-E00279,Discipline after protected concerted activity,Likely protected
+DE-00242,CL-E00280,Baseline,Not Section 7
+DE-00243,CL-E00280,Baseline,Not Section 7
+DE-00244,CL-E00281,Discipline after protected concerted activity,Likely protected
+DE-00245,CL-E00282,Baseline,Not Section 7
+DE-00246,CL-E00282,Baseline,Not Section 7
+DE-00247,CL-E00285,Baseline,Not Section 7
+DE-00248,CL-E00289,Baseline,Not Section 7
+DE-00249,CL-E00294,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00250,CL-E00296,Baseline,Not Section 7
+DE-00251,CL-E00296,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00252,CL-E00297,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00253,CL-E00299,Baseline,Not Section 7
+DE-00254,CL-E00299,Baseline,Not Section 7
+DE-00255,CL-E00300,Baseline,Not Section 7
+DE-00256,CL-E00302,Baseline,Not Section 7
+DE-00257,CL-E00302,Baseline,Not Section 7
+DE-00258,CL-E00303,Standard not adjusted for accommodation,Not Section 7
+DE-00259,CL-E00303,Baseline,Not Section 7
+DE-00260,CL-E00308,Baseline,Not Section 7
+DE-00261,CL-E00308,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00262,CL-E00313,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00263,CL-E00315,Standard not adjusted for accommodation,Not Section 7
+DE-00264,CL-E00315,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00265,CL-E00316,Baseline,Not Section 7
+DE-00266,CL-E00316,Baseline,Not Section 7
+DE-00267,CL-E00318,Baseline,Not Section 7
+DE-00268,CL-E00320,Baseline,Not Section 7
+DE-00269,CL-E00320,Baseline,Not Section 7
+DE-00270,CL-E00320,Baseline,Not Section 7
+DE-00271,CL-E00321,Baseline,Not Section 7
+DE-00272,CL-E00321,Baseline,Not Section 7
+DE-00273,CL-E00323,Baseline,Not Section 7
+DE-00274,CL-E00323,Baseline,Not Section 7
+DE-00275,CL-E00324,Baseline,Not Section 7
+DE-00276,CL-E00325,Baseline,Not Section 7
+DE-00277,CL-E00326,Baseline,Not Section 7
+DE-00278,CL-E00328,Baseline,Not Section 7
+DE-00279,CL-E00328,Baseline,Not Section 7
+DE-00280,CL-E00329,Baseline,Not Section 7
+DE-00281,CL-E00329,Baseline,Not Section 7
+DE-00282,CL-E00329,Baseline,Not Section 7
+DE-00283,CL-E00331,Baseline,Not Section 7
+DE-00284,CL-E00332,Baseline,Not Section 7
+DE-00285,CL-E00338,Baseline,Not Section 7
+DE-00286,CL-E00338,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00287,CL-E00341,Baseline,Not Section 7
+DE-00288,CL-E00341,Points during non-FMLA leave (check ADA/state law),Not Section 7
+DE-00289,CL-E00341,Standard not adjusted for accommodation,Not Section 7
+DE-00290,CL-E00342,Baseline,Not Section 7
+DE-00291,CL-E00343,Discipline after protected concerted activity,Likely protected
+DE-00292,CL-E00346,Baseline,Not Section 7
+DE-00293,CL-E00347,Standard not adjusted for accommodation,Not Section 7
+DE-00294,CL-E00349,Baseline,Not Section 7
+DE-00295,CL-E00349,Baseline,Not Section 7
+DE-00296,CL-E00350,Discipline after protected concerted activity,Likely protected
+DE-00297,CL-E00350,Baseline,Not Section 7
+DE-00298,CL-E00352,Baseline,Not Section 7
+DE-00299,CL-E00357,Standard not adjusted for accommodation,Not Section 7
+DE-00300,CL-E00358,Baseline,Not Section 7
+DE-00301,CL-E00358,Baseline,Not Section 7
+DE-00302,CL-E00361,Baseline,Not Section 7
+DE-00303,CL-E00369,Baseline,Not Section 7
+DE-00304,CL-E00372,Standard not adjusted for accommodation,Not Section 7
+DE-00305,CL-E00372,Baseline,Not Section 7
+DE-00306,CL-E00372,Baseline,Not Section 7
+DE-00307,CL-E00376,Baseline,Not Section 7
+DE-00308,CL-E00376,Baseline,Not Section 7
+DE-00309,CL-E00376,Baseline,Not Section 7
+DE-00310,CL-E00376,Baseline,Not Section 7
+DE-00311,CL-E00377,Baseline,Not Section 7
+DE-00312,CL-E00377,Baseline,Not Section 7
+DE-00313,CL-E00380,Baseline,Not Section 7
+DE-00314,CL-E00380,Baseline,Not Section 7
+DE-00315,CL-E00380,Baseline,Not Section 7
+DE-00316,CL-E00380,Baseline,Not Section 7
+DE-00317,CL-E00382,Baseline,Not Section 7
+DE-00318,CL-E00382,Baseline,Not Section 7
+DE-00319,CL-E00395,Baseline,Not Section 7
+DE-00320,CL-E00395,Baseline,Not Section 7
+DE-00321,CL-E00395,Baseline,Not Section 7
+DE-00322,CL-E00396,Baseline,Not Section 7
+DE-00323,CL-E00398,Discipline after protected concerted activity,Likely protected
+DE-00324,CL-E00399,Baseline,Not Section 7
+DE-00325,CL-E00399,Baseline,Not Section 7
+DE-00326,CL-E00403,Points for protected leave,Not Section 7
+DE-00327,CL-E00416,Points for protected leave,Not Section 7
+DE-00328,CL-E00416,Baseline,Not Section 7
+DE-00329,CL-E00418,Baseline,Not Section 7
+DE-00330,CL-E00421,Baseline,Not Section 7
+DE-00331,CL-E00421,Baseline,Not Section 7
+DE-00332,CL-E00423,Baseline,Not Section 7
+DE-00333,CL-E00430,Baseline,Not Section 7
+DE-00334,CL-E00437,Baseline,Not Section 7
+DE-00335,CL-E00445,Baseline,Not Section 7
+DE-00336,CL-E00446,Baseline,Not Section 7
+DE-00337,CL-E00446,Baseline,Not Section 7
+DE-00338,CL-E00463,Baseline,Not Section 7
+DE-00339,CL-E00464,Baseline,Not Section 7
+DE-00340,CL-E00464,Baseline,Not Section 7
+DE-00341,CL-E00464,Baseline,Not Section 7
+DE-00342,CL-E00467,Baseline,Not Section 7
+DE-00343,CL-E00476,Baseline,Not Section 7
+DE-00344,CL-E00481,Baseline,Not Section 7
+DE-00345,CL-E00483,Baseline,Not Section 7
+DE-00346,CL-E00487,Baseline,Not Section 7
+DE-00347,CL-E00498,Baseline,Not Section 7
+DE-00348,CL-E00502,Baseline,Not Section 7
+DE-00349,CL-E00508,Baseline,Not Section 7
+DE-00350,CL-E00512,Baseline,Not Section 7
+DE-00351,CL-E00521,Baseline,Not Section 7
+DE-00352,CL-E00521,Baseline,Not Section 7
+DE-00353,CL-E00521,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00354,CL-E00521,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00355,CL-E00524,Points for protected leave,Not Section 7
+DE-00356,CL-E00529,Baseline,Not Section 7
+DE-00357,CL-E00529,Baseline,Not Section 7
+DE-00358,CL-E00529,Baseline,Not Section 7
+DE-00359,CL-E00532,Baseline,Not Section 7
+DE-00360,CL-E00532,Baseline,Not Section 7
+DE-00361,CL-E00538,Baseline,Not Section 7
+DE-00362,CL-E00538,Baseline,Not Section 7
+DE-00363,CL-E00539,Baseline,Not Section 7
+DE-00364,CL-E00539,Baseline,Not Section 7
+DE-00365,CL-E00543,Points for protected leave,Not Section 7
+DE-00366,CL-E00543,Baseline,Not Section 7
+DE-00367,CL-E00551,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00368,CL-E00551,Points for protected leave,Not Section 7
+DE-00369,CL-E00557,Baseline,Not Section 7
+DE-00370,CL-E00557,Baseline,Not Section 7
+DE-00371,CL-E00557,Baseline,Not Section 7
+DE-00372,CL-E00559,Standard not adjusted for accommodation,Not Section 7
+DE-00373,CL-E00576,Baseline,Not Section 7
+DE-00374,CL-E00576,Baseline,Not Section 7
+DE-00375,CL-E00576,Baseline,Not Section 7
+DE-00376,CL-E00579,Baseline,Not Section 7
+DE-00377,CL-E00582,Baseline,Not Section 7
+DE-00378,CL-E00582,Baseline,Not Section 7
+DE-00379,CL-E00584,Baseline,Not Section 7
+DE-00380,CL-E00584,Baseline,Not Section 7
+DE-00381,CL-E00584,Baseline,Not Section 7
+DE-00382,CL-E00585,Baseline,Not Section 7
+DE-00383,CL-E00585,Points for protected leave,Not Section 7
+DE-00384,CL-E00595,Baseline,Not Section 7
+DE-00385,CL-E00595,Baseline,Not Section 7
+DE-00386,CL-E00595,Baseline,Not Section 7
+DE-00387,CL-E00595,Discipline after protected concerted activity,Likely protected
+DE-00388,CL-E00596,Points for protected leave,Not Section 7
+DE-00389,CL-E00598,Baseline,Not Section 7
+DE-00390,CL-E00601,Baseline,Not Section 7
+DE-00391,CL-E00601,Baseline,Not Section 7
+DE-00392,CL-E00601,Baseline,Not Section 7
+DE-00393,CL-E00609,Baseline,Not Section 7
+DE-00394,CL-E00609,Baseline,Not Section 7
+DE-00395,CL-E00614,Baseline,Not Section 7
+DE-00396,CL-E00614,Baseline,Not Section 7
+DE-00397,CL-E00614,Discipline after protected concerted activity,Likely protected
+DE-00398,CL-E00615,Baseline,Not Section 7
+DE-00399,CL-E00618,Points for protected leave,Not Section 7
+DE-00400,CL-E00618,Baseline,Not Section 7
+DE-00401,CL-E00626,Baseline,Not Section 7
+DE-00402,CL-E00626,Baseline,Not Section 7
+DE-00403,CL-E00627,Baseline,Not Section 7
+DE-00404,CL-E00627,Points for protected leave,Not Section 7
+DE-00405,CL-E00627,Baseline,Not Section 7
+DE-00406,CL-E00627,Baseline,Not Section 7
+DE-00407,CL-E00628,Standard not adjusted for accommodation,Not Section 7
+DE-00408,CL-E00630,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00409,CL-E00630,Baseline,Not Section 7
+DE-00410,CL-E00630,Baseline,Not Section 7
+DE-00411,CL-E00632,Baseline,Not Section 7
+DE-00412,CL-E00632,Points for protected leave,Not Section 7
+DE-00413,CL-E00635,Baseline,Not Section 7
+DE-00414,CL-E00635,Baseline,Not Section 7
+DE-00415,CL-E00635,Baseline,Not Section 7
+DE-00416,CL-E00636,Discipline after concerted activity (supervisor),Not covered: supervisor excluded under NLRA Sec. 2(3)
+DE-00417,CL-E00636,Baseline,Not Section 7
+DE-00418,CL-E00644,Points for protected leave,Not Section 7
+DE-00419,CL-E00646,Baseline,Not Section 7
+DE-00420,CL-E00649,Baseline,Not Section 7
+DE-00421,CL-E00649,Baseline,Not Section 7
+DE-00422,CL-E00649,Baseline,Not Section 7
+DE-00423,CL-E00657,Baseline,Not Section 7
+DE-00424,CL-E00657,Baseline,Not Section 7
+DE-00425,CL-E00666,Baseline,Not Section 7
+DE-00426,CL-E00666,Baseline,Not Section 7
+DE-00427,CL-E00673,Baseline,Not Section 7
+DE-00428,CL-E00673,Baseline,Not Section 7
+DE-00429,CL-E00676,Baseline,Not Section 7
+DE-00430,CL-E00676,Baseline,Not Section 7
+DE-00431,CL-E00686,Discipline after protected concerted activity,Likely protected
+DE-00432,CL-E00695,Baseline,Not Section 7
+DE-00433,CL-E00695,Baseline,Not Section 7
+DE-00434,CL-E00699,Baseline,Not Section 7
+DE-00435,CL-E00699,Baseline,Not Section 7
+DE-00436,CL-E00699,Baseline,Not Section 7
+DE-00437,CL-E00699,Points for protected leave,Not Section 7
+DE-00438,CL-E00704,Baseline,Not Section 7
+DE-00439,CL-E00710,Points for protected leave,Not Section 7
+DE-00440,CL-E00710,Baseline,Not Section 7
+DE-00441,CL-E00713,Baseline,Not Section 7
+DE-00442,CL-E00713,Baseline,Not Section 7
+DE-00443,CL-E00713,Baseline,Not Section 7
+DE-00444,CL-E00718,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00445,CL-E00718,Baseline,Not Section 7
+DE-00446,CL-E00718,Baseline,Not Section 7
+DE-00447,CL-E00726,Baseline,Not Section 7
+DE-00448,CL-E00726,Baseline,Not Section 7
+DE-00449,CL-E00726,Baseline,Not Section 7
+DE-00450,CL-E00727,Baseline,"Not protected (individual gripe, threat, or privacy violation)"
+DE-00451,CL-E00729,Baseline,Not Section 7
+DE-00452,CL-E00735,Points for protected leave,Not Section 7
+DE-00453,CL-E00735,Baseline,Not Section 7
+DE-00454,CL-E00739,Baseline,Not Section 7
+DE-00455,CL-E00744,Baseline,Not Section 7
+DE-00456,CL-E00747,Baseline,Not Section 7
+DE-00457,CL-E00747,Baseline,Not Section 7
+DE-00458,CL-E00751,Discipline after protected concerted activity,Likely protected
+DE-00459,CL-E00751,Baseline,Not Section 7
