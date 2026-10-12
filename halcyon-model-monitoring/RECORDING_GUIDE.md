@@ -45,7 +45,7 @@ Mention E2 to E4 in one sentence each.
   moved (3.07× to 3.34×). The danger is that nothing said the claims were missing.
   If the dropped claims had been the worst-treated ones, the ratios would have looked
   better than reality, and nobody would have known.
-- **The fix.** The fix is in the commit after `37259c6`; `git log` shows it.
+- **The fix.** The fix is in commit `3b98e9f`.
   - The console prints `WARNING: only 857 of 1,007 claims could be assigned to a group`.
   - The summary header reads "1,007 claims, **only 857 analysed**".
   - A Data FLAG names the unmapped ZIP3s.
