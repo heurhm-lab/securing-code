@@ -1,0 +1,233 @@
+== AEDT selection (Advance) ==
+         mean  size  impact_ratio
+band40                           
+40+     0.318   465         0.624
+<40     0.510   775         1.000 
+
+           mean  size  impact_ratio
+age_band                           
+18-24     0.512   240         1.008
+25-39     0.508   535         1.000
+40-49     0.360   222         0.709
+50-59     0.308   169         0.605
+60+       0.216    74         0.425 
+
+                            mean  size  impact_ratio
+race_ethnicity_proxy_bisg                           
+Asian                      0.432    74         0.908
+Black                      0.380   263         0.798
+Hispanic                   0.386   267         0.810
+Other/Multiracial          0.680    25         1.428
+White                      0.476   611         1.000 
+
+                      mean  size  impact_ratio
+true_race_ethnicity                           
+Asian                0.432    81         0.886
+Black                0.391   274         0.801
+Hispanic             0.349   249         0.716
+Other/Multiracial    0.630    27         1.291
+White                0.488   609         1.000 
+
+                                 mean  size  impact_ratio
+hiring_accommodation_requested                           
+0                               0.449  1196         1.000
+1                               0.136    44         0.304 
+
+physical roles, gender proxy
+                        mean  size  impact_ratio
+name_inferred_gender                           
+F                     0.360    50         0.830
+M                     0.434   316         1.000
+Unknown               0.269    26         0.621
+physical roles, true gender
+               mean  size  impact_ratio
+true_gender                           
+F            0.250    48         0.573
+M            0.436   344         1.000
+== Hire ==
+         mean  size  impact_ratio
+band40                           
+40+     0.239   465         0.603
+<40     0.396   775         1.000 
+
+                            mean  size  impact_ratio
+race_ethnicity_proxy_bisg                           
+Asian                      0.365    74         1.042
+Black                      0.335   263         0.955
+Hispanic                   0.285   267         0.813
+Other/Multiracial          0.520    25         1.485
+White                      0.350   611         1.000 
+
+                                 mean  size  impact_ratio
+hiring_accommodation_requested                           
+0                               0.344  1196         1.000
+1                               0.136    44         0.396 
+
+advance->hire by age
+ band40
+40+    0.581
+<40    0.706
+Name: hired, dtype: float64
+hire_decision                        Hired  Rejected  Withdrawn
+aedt_recommendation referral_source                            
+Advance             False              310       126         28
+                    True                55        19          5
+Do Not Advance      False               14       523         24
+                    True                39        54          2
+referral share by proxy
+ race_ethnicity_proxy_bisg
+Asian                0.095
+Black                0.110
+Hispanic             0.120
+Other/Multiracial    0.080
+White                0.177
+Name: referral_source, dtype: float64
+score corr
+                        aedt_score  commute_miles  employment_gap_months  latent_qualification
+aedt_score                   1.00          -0.23                  -0.14                  0.88
+commute_miles               -0.23           1.00                  -0.01                  0.02
+employment_gap_months       -0.14          -0.01                   1.00                  0.01
+latent_qualification         0.88           0.02                   0.01                  1.00
+perf vs score/commute/gap
+ perf_rating_90day        1.00
+aedt_score               0.54
+commute_miles            0.10
+employment_gap_months   -0.02
+Name: perf_rating_90day, dtype: float64
+perf by age
+ band40
+40+    3.58
+<40    3.45
+Name: perf_rating_90day, dtype: float64
+note classes
+ recruiter_note_class
+neutral_note                       95
+legit_rejection                    31
+age_coded_note                     28
+referral_override                  26
+accommodation_unscored_rejected    17
+national_origin_note                6
+caregiver_coded_note                4
+Name: count, dtype: int64
+
+== FLSA / payroll ==
+                                 issue  employees  with_Q2_payroll  est_Q2_shortfall_$
+0               salary_below_threshold         18               16            31168.71
+1  dispatcher_admin_exemption_doubtful         29               25            88216.80
+2          exec_exemption_fails_duties          4                4            24861.11
+3         mca_small_vehicle_misapplied          9                8            24939.43
+4                  hourly_coded_exempt          1                0                0.00
+5                ot_paid_straight_time          7                7             2447.94
+6                            ot_unpaid          2                2             2823.86
+7     regular_rate_excludes_diff_bonus         52               52             3376.45
+8              off_the_clock_capped_40         30               30           106225.87
+FLSA label variants
+ flsa_classification
+Non-Exempt    215
+Exempt        124
+NE             13
+EXEMPT         13
+exempt         13
+Nonexempt      12
+non exempt     12
+NON-EXEMPT      9
+E               7
+Name: count, dtype: int64
+
+== Discipline ==
+narrative_class
+legit                        135
+pca                           34
+accommodation_retaliation     12
+fmla_interference              9
+ambiguous                      7
+individual_gripe               6
+Name: count, dtype: int64
+event_category             Attendance  Conduct  Insubordination  Performance  Policy Violation - Confidentiality  Policy Violation - Recording  Policy Violation - Social Media  Safety  Solicitation
+narrative_class                                                                                                                                                                                      
+accommodation_retaliation           0        0                0           12                                   0                             0                                0       0             0
+ambiguous                           0        7                0            0                                   0                             0                                0       0             0
+fmla_interference                   9        0                0            0                                   0                             0                                0       0             0
+individual_gripe                    0        1                2            0                                   0                             0                                3       0             0
+legit                              44       35                0           37                                   0                             0                                0      19             0
+pca                                 0        1               12            0                                   7                             8                                4       0             2
+action_taken               Final Written Warning  Termination  Verbal Warning  Written Warning
+narrative_class                                                                               
+accommodation_retaliation                      3            2               0                7
+ambiguous                                      0            0               4                3
+fmla_interference                              9            0               0                0
+individual_gripe                               0            0               6                0
+legit                                          3           17              93               22
+pca                                           19            7               0                8
+PCA narratives by employee pca_flag
+ pca_flag                   0.0  1.0
+narrative_class                    
+accommodation_retaliation   10    2
+ambiguous                    7    0
+fmla_interference            6    3
+individual_gripe             6    0
+legit                      121   14
+pca                          5   29
+pca flag vs latent
+ pca_engaged  0.0  1.0
+pca_flag             
+0.0          364    7
+1.0            7   40
+term rate by pca_flag
+ pca_flag
+0.0    0.049
+1.0    0.170
+Name: employment_status, dtype: float64
+disc rate by pca_flag
+ pca_flag
+0.0    0.345
+1.0    0.574
+Name: discipline_event_count, dtype: float64
+legit-event severity by proxy race
+                    mean  size
+race                         
+Asian              0.38     8
+Black              0.52    31
+Hispanic           0.78    23
+Other/Multiracial  0.00     2
+White              0.59    71
+other_risk
+ other_risk
+Skipped progressive-discipline steps                                        34
+ADA/PWFA failure to accommodate or retaliation                              12
+Severity above progressive-discipline step (disparate treatment pattern)     9
+FMLA interference (protected leave counted as occurrences)                   9
+Name: count, dtype: int64
+
+== Issue counts ==
+issues
+regular_rate_excludes_diff_bonus               52
+off_the_clock_capped_40                        30
+dispatcher_admin_exemption_doubtful            29
+age_coded_note                                 28
+referral_override                              26
+salary_below_threshold                         18
+accommodation_unscored_rejected                17
+dq_age_band_vs_grad_year                        9
+mca_small_vehicle_misapplied                    9
+ot_paid_straight_time                           7
+pca_unflagged                                   7
+pca_flag_false_positive                         7
+dq_exact_duplicate_row                          6
+national_origin_note                            6
+dq_discipline_count_mismatch                    5
+accommodation_denied_no_interactive_process     4
+exec_exemption_fails_duties                     4
+caregiver_coded_note                            4
+accommodation_stale_pending                     3
+dq_conflicting_duplicate_aedt_score             3
+dq_rejected_with_employee_record                2
+dq_discipline_before_hire                       2
+ot_unpaid                                       2
+dq_missing_badge_hours                          1
+dq_impossible_hours                             1
+hourly_coded_exempt                             1
+fmla_denied_wrong_reason                        1
+dq_negative_ot_pay                              1
+dq_hours_components_dont_sum                    1
+Name: count, dtype: int64
