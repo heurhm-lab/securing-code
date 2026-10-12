@@ -81,6 +81,9 @@ All analyzer settings are in the `analyzer` section of `thresholds.json`.
 - `RECORDING_GUIDE.md` is the walkthrough for the Chief Actuary. It has the prompts
   used to build this, the defects caught and fixed, the live-run script, and what
   the numbers do **not** prove.
+- `RECORDING_SCRIPT.md` is the word-for-word narration, with on-screen cues, for a
+  12-minute recording. `bash demo/run_demo.sh` runs the live steps with a pause
+  before each one.
 
 ## Monthly routine
 

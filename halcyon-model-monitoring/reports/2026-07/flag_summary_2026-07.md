@@ -11,7 +11,7 @@
 - 🔴 FLAG · *False investigations*: **higher-minority**: 86% of investigations found no fraud, against 67% for other (115 of 133 investigated claims). Honest claimants in this group are investigated far more often.
 - 🔴 FLAG · *Drift*: **higher-minority** investigation rate moved from 14.2% (rolling 3-month baseline) to 27.8% this month (+13.7 points).
 - 🔴 FLAG · *Drift*: **higher-minority** fast-pay rate moved from 25.8% (rolling 3-month baseline) to 20.5% this month (-5.3 points).
-- 🔴 FLAG · *Drift*: **higher-minority** investigated, of claims not confirmed as fraud moved from 11.7% (rolling 3-month baseline) to 25.0% this month (+13.3 points).
+- 🔴 FLAG · *Drift*: **higher-minority** investigation rate among claims not confirmed as fraud moved from 11.7% (rolling 3-month baseline) to 25.0% this month (+13.3 points).
 - 🔴 FLAG · *Drift*: **higher-minority** fast-pay impact ratio fell from 0.70 to 0.58 against the rolling baseline.
 - 🔴 FLAG · *Drift*: **higher-minority** investigation impact ratio fell from 0.40 to 0.22 against the rolling baseline.
 - 🟡 WATCH · *Drift*: **higher-minority** false-investigation rate moved from 80.6% (rolling 3-month baseline) to 86.5% this month (+5.9 points); not statistically significant.

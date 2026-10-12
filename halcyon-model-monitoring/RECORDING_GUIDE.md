@@ -77,7 +77,7 @@ nobody ever examined, so undetected fraud is in there too. "Not confirmed as fra
 not the same as "legitimate".
 
 - **Caught by:** reading the code against the label.
-- **Fixed by:** renaming it to "Investigated, of claims not confirmed as fraud" and
+- **Fixed by:** renaming it to "Investigation rate among claims not confirmed as fraud" and
   adding a comment explaining the denominator.
 
 ### E3: A ratio carrying the wrong metric's explanation

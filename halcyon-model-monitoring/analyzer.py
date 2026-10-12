@@ -232,7 +232,7 @@ DRIFT_METRICS = [
     ("sel_investigation", "Investigation rate", "rate", "n_investigation", "claims"),
     ("sel_fast_pay", "Fast-pay rate", "rate", "n_fast_pay", "claims"),
     ("false_investigation_rate", "False-investigation rate", "rate", "false_investigations", "investigated"),
-    ("unconfirmed_investigation_rate", "Investigated, of claims not confirmed as fraud", "rate", "unconfirmed_investigated", "unconfirmed_claims"),
+    ("unconfirmed_investigation_rate", "Investigation rate among claims not confirmed as fraud", "rate", "unconfirmed_investigated", "unconfirmed_claims"),
     ("fast_pay_ratio", "Fast-pay impact ratio", "ratio", None, None),
     ("investigation_ratio", "Investigation impact ratio", "ratio", None, None),
 ]
