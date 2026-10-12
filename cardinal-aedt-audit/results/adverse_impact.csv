@@ -1,0 +1,62 @@
+population,dimension,group,applicants,hires,selection_rate,expected_hires_at_pool_rate,adequate_sample,reference_group,impact_ratio,fisher_p_vs_reference,hire_shortfall_vs_reference,assessment
+AEDT applicants (all AEDT job groups),Race/ethnicity,American Indian or Alaska Native,2,1,0.5,0.7595,False,Black or African American,1.2851,1.0,-0.2,"Insufficient sample: report count only, do not interpret ratio"
+AEDT applicants (all AEDT job groups),Race/ethnicity,Asian,19,7,0.3684,7.2148,False,Black or African American,0.9469,1.0,0.4,"Insufficient sample: report count only, do not interpret ratio"
+AEDT applicants (all AEDT job groups),Race/ethnicity,Black or African American,293,114,0.3891,111.2602,True,Black or African American,1.0,,0.0,Reference group
+AEDT applicants (all AEDT job groups),Race/ethnicity,Declined to self-identify,29,11,0.3793,11.0121,False,Black or African American,0.9749,1.0,0.3,Not interpretable (no group identity)
+AEDT applicants (all AEDT job groups),Race/ethnicity,Hispanic or Latino,88,27,0.3068,33.416,True,Black or African American,0.7886,0.1687,7.2,"Fails 4/5, not statistically significant: monitor, aggregate more data"
+AEDT applicants (all AEDT job groups),Race/ethnicity,Native Hawaiian or Pacific Islander,3,1,0.3333,1.1392,False,Black or African American,0.8567,1.0,0.2,"Insufficient sample: report count only, do not interpret ratio"
+AEDT applicants (all AEDT job groups),Race/ethnicity,Two or More Races,22,13,0.5909,8.354,False,Black or African American,1.5187,0.0732,-4.4,"Insufficient sample: report count only, do not interpret ratio"
+AEDT applicants (all AEDT job groups),Race/ethnicity,White,205,77,0.3756,77.8442,True,Black or African American,0.9654,0.7794,2.8,"Passes 4/5, no significant difference (not proof of compliance)"
+AEDT applicants (all AEDT job groups),Sex,Declined to self-identify,15,4,0.2667,5.6959,False,Female,0.6737,0.4177,1.9,Not interpretable (no group identity)
+AEDT applicants (all AEDT job groups),Sex,Female,240,95,0.3958,91.1346,True,Female,1.0,,0.0,Reference group
+AEDT applicants (all AEDT job groups),Sex,Male,406,152,0.3744,154.1694,True,Female,0.9458,0.6155,8.7,"Passes 4/5, no significant difference (not proof of compliance)"
+AEDT applicants (all AEDT job groups),Age (ADEA 40+),40 and over,193,63,0.3264,73.2874,True,Under 40,0.8126,0.078,14.5,"Passes 4/5, no significant difference (not proof of compliance)"
+AEDT applicants (all AEDT job groups),Age (ADEA 40+),Under 40,468,188,0.4017,177.7126,True,Under 40,1.0,,0.0,Reference group
+AEDT applicants (all AEDT job groups),Age band vs under 40,Under 40 (pooled),468,188,0.4017,,True,Under 40 (pooled),1.0,,0.0,Reference group
+AEDT applicants (all AEDT job groups),Age band vs under 40,40-49,82,30,0.3659,31.1377,True,Under 40 (pooled),0.9107,0.6247,2.9,"Passes 4/5, no significant difference (not proof of compliance)"
+AEDT applicants (all AEDT job groups),Age band vs under 40,50-59,83,27,0.3253,31.5174,True,Under 40 (pooled),0.8098,0.2222,6.3,"Passes 4/5, no significant difference (not proof of compliance)"
+AEDT applicants (all AEDT job groups),Age band vs under 40,60+,28,6,0.2143,10.6324,False,Under 40 (pooled),0.5334,0.0709,5.2,"Insufficient sample: report count only, do not interpret ratio"
+AEDT applicants (all AEDT job groups),Disability proxy: interview accommodation,No request,621,245,0.3945,235.8109,True,No request,1.0,,0.0,Reference group
+AEDT applicants (all AEDT job groups),Disability proxy: interview accommodation,Requested accommodation,40,6,0.15,15.1891,True,No request,0.3802,0.0021,9.8,Fails 4/5 and statistically significant
+AEDT applicants (all AEDT job groups),National-origin proxy: English fluency,Native English,598,230,0.3846,227.0772,True,Native English,1.0,,0.0,Reference group
+AEDT applicants (all AEDT job groups),National-origin proxy: English fluency,Non-native English,63,21,0.3333,23.9228,True,Native English,0.8667,0.4956,3.2,"Passes 4/5, no significant difference (not proof of compliance)"
+AEDT applicants (all AEDT job groups),Connection quality (non-protected),Fair,167,55,0.3293,63.4145,True,Good,0.8087,0.0902,13.0,"Passes 4/5, no significant difference (not proof of compliance)"
+AEDT applicants (all AEDT job groups),Connection quality (non-protected),Good,415,169,0.4072,157.587,True,Good,1.0,,0.0,Reference group
+AEDT applicants (all AEDT job groups),Connection quality (non-protected),Poor,79,27,0.3418,29.9985,True,Good,0.8393,0.3161,5.2,"Passes 4/5, no significant difference (not proof of compliance)"
+Structured-interview applicants (comparison),Race/ethnicity,Asian,5,3,0.6,1.9031,False,Hispanic or Latino,1.4625,0.6378,-0.9,"Insufficient sample: report count only, do not interpret ratio"
+Structured-interview applicants (comparison),Race/ethnicity,Black or African American,129,47,0.3643,49.1003,True,Hispanic or Latino,0.8881,0.7062,5.9,"Passes 4/5, no significant difference (not proof of compliance)"
+Structured-interview applicants (comparison),Race/ethnicity,Declined to self-identify,13,6,0.4615,4.9481,False,Hispanic or Latino,1.125,0.7573,-0.7,Not interpretable (no group identity)
+Structured-interview applicants (comparison),Race/ethnicity,Hispanic or Latino,39,16,0.4103,14.8443,True,Hispanic or Latino,1.0,,0.0,Reference group
+Structured-interview applicants (comparison),Race/ethnicity,Native Hawaiian or Pacific Islander,1,1,1.0,0.3806,False,Hispanic or Latino,2.4375,0.425,-0.6,"Insufficient sample: report count only, do not interpret ratio"
+Structured-interview applicants (comparison),Race/ethnicity,Two or More Races,6,1,0.1667,2.2837,False,Hispanic or Latino,0.4062,0.3846,1.5,"Insufficient sample: report count only, do not interpret ratio"
+Structured-interview applicants (comparison),Race/ethnicity,White,96,36,0.375,36.5398,True,Hispanic or Latino,0.9141,0.7016,3.4,"Passes 4/5, no significant difference (not proof of compliance)"
+Structured-interview applicants (comparison),Sex,Declined to self-identify,8,3,0.375,3.045,False,Male,0.9674,1.0,0.1,Not interpretable (no group identity)
+Structured-interview applicants (comparison),Sex,Female,103,38,0.3689,39.2042,True,Male,0.9517,0.7995,1.9,"Passes 4/5, no significant difference (not proof of compliance)"
+Structured-interview applicants (comparison),Sex,Male,178,69,0.3876,67.7509,True,Male,1.0,,0.0,Reference group
+Structured-interview applicants (comparison),Age (ADEA 40+),40 and over,156,54,0.3462,59.3772,True,Under 40,0.8221,0.2243,11.7,"Passes 4/5, no significant difference (not proof of compliance)"
+Structured-interview applicants (comparison),Age (ADEA 40+),Under 40,133,56,0.4211,50.6228,True,Under 40,1.0,,0.0,Reference group
+Structured-interview applicants (comparison),Age band vs under 40,Under 40 (pooled),133,56,0.4211,,True,Under 40 (pooled),1.0,,0.0,Reference group
+Structured-interview applicants (comparison),Age band vs under 40,40-49,76,27,0.3553,28.9273,True,Under 40 (pooled),0.8438,0.3804,5.0,"Passes 4/5, no significant difference (not proof of compliance)"
+Structured-interview applicants (comparison),Age band vs under 40,50-59,49,17,0.3469,18.6505,True,Under 40 (pooled),0.824,0.3981,3.6,"Passes 4/5, no significant difference (not proof of compliance)"
+Structured-interview applicants (comparison),Age band vs under 40,60+,31,10,0.3226,11.7993,True,Under 40 (pooled),0.7661,0.4164,3.1,"Fails 4/5, not statistically significant: monitor, aggregate more data"
+"AEDT applicants, JG1 Material Handlers only",Race/ethnicity,American Indian or Alaska Native,2,1,0.5,0.7582,False,Black or African American,1.253,1.0,-0.2,"Insufficient sample: report count only, do not interpret ratio"
+"AEDT applicants, JG1 Material Handlers only",Race/ethnicity,Asian,17,6,0.3529,6.4447,False,Black or African American,0.8845,0.8006,0.8,"Insufficient sample: report count only, do not interpret ratio"
+"AEDT applicants, JG1 Material Handlers only",Race/ethnicity,Black or African American,208,83,0.399,78.8525,True,Black or African American,1.0,,0.0,Reference group
+"AEDT applicants, JG1 Material Handlers only",Race/ethnicity,Declined to self-identify,23,8,0.3478,8.7193,False,Black or African American,0.8717,0.8226,1.2,Not interpretable (no group identity)
+"AEDT applicants, JG1 Material Handlers only",Race/ethnicity,Hispanic or Latino,63,22,0.3492,23.8832,True,Black or African American,0.8751,0.5555,3.1,"Passes 4/5, no significant difference (not proof of compliance)"
+"AEDT applicants, JG1 Material Handlers only",Race/ethnicity,Native Hawaiian or Pacific Islander,2,1,0.5,0.7582,False,Black or African American,1.253,1.0,-0.2,"Insufficient sample: report count only, do not interpret ratio"
+"AEDT applicants, JG1 Material Handlers only",Race/ethnicity,Two or More Races,15,7,0.4667,5.6865,False,Black or African American,1.1695,0.5991,-1.0,"Insufficient sample: report count only, do not interpret ratio"
+"AEDT applicants, JG1 Material Handlers only",Race/ethnicity,White,158,57,0.3608,59.8975,True,Black or African American,0.9041,0.5149,6.0,"Passes 4/5, no significant difference (not proof of compliance)"
+"AEDT applicants, JG1 Material Handlers only",Sex,Declined to self-identify,13,4,0.3077,4.9283,False,Male,0.7958,0.7725,1.0,Not interpretable (no group identity)
+"AEDT applicants, JG1 Material Handlers only",Sex,Female,175,65,0.3714,66.3422,True,Male,0.9606,0.7695,2.7,"Passes 4/5, no significant difference (not proof of compliance)"
+"AEDT applicants, JG1 Material Handlers only",Sex,Male,300,116,0.3867,113.7295,True,Male,1.0,,0.0,Reference group
+"AEDT applicants, JG1 Material Handlers only",Age (ADEA 40+),40 and over,138,43,0.3116,52.3156,True,Under 40,0.768,0.0622,13.0,"Fails 4/5, not statistically significant: monitor, aggregate more data"
+"AEDT applicants, JG1 Material Handlers only",Age (ADEA 40+),Under 40,350,142,0.4057,132.6844,True,Under 40,1.0,,0.0,Reference group
+"AEDT applicants, JG1 Material Handlers only",Disability proxy: interview accommodation,No request,456,180,0.3947,172.8689,True,No request,1.0,,0.0,Reference group
+"AEDT applicants, JG1 Material Handlers only",Disability proxy: interview accommodation,Requested accommodation,32,5,0.1562,12.1311,True,No request,0.3958,0.0076,7.6,Fails 4/5 and statistically significant
+"AEDT applicants, JG1 Material Handlers only",National-origin proxy: English fluency,Native English,442,166,0.3756,167.5615,True,Non-native English,0.9093,0.6343,16.6,"Passes 4/5, no significant difference (not proof of compliance)"
+"AEDT applicants, JG1 Material Handlers only",National-origin proxy: English fluency,Non-native English,46,19,0.413,17.4385,True,Non-native English,1.0,,0.0,Reference group
+"AEDT applicants, JG1 Material Handlers only",Age band vs under 40,Under 40 (pooled),350,142,0.4057,,True,Under 40 (pooled),1.0,,0.0,Reference group
+"AEDT applicants, JG1 Material Handlers only",Age band vs under 40,40-49,58,20,0.3448,21.9877,True,Under 40 (pooled),0.8499,0.469,3.5,"Passes 4/5, no significant difference (not proof of compliance)"
+"AEDT applicants, JG1 Material Handlers only",Age band vs under 40,50-59,61,21,0.3443,23.125,True,Under 40 (pooled),0.8485,0.3974,3.7,"Passes 4/5, no significant difference (not proof of compliance)"
+"AEDT applicants, JG1 Material Handlers only",Age band vs under 40,60+,19,2,0.1053,7.2029,False,Under 40 (pooled),0.2595,0.0077,5.7,"Small sample, but exact test is significant: treat as a finding, ratio is unstable"

@@ -1,0 +1,81 @@
+employee_id,request,request_type,request_date,fmla_eligible,events_in_window,events_overlapping_leave,days_to_first_event,flag,level_of_most_serious
+CL-E00016,Leave,Non-FMLA medical/personal,2025-08-07,False,DE-00013,DE-00013,11,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00022,Accommodation,Seated work station,2026-03-29,,DE-00017,,67,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00024,Accommodation,Lifting restriction,2026-08-19,,DE-00020,,5,Discipline within 120 days of accommodation request: timing warrants review,Final warning
+CL-E00026,Accommodation,Modified schedule,2026-03-01,,DE-00022;DE-00023,,80,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Written warning
+CL-E00028,Leave,FMLA - family care,2026-03-23,True,DE-00026,DE-00026,8,FMLA interference: attendance points assessed for FMLA-protected absences,Written warning
+CL-E00028,Accommodation,Intermittent breaks,2026-04-30,,DE-00027,,107,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Final warning
+CL-E00029,Leave,Non-FMLA medical/personal,2026-04-27,False,DE-00028,DE-00028,10,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00032,Accommodation,Seated work station,2026-06-25,,DE-00031,,40,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00037,Leave,Non-FMLA medical/personal,2026-04-24,False,DE-00033,DE-00033,29,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00040,Leave,Non-FMLA medical/personal,2026-03-27,False,DE-00036;DE-00037,DE-00037,37,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Termination
+CL-E00044,Leave,FMLA - family care,2026-04-03,True,DE-00042,,6,"Discipline within 90 days of leave: timing warrants review, not itself a violation",Written warning
+CL-E00052,Accommodation,Modified schedule,2026-03-18,,DE-00049,,73,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00054,Leave,Non-FMLA medical/personal,2026-04-30,False,DE-00050;DE-00051,DE-00050,28,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00054,Accommodation,Lifting restriction,2026-04-17,,DE-00050;DE-00051,,41,Discipline within 120 days of accommodation request: timing warrants review,Written warning
+CL-E00060,Accommodation,Hearing/captioning support,2025-10-21,,DE-00054,,9,Discipline within 120 days of accommodation request: timing warrants review,Verbal warning
+CL-E00071,Leave,Non-FMLA medical/personal,2026-04-13,False,DE-00067,DE-00067,39,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00086,Leave,Non-FMLA medical/personal,2026-02-16,False,DE-00080;DE-00081;DE-00082,DE-00081,23,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Final warning
+CL-E00093,Accommodation,Seated work station,2026-08-24,,DE-00086,,37,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Final warning
+CL-E00112,Accommodation,Intermittent breaks,2026-04-20,,DE-00096,,65,Discipline within 120 days of accommodation request: timing warrants review,Verbal warning
+CL-E00120,Leave,Non-FMLA medical/personal,2026-03-03,False,DE-00099;DE-00100,DE-00099,5,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00122,Leave,Non-FMLA medical/personal,2025-05-13,False,DE-00101,,83,"Discipline within 90 days of leave: timing warrants review, not itself a violation",Verbal warning
+CL-E00123,Leave,Non-FMLA medical/personal,2025-11-18,False,DE-00102,DE-00102,29,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00129,Leave,Non-FMLA medical/personal,2026-06-23,False,DE-00109;DE-00110,,0,"Discipline within 90 days of leave: timing warrants review, not itself a violation",Written warning
+CL-E00132,Leave,Non-FMLA medical/personal,2026-05-20,False,DE-00112;DE-00113,DE-00112,16,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Final warning
+CL-E00138,Leave,Non-FMLA medical/personal,2026-08-14,False,DE-00116,DE-00116,3,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00147,Leave,Non-FMLA medical/personal,2026-07-20,False,DE-00121;DE-00122;DE-00123,DE-00121,10,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Final warning
+CL-E00149,Leave,FMLA - family care,2026-03-02,True,DE-00124,DE-00124,5,FMLA interference: attendance points assessed for FMLA-protected absences,Verbal warning
+CL-E00152,Leave,Non-FMLA medical/personal,2026-05-04,False,DE-00126,DE-00126,22,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00155,Leave,Non-FMLA medical/personal,2026-09-06,False,DE-00127,DE-00127,24,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00161,Leave,Non-FMLA medical/personal,2026-01-31,False,DE-00132,DE-00132,27,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00168,Leave,Non-FMLA medical/personal,2026-02-19,False,DE-00141,DE-00141,4,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Final warning
+CL-E00170,Leave,Non-FMLA medical/personal,2026-02-10,False,DE-00144,DE-00144,19,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00175,Leave,Non-FMLA medical/personal,2025-04-28,False,DE-00150;DE-00151,DE-00151,16,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00188,Leave,Non-FMLA medical/personal,2025-06-23,False,DE-00166,,90,"Discipline within 90 days of leave: timing warrants review, not itself a violation",Verbal warning
+CL-E00189,Leave,Non-FMLA medical/personal,2026-07-09,False,DE-00168,DE-00168,7,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00208,Leave,Non-FMLA medical/personal,2026-03-06,False,DE-00178,,62,"Discipline within 90 days of leave: timing warrants review, not itself a violation",Verbal warning
+CL-E00214,Leave,Non-FMLA medical/personal,2025-11-10,False,DE-00187,DE-00187,17,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00221,Leave,Non-FMLA medical/personal,2025-12-16,False,DE-00192,DE-00192,17,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00227,Accommodation,Hearing/captioning support,2025-09-16,,DE-00196;DE-00197,,13,Discipline within 120 days of accommodation request: timing warrants review,Written warning
+CL-E00228,Leave,Non-FMLA medical/personal,2026-07-07,False,DE-00198;DE-00199,DE-00198,9,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00239,Leave,Non-FMLA medical/personal,2025-05-17,False,DE-00205;DE-00206,DE-00206,29,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00241,Leave,Non-FMLA medical/personal,2026-04-15,False,DE-00208,DE-00208,6,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00242,Leave,Non-FMLA medical/personal,2026-09-02,False,DE-00210,DE-00210,28,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00244,Accommodation,Lifting restriction,2026-04-11,,DE-00213,,26,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Written warning
+CL-E00245,Accommodation,Modified schedule,2026-05-26,,DE-00214,,101,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00261,Leave,Non-FMLA medical/personal,2025-06-22,False,DE-00220,DE-00220,7,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00264,Leave,FMLA - own serious health condition,2026-08-15,True,DE-00227,DE-00227,17,FMLA interference: attendance points assessed for FMLA-protected absences,Termination
+CL-E00267,Leave,Non-FMLA medical/personal,2026-09-07,False,DE-00230,DE-00230,23,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00270,Leave,Non-FMLA medical/personal,2026-06-20,False,DE-00231,DE-00231,36,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00294,Leave,Non-FMLA medical/personal,2025-05-12,False,DE-00249,DE-00249,28,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00296,Leave,Non-FMLA medical/personal,2025-09-09,False,DE-00251,DE-00251,36,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00297,Leave,Non-FMLA medical/personal,2025-10-29,False,DE-00252,DE-00252,31,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Verbal warning
+CL-E00303,Accommodation,Modified schedule,2026-02-09,,DE-00258;DE-00259,,48,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Written warning
+CL-E00308,Leave,Non-FMLA medical/personal,2026-01-30,False,DE-00261,DE-00261,51,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Written warning
+CL-E00315,Leave,FMLA - own serious health condition,2026-07-25,True,DE-00264,,40,"Discipline within 90 days of leave: timing warrants review, not itself a violation",Written warning
+CL-E00315,Accommodation,Modified schedule,2025-11-18,,DE-00263,,72,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00341,Leave,Non-FMLA medical/personal,2026-06-21,False,DE-00288;DE-00289,DE-00288,16,Points assessed during non-FMLA medical leave: review as possible ADA leave-as-accommodation or state-law issue,Final warning
+CL-E00341,Accommodation,Intermittent breaks,2026-05-22,,DE-00288;DE-00289,,46,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Final warning
+CL-E00347,Accommodation,Seated work station,2025-10-23,,DE-00293,,104,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00357,Accommodation,Seated work station,2026-05-28,,DE-00299,,44,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00372,Accommodation,Seated work station,2025-04-29,,DE-00304;DE-00305,,28,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Written warning
+CL-E00403,Leave,FMLA - own serious health condition,2026-02-24,True,DE-00326,DE-00326,6,FMLA interference: attendance points assessed for FMLA-protected absences,Verbal warning
+CL-E00416,Leave,FMLA - family care,2025-04-16,True,DE-00327;DE-00328,DE-00327,28,FMLA interference: attendance points assessed for FMLA-protected absences,Written warning
+CL-E00437,Accommodation,Seated work station,2026-04-29,,DE-00334,,51,Discipline within 120 days of accommodation request: timing warrants review,Verbal warning
+CL-E00524,Leave,FMLA - family care,2025-04-09,True,DE-00355,DE-00355,60,FMLA interference: attendance points assessed for FMLA-protected absences,Verbal warning
+CL-E00529,Accommodation,Lifting restriction,2025-09-02,,DE-00356,,81,Discipline within 120 days of accommodation request: timing warrants review,Verbal warning
+CL-E00543,Leave,FMLA - bonding,2026-02-27,True,DE-00365;DE-00366,DE-00365,46,FMLA interference: attendance points assessed for FMLA-protected absences,Written warning
+CL-E00551,Leave,FMLA - own serious health condition,2025-09-15,True,DE-00368,DE-00368,12,FMLA interference: attendance points assessed for FMLA-protected absences,Written warning
+CL-E00559,Accommodation,Lifting restriction,2025-08-13,,DE-00372,,38,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00585,Leave,FMLA - own serious health condition,2026-06-17,True,DE-00383,DE-00383,11,FMLA interference: attendance points assessed for FMLA-protected absences,Written warning
+CL-E00596,Leave,FMLA - family care,2025-10-03,True,DE-00388,DE-00388,38,FMLA interference: attendance points assessed for FMLA-protected absences,Verbal warning
+CL-E00609,Leave,FMLA - own serious health condition,2025-11-06,True,DE-00393,,61,"Discipline within 90 days of leave: timing warrants review, not itself a violation",Verbal warning
+CL-E00618,Leave,FMLA - own serious health condition,2025-09-24,True,DE-00399,DE-00399,25,FMLA interference: attendance points assessed for FMLA-protected absences,Verbal warning
+CL-E00627,Leave,FMLA - own serious health condition,2025-09-08,True,DE-00404;DE-00405,DE-00404,56,FMLA interference: attendance points assessed for FMLA-protected absences,Final warning
+CL-E00628,Accommodation,Lifting restriction,2026-06-16,,DE-00407,,24,Performance discipline that cites the accommodation itself: standard not adjusted (ADA failure to accommodate / retaliation risk),Verbal warning
+CL-E00632,Leave,FMLA - bonding,2026-08-26,True,DE-00412,DE-00412,16,FMLA interference: attendance points assessed for FMLA-protected absences,Written warning
+CL-E00644,Leave,FMLA - bonding,2026-05-03,True,DE-00418,DE-00418,15,FMLA interference: attendance points assessed for FMLA-protected absences,Verbal warning
+CL-E00699,Leave,FMLA - family care,2026-04-18,True,DE-00437,DE-00437,11,FMLA interference: attendance points assessed for FMLA-protected absences,Termination
+CL-E00710,Leave,FMLA - own serious health condition,2025-08-02,True,DE-00439;DE-00440,DE-00439,5,FMLA interference: attendance points assessed for FMLA-protected absences,Written warning
+CL-E00735,Leave,FMLA - own serious health condition,2025-11-30,True,DE-00452,DE-00452,18,FMLA interference: attendance points assessed for FMLA-protected absences,Verbal warning

@@ -1,0 +1,7 @@
+group,n_group,n_others,mean_offers_group,mean_offers_others,offer_ratio,mean_reliability_group,mean_reliability_others,permutation_p,adequate_sample
+Leave started in last 26 weeks,20,209,3.4,7.44,0.46,61.8,83.6,0.0002,False
+Accommodation request on file,17,212,4.06,7.33,0.55,71.9,82.5,0.0004,False
+Age 40+,54,175,6.7,7.2,0.93,82.1,81.6,0.3253,True
+Female,84,145,7.58,6.79,1.12,80.3,82.5,0.0622,True
+Black or African American,99,130,7.52,6.75,1.11,82.0,81.5,0.0724,True
+Hispanic or Latino,27,202,6.74,7.13,0.95,79.6,82.0,0.5601,False

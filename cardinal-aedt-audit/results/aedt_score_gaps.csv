@@ -1,0 +1,16 @@
+dimension,group,reference,n,aedt_gap_sd,skills_test_gap_sd,communication_gap_sd,engagement_gap_sd,problem_solving_gap_sd,adequate_sample
+Race/ethnicity,American Indian or Alaska Native,White,2,-0.32,-0.32,-0.62,0.42,-0.33,False
+Race/ethnicity,Asian,White,19,-0.01,-0.17,-0.16,0.15,0.03,False
+Race/ethnicity,Black or African American,White,293,-0.01,0.06,0.04,-0.2,0.06,True
+Race/ethnicity,Declined to self-identify,White,29,-0.26,-0.2,-0.06,-0.07,-0.38,False
+Race/ethnicity,Hispanic or Latino,White,88,-0.18,0.05,-0.31,-0.15,-0.0,True
+Race/ethnicity,Native Hawaiian or Pacific Islander,White,3,-0.45,-0.48,-0.73,-0.33,-0.04,False
+Race/ethnicity,Two or More Races,White,22,0.65,0.43,0.6,0.48,0.42,False
+Sex,Declined to self-identify,Female,15,-0.04,0.2,-0.22,0.07,0.06,False
+Sex,Male,Female,406,-0.0,0.08,0.06,0.01,-0.05,True
+Age (ADEA 40+),40 and over,Under 40,193,-0.39,-0.06,-0.42,-0.67,0.0,True
+Disability proxy: interview accommodation,Requested accommodation,No request,40,-0.88,0.05,-1.1,-1.33,0.02,True
+National-origin proxy: English fluency,Non-native English,Native English,63,-0.3,0.1,-0.77,0.03,0.04,True
+Age band,40-49,25-29,82,-0.35,-0.07,-0.33,-0.31,-0.2,True
+Age band,50-59,25-29,83,-0.54,-0.15,-0.54,-0.95,-0.01,True
+Age band,60+,25-29,28,-0.87,-0.45,-0.75,-1.31,-0.25,False

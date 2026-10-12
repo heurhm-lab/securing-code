@@ -1,0 +1,4 @@
+request,window_days_comparison,n_requesters,requesters_disciplined,rate_requesters,n_comparison,comparison_disciplined,rate_comparison,rate_ratio,fisher_p
+Leave (start through end + 90 days),108,82,57,0.6951,371,75,0.2022,3.4385,0.0
+Accommodation (120 days after request),120,40,23,0.575,413,101,0.2446,2.3512,0.0
+Concerted activity (60 days after),60,27,23,0.8519,426,65,0.1526,5.5829,0.0
