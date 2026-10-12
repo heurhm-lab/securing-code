@@ -1,0 +1,555 @@
+<title>Cardinal Logistics Audit Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650&family=Public+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column; ranked register up top, finding dossiers below, method and limits last. */
+:root {
+  --paper:#f6f7f9; --sheet:#ffffff; --ink:#18212e; --muted:#5a6575; --rule:#d9dee6; --accent:#1f4e8c;
+  --now:#b42318; --qtr:#b54708; --sched:#3b6e3b; --house:#667085; --chip:#eef1f5;
+  --display:"Newsreader", Georgia, serif; --body:"Public Sans", system-ui, sans-serif; --mono:"IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper:#11161d; --sheet:#171e27; --ink:#e6eaf0; --muted:#9aa6b6; --rule:#2c3644; --accent:#8db4ea;
+  --now:#f97066; --qtr:#fdb022; --sched:#8bc28b; --house:#98a2b3; --chip:#222b37; color-scheme:dark } }
+:root[data-theme="dark"] { --paper:#11161d; --sheet:#171e27; --ink:#e6eaf0; --muted:#9aa6b6; --rule:#2c3644; --accent:#8db4ea;
+  --now:#f97066; --qtr:#fdb022; --sched:#8bc28b; --house:#98a2b3; --chip:#222b37; color-scheme:dark }
+body { background:var(--paper); color:var(--ink); font:15px/1.6 var(--body); }
+.wrap { max-width:1040px; margin:0 auto; padding-inline:20px; padding-block:40px 80px; display:grid; gap:44px; }
+h1,h2,h3 { font-family:var(--display); font-weight:650; text-wrap:balance; margin:0; line-height:1.2 }
+h1 { font-size:clamp(28px,4.5vw,40px) } h2 { font-size:24px; margin-bottom:14px } h3 { font-size:19px }
+h4 { font:600 12px/1.3 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 8px }
+p { margin:0; max-width:68ch } a { color:var(--accent) }
+.lede { display:grid; gap:12px } .kicker { font:600 12px var(--body); letter-spacing:.1em; text-transform:uppercase; color:var(--muted) }
+.note { color:var(--muted); font-size:14px }
+.mono, .num { font-family:var(--mono); font-variant-numeric:tabular-nums }
+.tbl { overflow-x:auto; border:1px solid var(--rule); border-radius:6px; background:var(--sheet) }
+table { border-collapse:collapse; width:100%; min-width:720px; font-size:14px }
+th,td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--rule); vertical-align:top }
+th { font:600 11px var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); background:var(--chip) }
+tr:last-child td { border-bottom:0 } td.num { text-align:right } td a { color:var(--ink); text-decoration:none; font-weight:600 } td a:hover { text-decoration:underline }
+.area { color:var(--muted); font-size:12px }
+.prio { font-weight:600 }
+.tier { display:inline-block; font:600 11px var(--body); letter-spacing:.04em; padding:2px 8px; border-radius:99px; background:var(--chip); color:var(--tc,var(--muted)); white-space:nowrap }
+.ong { display:inline-block; font:600 11px var(--body); padding:2px 8px; border-radius:99px; border:1px solid var(--rule); color:var(--muted); white-space:nowrap }
+.t-now { --tc:var(--now) } .t-qtr { --tc:var(--qtr) } .t-sched { --tc:var(--sched) } .t-house { --tc:var(--house) }
+tr td:first-child { box-shadow: inset 3px 0 0 var(--tc) }
+.findings { display:grid; gap:14px }
+.finding { background:var(--sheet); border:1px solid var(--rule); border-left:4px solid var(--tc,var(--house)); border-radius:6px; padding:18px 20px; display:grid; gap:12px; min-width:0 }
+.finding header { display:grid; grid-template-columns:auto 1fr auto; gap:16px; align-items:start }
+.rank { font:600 26px/1 var(--mono); color:var(--muted) }
+.meta { font-size:12px; color:var(--muted); margin-bottom:4px }
+.score { display:grid; justify-items:end; gap:6px }
+.prio-big { font:600 24px/1 var(--mono); color:var(--tc,var(--ink)) }
+.axes { display:grid; grid-template-columns:auto repeat(5,8px); gap:3px 3px; align-items:center; font:600 10px var(--mono); color:var(--muted) }
+.axes span { padding-right:4px }
+.pip { width:8px; height:8px; border-radius:2px; background:var(--chip); border:1px solid var(--rule) } .pip.on { background:var(--tc,var(--ink)); border-color:transparent }
+dl { margin:0; display:grid; grid-template-columns:120px 1fr; gap:8px 16px }
+dt { font:600 11px/1.9 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted) }
+dd { margin:0; min-width:0 } dd.law { font-size:14px }
+.scales { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px }
+.scale { background:var(--sheet); border:1px solid var(--rule); border-radius:6px; padding:16px }
+.scale ol { margin:0; padding:0; list-style:none; display:grid; gap:8px; font-size:14px } .scale b { display:block; font-family:var(--mono); font-weight:600 }
+.formula { font:600 15px var(--mono); background:var(--chip); padding:10px 14px; border-radius:6px; display:inline-block }
+ul.limits { margin:0; padding-left:18px; display:grid; gap:8px; max-width:80ch }
+section { display:grid; gap:14px; min-width:0 }
+.tiers { display:flex; flex-wrap:wrap; gap:8px }
+.tiers span { font-size:13px }
+@media (max-width:640px) { .finding header { grid-template-columns:auto 1fr } .score { grid-column:1/-1; justify-items:start; grid-auto-flow:column; align-items:center } dl { grid-template-columns:1fr } dt { margin-top:4px } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior:auto } }
+:focus-visible { outline:2px solid var(--accent); outline-offset:2px }
+</style>
+<div class="wrap">
+  <section class="lede">
+    <div class="kicker">Compliance screen · Synthetic dataset · Snapshot 2026-06-30</div>
+    <h1>Cardinal Logistics Audit Summary</h1>
+    <p>27 findings across AEDT hiring, FLSA, ADA/PWFA, FMLA and the NLRA, ranked by likelihood, severity and reversibility. Each one comes with a proportionate remediation step and its legal basis. Only the files in <span class="mono">data/</span> were analyzed; the answer key was not read.</p>
+    <p class="note">8 act now · 8 act this quarter · 9 schedule · 2 housekeeping. This is a screen, not legal advice. Every item is a lead for counsel to verify.</p>
+  </section>
+
+  <section>
+    <h2>Ranked findings</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>#</th><th>ID</th><th>Finding</th><th title="Likelihood">L</th><th title="Severity">S</th><th title="Reversibility (5 = hardest)">R</th><th>Priority</th><th>Tier</th><th></th></tr></thead>
+      <tbody><tr class="t-now"><td class="num">1</td><td class="mono">F02</td><td><a href="#F02">AEDT screens out applicants 40+</a><div class="area">AEDT / ADEA</div></td><td class="num">5</td><td class="num">5</td><td class="num">4</td><td class="num prio">100</td><td><span class="tier">Act now</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-now"><td class="num">2</td><td class="mono">F03</td><td><a href="#F03">Applicants who asked for an assessment accommodation were screened out</a><div class="area">AEDT / ADA</div></td><td class="num">5</td><td class="num">5</td><td class="num">4</td><td class="num prio">100</td><td><span class="tier">Act now</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-now"><td class="num">3</td><td class="mono">F01</td><td><a href="#F01">Discipline imposed for Section 7 activity</a><div class="area">NLRA</div></td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num prio">80</td><td><span class="tier">Act now</span></td><td></td></tr>
+<tr class="t-now"><td class="num">4</td><td class="mono">F06</td><td><a href="#F06">Discipline for saying coworkers would complain to the DOL</a><div class="area">FLSA retaliation</div></td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num prio">80</td><td><span class="tier">Act now</span></td><td></td></tr>
+<tr class="t-now"><td class="num">5</td><td class="mono">F07</td><td><a href="#F07">Discipline for the limitation an accommodation was meant to address</a><div class="area">ADA / PWFA</div></td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num prio">80</td><td><span class="tier">Act now</span></td><td></td></tr>
+<tr class="t-now"><td class="num">6</td><td class="mono">F16</td><td><a href="#F16">Age-coded recruiter notes and post-AEDT age gap</a><div class="area">ADEA</div></td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num prio">64</td><td><span class="tier">Act now</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-now"><td class="num">7</td><td class="mono">F15</td><td><a href="#F15">AEDT race disparity through commute distance</a><div class="area">AEDT / Title VII</div></td><td class="num">3</td><td class="num">5</td><td class="num">4</td><td class="num prio">60</td><td><span class="tier">Act now</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-now"><td class="num">8</td><td class="mono">F04</td><td><a href="#F04">Attendance points assessed for approved FMLA absences</a><div class="area">FMLA</div></td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num prio">60</td><td><span class="tier">Act now</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-qtr"><td class="num">9</td><td class="mono">F21</td><td><a href="#F21">&#x27;PCA flag&#x27; tracks protected activity and predicts termination</a><div class="area">NLRA</div></td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num prio">48</td><td><span class="tier">Act this quarter</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-qtr"><td class="num">10</td><td class="mono">F18</td><td><a href="#F18">Accent cited in CSR rejections</a><div class="area">Title VII</div></td><td class="num">3</td><td class="num">4</td><td class="num">4</td><td class="num prio">48</td><td><span class="tier">Act this quarter</span></td><td></td></tr>
+<tr class="t-qtr"><td class="num">11</td><td class="mono">F08</td><td><a href="#F08">Off-the-clock work at Hub 3</a><div class="area">FLSA</div></td><td class="num">4</td><td class="num">5</td><td class="num">2</td><td class="num prio">40</td><td><span class="tier">Act this quarter</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-qtr"><td class="num">12</td><td class="mono">F19</td><td><a href="#F19">Résumé-gap penalty and caregiver-coded notes</a><div class="area">Title VII / ADA</div></td><td class="num">3</td><td class="num">3</td><td class="num">4</td><td class="num prio">36</td><td><span class="tier">Act this quarter</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-qtr"><td class="num">13</td><td class="mono">F05</td><td><a href="#F05">Work rules that restrict Section 7 activity</a><div class="area">NLRA</div></td><td class="num">4</td><td class="num">4</td><td class="num">2</td><td class="num prio">32</td><td><span class="tier">Act this quarter</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-qtr"><td class="num">14</td><td class="mono">F20</td><td><a href="#F20">Possible sex impact in physical roles (inconclusive)</a><div class="area">AEDT / Title VII</div></td><td class="num">2</td><td class="num">4</td><td class="num">4</td><td class="num prio">32</td><td><span class="tier">Act this quarter</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-qtr"><td class="num">15</td><td class="mono">F10</td><td><a href="#F10">Logistics Coordinators paid below the exempt salary floor</a><div class="area">FLSA</div></td><td class="num">5</td><td class="num">3</td><td class="num">2</td><td class="num prio">30</td><td><span class="tier">Act this quarter</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-qtr"><td class="num">16</td><td class="mono">F11</td><td><a href="#F11">Van drivers wrongly treated as Motor Carrier Act exempt</a><div class="area">FLSA</div></td><td class="num">5</td><td class="num">3</td><td class="num">2</td><td class="num prio">30</td><td><span class="tier">Act this quarter</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-sched"><td class="num">17</td><td class="mono">F17</td><td><a href="#F17">Referral overrides favor White applicants</a><div class="area">Title VII</div></td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num prio">27</td><td><span class="tier">Schedule</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-sched"><td class="num">18</td><td class="mono">F23</td><td><a href="#F23">FMLA leave denied as &#x27;&lt;12 months&#x27; with 541 days&#x27; tenure</a><div class="area">FMLA</div></td><td class="num">3</td><td class="num">3</td><td class="num">3</td><td class="num prio">27</td><td><span class="tier">Schedule</span></td><td></td></tr>
+<tr class="t-sched"><td class="num">19</td><td class="mono">F09</td><td><a href="#F09">Dispatchers may not meet the administrative exemption</a><div class="area">FLSA</div></td><td class="num">3</td><td class="num">4</td><td class="num">2</td><td class="num prio">24</td><td><span class="tier">Schedule</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-sched"><td class="num">20</td><td class="mono">F12</td><td><a href="#F12">Shift Leads classified as executives without supervisory authority</a><div class="area">FLSA</div></td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num prio">24</td><td><span class="tier">Schedule</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-sched"><td class="num">21</td><td class="mono">F22</td><td><a href="#F22">Accommodation requests denied without process or left pending</a><div class="area">ADA / PWFA</div></td><td class="num">4</td><td class="num">3</td><td class="num">2</td><td class="num prio">24</td><td><span class="tier">Schedule</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-sched"><td class="num">22</td><td class="mono">F13</td><td><a href="#F13">Hub 2 leaves differential and bonuses out of the overtime rate</a><div class="area">FLSA</div></td><td class="num">5</td><td class="num">2</td><td class="num">2</td><td class="num prio">20</td><td><span class="tier">Schedule</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-sched"><td class="num">23</td><td class="mono">F14</td><td><a href="#F14">Overtime paid at straight time or not at all</a><div class="area">FLSA</div></td><td class="num">5</td><td class="num">2</td><td class="num">2</td><td class="num prio">20</td><td><span class="tier">Schedule</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-sched"><td class="num">24</td><td class="mono">F24</td><td><a href="#F24">Setting-dependent cases (Medium risk)</a><div class="area">NLRA</div></td><td class="num">2</td><td class="num">3</td><td class="num">3</td><td class="num prio">18</td><td><span class="tier">Schedule</span></td><td></td></tr>
+<tr class="t-sched"><td class="num">25</td><td class="mono">F25</td><td><a href="#F25">Conflicting AEDT scores for the same applicant</a><div class="area">Data integrity</div></td><td class="num">2</td><td class="num">3</td><td class="num">3</td><td class="num prio">18</td><td><span class="tier">Schedule</span></td><td></td></tr>
+<tr class="t-house"><td class="num">26</td><td class="mono">F26</td><td><a href="#F26">Hourly associate coded Exempt</a><div class="area">FLSA</div></td><td class="num">4</td><td class="num">2</td><td class="num">1</td><td class="num prio">8</td><td><span class="tier">Housekeeping</span></td><td><span class=ong>Ongoing</span></td></tr>
+<tr class="t-house"><td class="num">27</td><td class="mono">F27</td><td><a href="#F27">Record defects across HR and payroll data</a><div class="area">Data integrity</div></td><td class="num">5</td><td class="num">1</td><td class="num">1</td><td class="num prio">5</td><td><span class="tier">Housekeeping</span></td><td></td></tr></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>How findings are scored</h2>
+    <p><span class="formula">Priority = L × S × R</span></p>
+    <p>Each finding is scored 1 to 5 on three scales, giving a priority from 1 to 125. Multiplying means a finding has to score on all three to rise, and one low factor pulls it down. Ties go to severity, then likelihood. The scores are ordinal judgments, not probabilities or dollar values.</p>
+    <div class="scales"><div class="scale"><h4>Likelihood</h4><ol reversed>
+<li><b>5 Near-certain</b> The violation shows on the face of the records (e.g., a salary below the legal floor), or a statistically significant pattern is corroborated by documents.</li><li><b>4 Likely</b> Strong statistical or documentary evidence. An innocent explanation is possible but would need specific facts the records do not show.</li><li><b>3 Possible</b> A significant but proxy-dependent or borderline result, or a documentary lead without corroboration.</li><li><b>2 Uncertain</b> Not statistically significant, small samples, or a judgment call that could go either way.</li><li><b>1 Remote</b> Speculative. Included only for completeness.</li></ol></div>
+<div class="scale"><h4>Severity</h4><ol reversed>
+<li><b>5 Critical</b> Loss of a job or job opportunity, discipline or termination for protected activity, or a systemic violation across a whole group where willfulness or liquidated damages are likely.</li><li><b>4 High</b> Adverse action against identifiable individuals (discipline, rejection), or pay loss over $50k per quarter.</li><li><b>3 Moderate</b> Pay loss of $5k-$50k per quarter, or process failures with real but limited individual impact.</li><li><b>2 Low</b> Under $5k per quarter, or a technical violation.</li><li><b>1 Minimal</b> Record-keeping or data integrity with no direct harm to individuals.</li></ol></div>
+<div class="scale"><h4>Reversibility · 5 = hardest to reverse</h4><ol reversed>
+<li><b>5 Irreversible</b> The harm is complete and the people affected cannot realistically be found or made whole.</li><li><b>4 Hard to reverse</b> Needs reinstatement offers, re-contacting rejected applicants, or individual back-pay work, and part of the harm (a lost job, chilled activity) cannot be fully undone.</li><li><b>3 Partly reversible</b> Records and discipline can be rescinded, but later decisions built on them have to be traced and corrected.</li><li><b>2 Reversible at a cost</b> Fixed by paying current employees what they are owed. The limitations clock keeps running until it is fixed.</li><li><b>1 Easily reversed</b> A data, configuration or policy fix going forward.</li></ol></div></div>
+    <p><b>Action tiers.</b> Act now: 60 or more. Act this quarter: 30-59. Schedule: 15-29. Housekeeping: under 15. An item marked <span class="ong">Ongoing</span> keeps causing harm every pay period or every applicant until stopped. Whatever its rank, it gets its containment step right away; the full fix then follows at its tier's pace.</p>
+    <p><b>Proportionality.</b> Remediation is scaled to the evidence. At likelihood 4-5: correct and make people whole. At likelihood 3: investigate first, and contain if that is cheap. At likelihood 2 or less: collect better data before acting.</p>
+  </section>
+
+  <section>
+    <h2>Findings in detail</h2>
+    <div class="findings">
+<article class="finding t-now" id="F02">
+  <header>
+    <div class="rank">1</div>
+    <div class="ttl"><div class="meta"><span class="mono">F02</span> · AEDT / ADEA · <span class="tier">Act now</span> · <span class="ong">Ongoing</span></div>
+    <h3>AEDT screens out applicants 40+</h3></div>
+    <div class="score"><div class="prio-big">100</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>Advance rate 33.3% for 40+ vs 52.5% for under 40: impact ratio 0.63 (n = 444 / 752, p &lt; 1e-9). Ratios fall by band: 0.71, 0.61, 0.43 (60+). Holding other factors constant, the score is 5-10 points lower for 40+ bands. At the same score, under-40 hires rate 0.36 points lower (p &lt; 1e-4), so the score under-predicts older workers.</dd>
+    <dt>Remediation</dt><dd>Stop using the cut score of 65 as an automatic screen now. Route every applicant to human review using job-related criteria until the tool is validated. Require the vendor to disclose its features and validation evidence. Run a job-relatedness study. Re-review 40+ applicants the tool rejected within the charge-filing window for openings that are still available.</dd>
+    <dt>Legal basis</dt><dd class="law">ADEA §4(a), 29 U.S.C. §623(a). Disparate impact: Smith v. City of Jackson, 544 U.S. 228 (2005); RFOA defense, 29 C.F.R. §1625.7. Applicant disparate-impact claims are limited in some circuits (Kleber v. CareFusion, 7th Cir. 2019 (en banc); Villarreal v. R.J. Reynolds, 11th Cir. 2016 (en banc)); disparate treatment is not. An employer is responsible for a vendor tool it uses. Check any state or local AEDT law where hiring occurs.</dd>
+  </dl>
+</article>
+
+<article class="finding t-now" id="F03">
+  <header>
+    <div class="rank">2</div>
+    <div class="ttl"><div class="meta"><span class="mono">F03</span> · AEDT / ADA · <span class="tier">Act now</span> · <span class="ong">Ongoing</span></div>
+    <h3>Applicants who asked for an assessment accommodation were screened out</h3></div>
+    <div class="score"><div class="prio-big">100</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>Advance impact ratio 0.30 (n = 44 vs 1,193, p &lt; 1e-4); hire ratio 0.40. 19 of the 44 were never scored, and none of the 19 was hired. 17 recruiter notes record rejection because the accommodation left them unscored.</dd>
+    <dt>Remediation</dt><dd>Set up an accommodation path for the assessment now (alternative format or extended time scored on equal terms, or individualized review). Re-contact all 44 requesters and reconsider them for open roles. Add accommodation duties to the vendor contract. Train recruiters.</dd>
+    <dt>Legal basis</dt><dd class="law">ADA Title I, 42 U.S.C. §12112(b)(5)(A) (accommodating applicants), (b)(6) (screen-out criteria), (b)(7) (tests must measure skills, not impairment); 29 C.F.R. §§1630.10, 1630.11.</dd>
+  </dl>
+</article>
+
+<article class="finding t-now" id="F01">
+  <header>
+    <div class="rank">3</div>
+    <div class="ttl"><div class="meta"><span class="mono">F01</span> · NLRA · <span class="tier">Act now</span></div>
+    <h3>Discipline imposed for Section 7 activity</h3></div>
+    <div class="score"><div class="prio-big">80</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>33 events coded High risk: 7 terminations, 18 final warnings, 8 written warnings, no verbal warnings. Every High-risk first offense started above a verbal warning, against 25% of other first offenses (21 vs 136 events, Fisher p ≈ 1e-11). Themes include pay discussions, petitions and letters about heat, a group refusal over an unsafe dock plate, union cards, recording a bonus meeting, and discussing an investigation.</dd>
+    <dt>Remediation</dt><dd>Place a litigation hold on all discipline records. Have counsel review each of the 33 events. Rescind discipline where protected activity was the basis. For the 7 terminations, decide on reinstatement and back-pay offers person by person. Stop enforcing the cited rules until F05 is resolved.</dd>
+    <dt>Legal basis</dt><dd class="law">NLRA §7 and §8(a)(1), 29 U.S.C. §§157, 158(a)(1). §8(a)(3) for union-related events. Remedies under §10(c), 29 U.S.C. §160(c). Safety refusals also implicate NLRA §502 (29 U.S.C. §143) and OSH Act §11(c) (29 U.S.C. §660(c)).</dd>
+  </dl>
+</article>
+
+<article class="finding t-now" id="F06">
+  <header>
+    <div class="rank">4</div>
+    <div class="ttl"><div class="meta"><span class="mono">F06</span> · FLSA retaliation · <span class="tier">Act now</span></div>
+    <h3>Discipline for saying coworkers would complain to the DOL</h3></div>
+    <div class="score"><div class="prio-big">80</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>5 events, a subset of F01, discipline employees for telling a supervisor that coworkers would contact the Department of Labor about unpaid pre-shift time (1 termination). The underlying complaint matches the off-the-clock pattern in F08.</dd>
+    <dt>Remediation</dt><dd>Rescind the discipline and route these cases to counsel with F01. Investigate the pre-shift time claim on its merits as part of F08. Remind managers that complaints to agencies, including oral complaints, are protected.</dd>
+    <dt>Legal basis</dt><dd class="law">FLSA §15(a)(3), 29 U.S.C. §215(a)(3); oral complaints are protected (Kasten v. Saint-Gobain, 563 U.S. 1 (2011)). Also NLRA §7, because the complaint was concerted.</dd>
+  </dl>
+</article>
+
+<article class="finding t-now" id="F07">
+  <header>
+    <div class="rank">5</div>
+    <div class="ttl"><div class="meta"><span class="mono">F07</span> · ADA / PWFA · <span class="tier">Act now</span></div>
+    <h3>Discipline for the limitation an accommodation was meant to address</h3></div>
+    <div class="score"><div class="prio-big">80</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>12 events in the 10-57 days after an accommodation request discipline the limitation itself (2 terminations: DE-5175, DE-5031). Discipline in the 90 days after a request runs 5.2× the baseline (15 events in 2,093 person-days, exact p = 6.6e-7).</dd>
+    <dt>Remediation</dt><dd>Review each of the 12 events individually. Rescind discipline that penalizes the limitation. Decide on reinstatement offers for CL-107471 and CL-101211. Restart the interactive process for every affected employee.</dd>
+    <dt>Legal basis</dt><dd class="law">ADA 42 U.S.C. §12112(b)(5)(A) (failure to accommodate) and §12203(a)-(b) (retaliation, interference); PWFA 42 U.S.C. §2000gg-1 and 29 C.F.R. Part 1636.</dd>
+  </dl>
+</article>
+
+<article class="finding t-now" id="F16">
+  <header>
+    <div class="rank">6</div>
+    <div class="ttl"><div class="meta"><span class="mono">F16</span> · ADEA · <span class="tier">Act now</span> · <span class="ong">Ongoing</span></div>
+    <h3>Age-coded recruiter notes and post-AEDT age gap</h3></div>
+    <div class="score"><div class="prio-big">64</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>28 notes use age-coded language (&#x27;overqualified&#x27;, &#x27;more energy&#x27;, &#x27;close to retiring&#x27;, &#x27;digital native&#x27;). Among applicants the tool advanced, 62.8% of 40+ were hired vs 74.8% of under 40 (n = 137 / 373, p = 0.011).</dd>
+    <dt>Remediation</dt><dd>Review the decisions behind the 28 notes and reconsider affected applicants. Require a structured, job-related rejection reason in the ATS. Train recruiters.</dd>
+    <dt>Legal basis</dt><dd class="law">ADEA 29 U.S.C. §623(a)(1) (disparate treatment); the notes are direct evidence of motive.</dd>
+  </dl>
+</article>
+
+<article class="finding t-now" id="F15">
+  <header>
+    <div class="rank">7</div>
+    <div class="ttl"><div class="meta"><span class="mono">F15</span> · AEDT / Title VII · <span class="tier">Act now</span> · <span class="ong">Ongoing</span></div>
+    <h3>AEDT race disparity through commute distance</h3></div>
+    <div class="score"><div class="prio-big">60</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>Race proxy impact ratios: Black 0.80, Hispanic 0.78 among scored applicants (Holm p = 0.030 and 0.015). The score falls 0.48 points per commute mile; mean commute is 16.4 mi for the Black proxy group and 15.5 for Hispanic, against 11.2 for White. Commute does not predict performance (at the same score, a positive coefficient).</dd>
+    <dt>Remediation</dt><dd>Remove commute and ZIP-derived features from scoring now. Collect voluntary self-identified race and ethnicity data and re-test. If impact remains, look for a less discriminatory alternative.</dd>
+    <dt>Legal basis</dt><dd class="law">Title VII §703(k), 42 U.S.C. §2000e-2(k); Griggs v. Duke Power Co., 401 U.S. 424 (1971); Connecticut v. Teal, 457 U.S. 440 (1982) (a balanced bottom line does not cure impact at a step); 29 C.F.R. §§1607.3(B), 1607.4(D).</dd>
+  </dl>
+</article>
+
+<article class="finding t-now" id="F04">
+  <header>
+    <div class="rank">8</div>
+    <div class="ttl"><div class="meta"><span class="mono">F04</span> · FMLA · <span class="tier">Act now</span> · <span class="ong">Ongoing</span></div>
+    <h3>Attendance points assessed for approved FMLA absences</h3></div>
+    <div class="score"><div class="prio-big">60</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>All 9 attendance write-ups that cite a family or medical reason count absences inside approved FMLA leave; 8 are final warnings. Discipline in the 60 days after approved leave runs 17.7× the baseline (13 events in 530 person-days, exact p = 2e-12).</dd>
+    <dt>Remediation</dt><dd>Rescind the 9 write-ups and the points. Trace any later discipline or termination that relied on them; CL-103029 was later terminated. Configure the attendance system so FMLA-designated absences never generate points. Train supervisors.</dd>
+    <dt>Legal basis</dt><dd class="law">FMLA §105(a)(1), 29 U.S.C. §2615(a)(1); 29 C.F.R. §825.220(c) (FMLA leave cannot count under no-fault attendance policies). Damages, including liquidated damages, under 29 U.S.C. §2617.</dd>
+  </dl>
+</article>
+
+<article class="finding t-qtr" id="F21">
+  <header>
+    <div class="rank">9</div>
+    <div class="ttl"><div class="meta"><span class="mono">F21</span> · NLRA · <span class="tier">Act this quarter</span> · <span class="ong">Ongoing</span></div>
+    <h3>&#x27;PCA flag&#x27; tracks protected activity and predicts termination</h3></div>
+    <div class="score"><div class="prio-big">48</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>Employee Relations keeps a flag for protected concerted activity. Flagged employees are involuntarily terminated at 17.0% vs 4.9% (n = 47 / 371, p = 0.005), and disciplined at 59.6% vs 34.8% (p = 0.001). 5 employees with clear Section 7 discipline are unflagged.</dd>
+    <dt>Remediation</dt><dd>Have counsel review the flag&#x27;s purpose and who can see it. Remove it from any decision workflow. Preserve it (do not delete it; it is evidence). Audit who used it and for what.</dd>
+    <dt>Legal basis</dt><dd class="law">NLRA §8(a)(1) (surveillance or the impression of it) and §8(a)(3); employer knowledge under Wright Line, 251 NLRB 1083 (1980).</dd>
+  </dl>
+</article>
+
+<article class="finding t-qtr" id="F18">
+  <header>
+    <div class="rank">10</div>
+    <div class="ttl"><div class="meta"><span class="mono">F18</span> · Title VII · <span class="tier">Act this quarter</span></div>
+    <h3>Accent cited in CSR rejections</h3></div>
+    <div class="score"><div class="prio-big">48</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>6 rejection notes for Customer Service applicants cite an accent (&#x27;may confuse customers&#x27;).</dd>
+    <dt>Remediation</dt><dd>Review each rejection for a documented, job-related communication assessment. Reconsider applicants where none exists.</dd>
+    <dt>Legal basis</dt><dd class="law">Title VII §703(a), 42 U.S.C. §2000e-2(a). Under EEOC national-origin guidance, accent is a lawful basis only when it materially interferes with job performance.</dd>
+  </dl>
+</article>
+
+<article class="finding t-qtr" id="F08">
+  <header>
+    <div class="rank">11</div>
+    <div class="ttl"><div class="meta"><span class="mono">F08</span> · FLSA · <span class="tier">Act this quarter</span> · <span class="ong">Ongoing</span></div>
+    <h3>Off-the-clock work at Hub 3</h3></div>
+    <div class="score"><div class="prio-big">40</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>30 employees (all Hub 3 Fleet Techs and Forklift Operators, plus 2 van drivers) have paid time capped at 40 h/week and no OT. Their badge time exceeds paid time by a median of 9.5 h/week, against a tight 2.75 h/week meal-only baseline elsewhere (Hub 3 vs other hubs: p ≈ 9e-18). About 2,578 unpaid hours, worth $70.8k-$106.2k in Q2 alone.</dd>
+    <dt>Remediation</dt><dd>Remove the 40-hour cap now and pay all verified time. Reconstruct hours from badge data back through the limitations period and pay what is owed. Retrain supervisors on recording hours.</dd>
+    <dt>Legal basis</dt><dd class="law">FLSA §7(a), 29 U.S.C. §207(a); hours worked, 29 C.F.R. §§785.11-.13; records, 29 U.S.C. §211(c) and 29 C.F.R. §516.2; limitations, 29 U.S.C. §255 (3 years if willful); liquidated damages, §216(b).</dd>
+  </dl>
+</article>
+
+<article class="finding t-qtr" id="F19">
+  <header>
+    <div class="rank">12</div>
+    <div class="ttl"><div class="meta"><span class="mono">F19</span> · Title VII / ADA · <span class="tier">Act this quarter</span> · <span class="ong">Ongoing</span></div>
+    <h3>Résumé-gap penalty and caregiver-coded notes</h3></div>
+    <div class="score"><div class="prio-big">36</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>The score falls 0.29 points per gap month (p &lt; 1e-4). Gaps run longer for applicants inferred female (5.0 vs 2.9 months). Gap does not predict performance. 4 notes ask about childcare or kids.</dd>
+    <dt>Remediation</dt><dd>Remove the gap feature. Review the 4 decisions with caregiver notes.</dd>
+    <dt>Legal basis</dt><dd class="law">Title VII sex-plus (Phillips v. Martin Marietta Corp., 400 U.S. 542 (1971)); EEOC enforcement guidance on caregiver discrimination (2007); ADA screen-out where gaps reflect disability, 42 U.S.C. §12112(b)(6).</dd>
+  </dl>
+</article>
+
+<article class="finding t-qtr" id="F05">
+  <header>
+    <div class="rank">13</div>
+    <div class="ttl"><div class="meta"><span class="mono">F05</span> · NLRA · <span class="tier">Act this quarter</span> · <span class="ong">Ongoing</span></div>
+    <h3>Work rules that restrict Section 7 activity</h3></div>
+    <div class="score"><div class="prio-big">32</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>Discipline cites rules on pay confidentiality, no recording, social-media &#x27;disparagement&#x27;, blanket investigation confidentiality, no union talk or solicitation on premises, company-only insignia, and &#x27;chain of command&#x27; or &#x27;negative attitude&#x27;.</dd>
+    <dt>Remediation</dt><dd>Rewrite each rule narrowly with Section 7 savings language. Tell employees which rules are rescinded or changed. Train supervisors on the revised rules.</dd>
+    <dt>Legal basis</dt><dd class="law">NLRA §8(a)(1). Work-rule standard: Stericycle, Inc., 372 NLRB No. 113 (2023) (confirm current Board law). Solicitation and insignia: Republic Aviation Corp. v. NLRB, 324 U.S. 793 (1945). Discussing pay is core §7 activity.</dd>
+  </dl>
+</article>
+
+<article class="finding t-qtr" id="F20">
+  <header>
+    <div class="rank">14</div>
+    <div class="ttl"><div class="meta"><span class="mono">F20</span> · AEDT / Title VII · <span class="tier">Act this quarter</span> · <span class="ong">Ongoing</span></div>
+    <h3>Possible sex impact in physical roles (inconclusive)</h3></div>
+    <div class="score"><div class="prio-big">32</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>Women (name proxy) in Forklift, Driver and Fleet Tech roles advance at 0.80× the male rate (n = 50, p = 0.28). The name proxy misclassifies some applicants, which hides effects.</dd>
+    <dt>Remediation</dt><dd>Collect voluntary self-identified sex data and re-test with an adequate sample. No remedial action on current evidence.</dd>
+    <dt>Legal basis</dt><dd class="law">Title VII §703(k), 42 U.S.C. §2000e-2(k).</dd>
+  </dl>
+</article>
+
+<article class="finding t-qtr" id="F10">
+  <header>
+    <div class="rank">15</div>
+    <div class="ttl"><div class="meta"><span class="mono">F10</span> · FLSA · <span class="tier">Act this quarter</span> · <span class="ong">Ongoing</span></div>
+    <h3>Logistics Coordinators paid below the exempt salary floor</h3></div>
+    <div class="score"><div class="prio-big">30</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>18 exempt coordinators earn $33,200-$35,500, below $35,568 ($684/week). Q2 exposure $8.9k-$31.2k.</dd>
+    <dt>Remediation</dt><dd>Raise pay to at least $684/week or reclassify as non-exempt now. Pay back overtime.</dd>
+    <dt>Legal basis</dt><dd class="law">29 C.F.R. §541.600; §541.200(a)(1). The 2024 threshold increase was vacated (Texas v. U.S. Dep&#x27;t of Labor, E.D. Tex. Nov. 15, 2024).</dd>
+  </dl>
+</article>
+
+<article class="finding t-qtr" id="F11">
+  <header>
+    <div class="rank">16</div>
+    <div class="ttl"><div class="meta"><span class="mono">F11</span> · FLSA · <span class="tier">Act this quarter</span> · <span class="ong">Ongoing</span></div>
+    <h3>Van drivers wrongly treated as Motor Carrier Act exempt</h3></div>
+    <div class="score"><div class="prio-big">30</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>9 Final-Mile Van Drivers in vehicles of 8,550-9,990 lbs GVWR are classified MCA-exempt and receive no OT. Q2 exposure about $24.9k.</dd>
+    <dt>Remediation</dt><dd>Reclassify as non-exempt and pay OT going forward and back. Check vehicle-assignment logs for any weeks spent in heavier vehicles.</dd>
+    <dt>Legal basis</dt><dd class="law">29 U.S.C. §213(b)(1); small-vehicle exception, SAFETEA-LU Technical Corrections Act of 2008, Pub. L. 110-244, §306.</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F17">
+  <header>
+    <div class="rank">17</div>
+    <div class="ttl"><div class="meta"><span class="mono">F17</span> · Title VII · <span class="tier">Schedule</span> · <span class="ong">Ongoing</span></div>
+    <h3>Referral overrides favor White applicants</h3></div>
+    <div class="score"><div class="prio-big">27</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>Among &#x27;Do Not Advance&#x27; applicants, 41.9% of those with a referral were hired vs 2.6% without (n = 93 / 534, p &lt; 1e-24). Referrals make up 17.7% of White applicants vs 11.0% (Black) and 12.0% (Hispanic).</dd>
+    <dt>Remediation</dt><dd>Require a documented, job-related reason for every override. Monitor the overrides&#x27; adverse impact. Widen recruiting sources.</dd>
+    <dt>Legal basis</dt><dd class="law">Title VII §703(k), 42 U.S.C. §2000e-2(k); 29 C.F.R. §1607.4 (impact of each selection procedure).</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F23">
+  <header>
+    <div class="rank">18</div>
+    <div class="ttl"><div class="meta"><span class="mono">F23</span> · FMLA · <span class="tier">Schedule</span></div>
+    <h3>FMLA leave denied as &#x27;&lt;12 months&#x27; with 541 days&#x27; tenure</h3></div>
+    <div class="score"><div class="prio-big">27</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>CL-105915&#x27;s bonding leave was denied for under 12 months of service, but tenure at the leave start was 541 days. The 1,250-hour test cannot be checked from the data.</dd>
+    <dt>Remediation</dt><dd>Verify hours in the prior 12 months. If eligible, designate the leave retroactively and restore anything lost.</dd>
+    <dt>Legal basis</dt><dd class="law">29 U.S.C. §§2611(2)(A), 2615(a)(1); 29 C.F.R. §§825.110, 825.301(d).</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F09">
+  <header>
+    <div class="rank">19</div>
+    <div class="ttl"><div class="meta"><span class="mono">F09</span> · FLSA · <span class="tier">Schedule</span> · <span class="ong">Ongoing</span></div>
+    <h3>Dispatchers may not meet the administrative exemption</h3></div>
+    <div class="score"><div class="prio-big">24</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>29 Dispatchers are classified Administrative-exempt. The duties summary (&#x27;assigns loads using TMS routing recommendations… answers check-in calls&#x27;) reads as following set procedures. Average 49 h/week. Q2 exposure $23.6k-$88.2k if misclassified.</dd>
+    <dt>Remediation</dt><dd>Investigate before acting: interview and observe to establish actual duties and discretion. If the test fails, reclassify as non-exempt and pay back overtime.</dd>
+    <dt>Legal basis</dt><dd class="law">29 C.F.R. §§541.200-.202 (primary duty requiring discretion and independent judgment on matters of significance).</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F12">
+  <header>
+    <div class="rank">20</div>
+    <div class="ttl"><div class="meta"><span class="mono">F12</span> · FLSA · <span class="tier">Schedule</span> · <span class="ong">Ongoing</span></div>
+    <h3>Shift Leads classified as executives without supervisory authority</h3></div>
+    <div class="score"><div class="prio-big">24</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>4 Shift Leads with 0-1 direct reports, about 70% floor work and no hire/fire input are classified Executive. Q2 exposure $6.1k-$24.9k.</dd>
+    <dt>Remediation</dt><dd>Confirm duties, reclassify as non-exempt and pay back overtime.</dd>
+    <dt>Legal basis</dt><dd class="law">29 C.F.R. §541.100(a) (directs 2+ FTEs; hire/fire authority or weight); §541.104.</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F22">
+  <header>
+    <div class="rank">21</div>
+    <div class="ttl"><div class="meta"><span class="mono">F22</span> · ADA / PWFA · <span class="tier">Schedule</span> · <span class="ong">Ongoing</span></div>
+    <h3>Accommodation requests denied without process or left pending</h3></div>
+    <div class="score"><div class="prio-big">24</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>4 denials have no documented interactive process (CL-100105, CL-101497, CL-107471, CL-107512). 3 requests are pending over 60 days, the oldest for 352 days (CL-100247).</dd>
+    <dt>Remediation</dt><dd>Complete the interactive process for all 7 within a set deadline and document it. Provide interim measures while it runs.</dd>
+    <dt>Legal basis</dt><dd class="law">29 C.F.R. §§1630.2(o)(3), 1630.9; PWFA regulations, 29 C.F.R. Part 1636 (interactive process; unnecessary delay).</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F13">
+  <header>
+    <div class="rank">22</div>
+    <div class="ttl"><div class="meta"><span class="mono">F13</span> · FLSA · <span class="tier">Schedule</span> · <span class="ong">Ongoing</span></div>
+    <h3>Hub 2 leaves differential and bonuses out of the overtime rate</h3></div>
+    <div class="score"><div class="prio-big">20</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>51 of 54 Hub 2 employees with OT and some differential or bonus are paid OT on base rate only, against 0 of 69 at other hubs (p ≈ 2e-31). Q2 shortfall about $3.3k.</dd>
+    <dt>Remediation</dt><dd>Fix the Hub 2 payroll configuration. Recalculate and pay the shortfall for the limitations period.</dd>
+    <dt>Legal basis</dt><dd class="law">29 U.S.C. §207(e); 29 C.F.R. §§778.207(b), 778.208-.211.</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F14">
+  <header>
+    <div class="rank">23</div>
+    <div class="ttl"><div class="meta"><span class="mono">F14</span> · FLSA · <span class="tier">Schedule</span> · <span class="ong">Ongoing</span></div>
+    <h3>Overtime paid at straight time or not at all</h3></div>
+    <div class="score"><div class="prio-big">20</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>7 employees were paid 1.0× for OT and 2 were paid nothing for recorded OT hours. Q2 shortfall about $5.3k.</dd>
+    <dt>Remediation</dt><dd>Correct the pay for the 9 employees and find the root cause (manual override or pay-code error).</dd>
+    <dt>Legal basis</dt><dd class="law">29 U.S.C. §207(a)(1).</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F24">
+  <header>
+    <div class="rank">24</div>
+    <div class="ttl"><div class="meta"><span class="mono">F24</span> · NLRA · <span class="tier">Schedule</span></div>
+    <h3>Setting-dependent cases (Medium risk)</h3></div>
+    <div class="score"><div class="prio-big">18</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>6 events: 5 profane outbursts in group meetings about schedule changes where others shared the concern, and 1 TikTok about staffing that showed customer labels.</dd>
+    <dt>Remediation</dt><dd>Counsel review using the setting-specific analysis. No blanket action.</dd>
+    <dt>Legal basis</dt><dd class="law">NLRA §7; Lion Elastomers LLC, 372 NLRB No. 83 (2023) (confirm current Board law).</dd>
+  </dl>
+</article>
+
+<article class="finding t-sched" id="F25">
+  <header>
+    <div class="rank">25</div>
+    <div class="ttl"><div class="meta"><span class="mono">F25</span> · Data integrity · <span class="tier">Schedule</span></div>
+    <h3>Conflicting AEDT scores for the same applicant</h3></div>
+    <div class="score"><div class="prio-big">18</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>CL-104284 has two rows, scored 64.0 and 68.1. Both say &#x27;Do Not Advance&#x27;, so if 68.1 is the true score, the applicant was wrongly screened out. 2 other IDs have conflicting scores below 65.</dd>
+    <dt>Remediation</dt><dd>Get the authoritative score from the vendor. If it is 68.1, reconsider the applicant.</dd>
+    <dt>Legal basis</dt><dd class="law">29 C.F.R. §1607.15 (selection-procedure records); 29 C.F.R. §1602.14 (record retention).</dd>
+  </dl>
+</article>
+
+<article class="finding t-house" id="F26">
+  <header>
+    <div class="rank">26</div>
+    <div class="ttl"><div class="meta"><span class="mono">F26</span> · FLSA · <span class="tier">Housekeeping</span> · <span class="ong">Ongoing</span></div>
+    <h3>Hourly associate coded Exempt</h3></div>
+    <div class="score"><div class="prio-big">8</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><span>S</span><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>CL-105650 is a Warehouse Associate coded Exempt with no exemption basis. No Q2 payroll exists to measure the effect.</dd>
+    <dt>Remediation</dt><dd>Correct the classification and check pay history for unpaid OT.</dd>
+    <dt>Legal basis</dt><dd class="law">29 U.S.C. §207(a); 29 C.F.R. §541.600.</dd>
+  </dl>
+</article>
+
+<article class="finding t-house" id="F27">
+  <header>
+    <div class="rank">27</div>
+    <div class="ttl"><div class="meta"><span class="mono">F27</span> · Data integrity · <span class="tier">Housekeeping</span></div>
+    <h3>Record defects across HR and payroll data</h3></div>
+    <div class="score"><div class="prio-big">5</div><div class="axes">
+      <span>L</span><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><span>S</span><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><span>R</span><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div></div>
+  </header>
+  <dl>
+    <dt>Evidence</dt><dd>6 exact duplicate rows; 9 spellings of the exempt label; 8 age bands that contradict graduation year; 2 rejected applicants with employee records; 4 payroll defects (impossible hours, negative OT, components that don&#x27;t sum, missing badge data); 2 discipline events dated before hire; 5 discipline counts that don&#x27;t match the event file.</dd>
+    <dt>Remediation</dt><dd>Deduplicate, standardize codes, reconcile the HRIS discipline count with the event log, and add validation rules at entry.</dd>
+    <dt>Legal basis</dt><dd class="law">Record-keeping: 29 C.F.R. Part 516 (FLSA), §825.500 (FMLA), §1602.14 (Title VII/ADA), §1607.15 (UGESP).</dd>
+  </dl>
+</article></div>
+  </section>
+
+  <section>
+    <h2>What this audit does not show</h2>
+    <ul class="limits"><li><b>No legal conclusions.</b> This is a screen. It identifies patterns and leads; it does not find that any law was violated, establish intent, or predict how an agency or court would rule.</li>
+<li><b>No causation.</b> Timing tests show that discipline clusters after accommodation requests and leave. They do not prove the requests caused the discipline. That needs decision-maker interviews, comparator analysis and the documents behind each decision.</li>
+<li><b>No true protected-class data.</b> Race comes from BISG, sex from first names, age from a self-reported band, and disability from an accommodation request. Proxy error usually hides disparities, so the absence of a finding (e.g., sex) is not evidence there is no problem.</li>
+<li><b>Not tested.</b> Disparate discipline or termination by race, sex or age among employees; pay equity (EPA, Title VII); promotion; age in terminations; the vendor model&#x27;s internals; state and local law (state wage-hour, AEDT bias-audit laws, state leave laws).</li>
+<li><b>No full validation study.</b> The performance check uses 90-day supervisor ratings for hires only (range-restricted, possibly biased). It is a warning sign, not a UGESP-compliant validation.</li>
+<li><b>Limited financial exposure.</b> Dollar figures cover Q2 2026 only. They exclude the 2-3 year lookback, liquidated damages, interest, fees and state penalties. Off-the-clock estimates assume badge time equals time worked and that meal periods were taken.</li>
+<li><b>Facts not in the data.</b> Actual job duties (only HR summaries); whether employees met the FMLA 1,250-hour test; dates of the protected activity behind the PCA flag; the handbook text itself; union status; whether NLRA &#x27;supervisors&#x27; have real §2(11) authority.</li>
+<li><b>Narrative coding limits.</b> NLRA risk was coded by keyword rules, then read by hand. Ratings are screening judgments. Board standards (Stericycle, Lion Elastomers) can change and should be confirmed before relying on them.</li>
+<li><b>Not a blind review.</b> The analyst also generated this synthetic dataset, so knew what had been planted. Rules were fixed in code and applied to every record to limit bias, but an independent reviewer should repeat the analysis.</li>
+<li><b>Synthetic data.</b> All records are synthetic. The findings demonstrate the method; they say nothing about any real company.</li></ul>
+  </section>
+
+  <section>
+    <h2>Corrections log</h2>
+    <p>Every correction made to the analysis, in order.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>#</th><th>Stage</th><th>By</th><th>What was wrong</th><th>What changed</th><th>Effect on findings</th></tr></thead>
+      <tbody><tr><td class=num>1</td><td>Analysis run 1</td><td>Claude</td><td>The age-band consistency check crashed on blank graduation years.</td><td>Added a type check before comparing bands.</td><td>None. It failed before producing any results.</td></tr>
+<tr><td class=num>2</td><td>Analysis run 2</td><td>Claude</td><td>pandas deprecation of positional sum(1).</td><td>Changed to sum(axis=1).</td><td>None.</td></tr>
+<tr><td class=num>3</td><td>Console review</td><td>Claude</td><td>A display filter (grep -v Warning) hid every row containing &#x27;Written Warning&#x27; or &#x27;Final Written Warning&#x27;, so tables looked incomplete.</td><td>Re-read the console with a narrower filter before writing the report.</td><td>None on numbers. It was caught before reporting.</td></tr>
+<tr><td class=num>4</td><td>Draft report</td><td>Claude</td><td>The accommodation keyword pattern &#x27;schedule change&#x27; also matched &#x27;schedule changes&#x27; in six group-meeting outbursts. The draft claimed 6 possible missed-notice cases. The same error tagged those outbursts &#x27;ADA/PWFA&#x27; in nlra_narrative_screen.csv.</td><td>Pattern changed to &#x27;schedule change(?!s)&#x27; and &#x27;\bsit&#x27;. Re-ran. The report now says all 12 matching narratives belong to employees with requests on file.</td><td>Removed a false finding before the report was committed.</td></tr>
+<tr><td class=num>5</td><td>Draft report</td><td>Claude</td><td>The DOL-complaint theme was counted as 6 events.</td><td>Corrected to 5 after listing every High-risk event by theme (themes now sum to 33).</td><td>Fixed before the report was committed.</td></tr>
+<tr><td class=num>6</td><td>Committed report</td><td>Claude</td><td>Key-findings row 3 quoted race ratios (0.80, 0.81; Holm p 0.037, 0.044) from the &#x27;all applicants&#x27; population without saying so, while the detail table used scored applicants (0.80, 0.78; p 0.030, 0.015).</td><td>Row 3 now gives both populations, labeled.</td><td>No change to the conclusion. It was a labeling error in a pushed version.</td></tr>
+<tr><td class=num>7</td><td>Committed report</td><td>Claude</td><td>It said Hub 3 &#x27;shows almost no paid OT (29 of 48 have none)&#x27;. 60% is not &#x27;almost none&#x27;.</td><td>Reworded to 29 of 48 (60%) at Hub 3 vs 3 of 132 (2%) at Hubs 1-2.</td><td>The wording overstated the pattern. The off-the-clock finding is unchanged.</td></tr>
+<tr><td class=num>8</td><td>Audit summary prep</td><td>Claude</td><td>Re-checked the statement that almost all FMLA denials cite &#x27;&lt;12 months&#x27;.</td><td>Verified: 54 of 55. The other one cites certification not returned.</td><td>No change.</td></tr></tbody></table></div>
+    <p><b>Corrections by you (the requester):</b> none recorded. You have not made any corrections to the analysis in this conversation. If you made or want changes recorded from outside this session, add them here with the same columns.</p>
+    <p class="note"><b>Pre-analysis (dataset generation).</b> Before the analysis, during dataset generation, Claude tuned and regenerated the synthetic data several times and corrected figures in the answer key after checking them against the data (for example, a race disparity first described as 2.3 SD was corrected to z ≈ −2.6). Those were corrections to the answer key, which the analysis never read. They are recorded for completeness.</p>
+  </section>
+</div>

@@ -20,7 +20,7 @@ This is a statistical and documentary screen, not legal advice. Every flag below
 |---|---|---|---|
 | 1 | AEDT, age | Applicants 40+ advance at 0.63× the under-40 rate (n = 444 vs 752, p < 1e-9). The ratio falls with each age band, down to 0.43 for 60+. The score *under-predicts* how older hires actually perform. | Strong |
 | 2 | AEDT, disability | Applicants who requested an accommodation advance at **0.30×** the rate of everyone else (n = 44, p < 1e-4). 19 of the 44 got **no score** and none of those 19 was hired. | Strong |
-| 3 | AEDT, race | The BISG proxy gives Black 0.80× and Hispanic 0.81× the White rate (Holm p = 0.037 and 0.044). Commute distance drives this, and commute does not predict performance. | Moderate (borderline ratio, significant) |
+| 3 | AEDT, race | The BISG proxy gives Black 0.80× and Hispanic 0.78× the White rate among scored applicants (Holm p = 0.030 and 0.015). Counting unscored applicants as rejected gives 0.80× and 0.81× (Holm p = 0.037 and 0.044). Commute distance drives this, and commute does not predict performance. | Moderate (borderline ratio, significant) |
 | 4 | AEDT, sex | No overall impact on the name-based proxy. In physical roles, women advance at 0.80× (n = 50, p = 0.28). | Inconclusive; the proxy is weak |
 | 5 | FLSA, classification | 18 Logistics Coordinators are below the $35,568 salary floor. 9 van drivers are exempt under the MCA despite vehicles of 10,000 lbs or less. 4 Shift Leads with fewer than 2 reports are classified Executive. All 29 Dispatchers need a duties review. | Strong (first three); review (Dispatchers) |
 | 6 | FLSA, overtime | Hub 2 leaves shift differential and bonuses out of the regular rate (51 of 54 at-risk employees, p ≈ 2e-31). Hub 3 caps paid time at 40 h/week while badge data shows about 7 more hours (30 employees). 7 employees were paid straight time for OT and 2 got no OT pay. | Strong |
@@ -191,7 +191,7 @@ All flagged notes are in `outputs/recruiter_notes_flagged.csv`.
 | No OT hours | 2 | 1 | 29 | 32 | — |
 
 - **Hub 2 regular-rate exclusion:** of employees with OT and some differential or bonus, 51 of 54 at Hub 2 show the exclusion pattern, against 0 of 69 at Hubs 1 and 3 (Fisher p ≈ 2e-31). It is a payroll-configuration problem. The dollars per person are small, but every person affected counts, and the problem continues every pay period.
-- **Hub 3 shows almost no paid OT** (29 of 48 have none). The off-the-clock test below explains why.
+- **Hub 3 records far less paid OT than the other hubs:** 29 of 48 non-exempt employees (60%) have no OT hours, against 3 of 132 (2%) at Hubs 1 and 2. The off-the-clock test below explains why.
 
 ### Off-the-clock work (badge vs paid, n = 314)
 - **Baseline:** the badge-minus-paid gap is very tight, with a median of 2.76 h/week (range 2.51-2.97 for the 284 unflagged employees). That matches the 2.5 h/week meal deduction plus clock-in and clock-out time.
