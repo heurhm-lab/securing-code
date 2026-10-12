@@ -1,0 +1,82 @@
+applicant_id,age_band,job_group,aedt_recommendation,hire_decision,recruiter_note
+CL-108543,40-49,Customer Service Representative,,Rejected,"Requested extra time on assessment - could not be scored, moved on"
+CL-105706,50-59,Warehouse Associate,Advance,Rejected,Probably close to retiring
+CL-103909,25-39,Warehouse Associate,Do Not Advance,Hired,Manager override - known to team
+CL-100286,25-39,Driver,Do Not Advance,Hired,"Good word from referral, override"
+CL-105609,50-59,Driver,Do Not Advance,Hired,Referred by site lead - override score
+CL-107271,25-39,Customer Service Representative,Do Not Advance,Rejected,Communication - accent may confuse customers
+CL-107079,60+,HR Generalist,Do Not Advance,Hired,"Good word from referral, override"
+CL-101444,25-39,Forklift Operator,Do Not Advance,Rejected,Gap in work history (kids?)
+CL-107446,60+,Warehouse Supervisor,Do Not Advance,Hired,Referred by site lead - override score
+CL-104014,60+,Forklift Operator,Advance,Rejected,Would not take direction well from younger supervisors
+CL-101797,25-39,Warehouse Associate,Advance,Rejected,Large gap in employment - ask about childcare situation
+CL-101944,50-59,Driver,Advance,Rejected,Not a long-term fit for the team
+CL-101480,40-49,Customer Service Representative,,Rejected,Did not complete standard assessment (accommodation request)
+CL-108248,40-49,Customer Service Representative,Do Not Advance,Rejected,Heavy accent - concern for phone queue
+CL-103357,18-24,Warehouse Associate,Advance,Hired,"Recent grad, great growth potential"
+CL-104415,18-24,Warehouse Associate,Advance,Hired,Young and hungry - great culture add
+CL-106860,50-59,Forklift Operator,,Rejected,Asked for alt format of WorkFit test. No score = no advance
+CL-106645,50-59,Warehouse Associate,,Rejected,"Requested extra time on assessment - could not be scored, moved on"
+CL-103554,50-59,Warehouse Associate,Advance,Rejected,Looking for someone with more energy
+CL-107150,50-59,Warehouse Associate,Do Not Advance,Hired,Referred by site lead - override score
+CL-103777,25-39,Warehouse Associate,,Rejected,Asked for alt format of WorkFit test. No score = no advance
+CL-105215,40-49,Fleet Maintenance Technician,,Rejected,"Requested extra time on assessment - could not be scored, moved on"
+CL-107996,18-24,Driver,Do Not Advance,Hired,"Good word from referral, override"
+CL-107007,18-24,Forklift Operator,Do Not Advance,Hired,"Recent grad, great growth potential"
+CL-107929,18-24,Warehouse Associate,Advance,Hired,Young and hungry - great culture add
+CL-103274,50-59,HR Generalist,,Rejected,"Requested extra time on assessment - could not be scored, moved on"
+CL-101465,50-59,Warehouse Associate,Advance,Rejected,Not a long-term fit for the team
+CL-108369,25-39,Operations Manager,,Rejected,Did not complete standard assessment (accommodation request)
+CL-107284,50-59,Customer Service Representative,,Rejected,Did not complete standard assessment (accommodation request)
+CL-106493,60+,Forklift Operator,Advance,Rejected,Concerned about keeping pace on the floor
+CL-106978,25-39,Driver,Advance,Hired,"Recent grad, great growth potential"
+CL-102748,60+,Customer Service Representative,Do Not Advance,Hired,"Good word from referral, override"
+CL-105787,18-24,Customer Service Representative,Do Not Advance,Rejected,Communication - accent may confuse customers
+CL-102684,25-39,Forklift Operator,,Rejected,"Requested extra time on assessment - could not be scored, moved on"
+CL-101153,25-39,Warehouse Associate,Do Not Advance,Hired,"Good word from referral, override"
+CL-106034,40-49,Driver,Do Not Advance,Hired,Referred by site lead - override score
+CL-104002,25-39,Warehouse Associate,Do Not Advance,Hired,"Good word from referral, override"
+CL-100713,25-39,Driver,Do Not Advance,Hired,Manager override - known to team
+CL-101585,25-39,Customer Service Representative,Do Not Advance,Rejected,Heavy accent - concern for phone queue
+CL-101995,60+,Warehouse Associate,Advance,Rejected,Not a long-term fit for the team
+CL-108668,50-59,Fleet Maintenance Technician,Advance,Rejected,Overqualified - likely to leave once something better comes along
+CL-102673,18-24,Warehouse Associate,,Rejected,Asked for alt format of WorkFit test. No score = no advance
+CL-100804,18-24,Driver,Advance,Hired,Young and hungry - great culture add
+CL-104031,18-24,Driver,Advance,Hired,Young and hungry - great culture add
+CL-103371,50-59,Driver,Do Not Advance,Hired,"Good word from referral, override"
+CL-100005,60+,Dispatcher,Advance,Rejected,Looking for someone with more energy
+CL-107512,25-39,Logistics Coordinator,Advance,Hired,"High energy, digital native"
+CL-100278,25-39,Customer Service Representative,Advance,Hired,Young and hungry - great culture add
+CL-101295,50-59,Customer Service Representative,Do Not Advance,Rejected,Communication - accent may confuse customers
+CL-108107,60+,Forklift Operator,,Rejected,"Requested extra time on assessment - could not be scored, moved on"
+CL-105303,18-24,Dispatcher,Do Not Advance,Rejected,Large gap in employment - ask about childcare situation
+CL-102296,50-59,Logistics Coordinator,,Rejected,Did not complete standard assessment (accommodation request)
+CL-108326,50-59,Fleet Maintenance Technician,Do Not Advance,Hired,"Good word from referral, override"
+CL-105182,50-59,Operations Manager,Do Not Advance,Hired,Referred by site lead - override score
+CL-106284,60+,Warehouse Associate,Do Not Advance,Hired,Manager override - known to team
+CL-106457,25-39,Forklift Operator,Do Not Advance,Hired,Manager override - known to team
+CL-104968,18-24,Fleet Maintenance Technician,Do Not Advance,Hired,Manager override - known to team
+CL-104528,25-39,Forklift Operator,Do Not Advance,Hired,"Good word from referral, override"
+CL-106893,60+,Customer Service Representative,Do Not Advance,Rejected,Heavy accent - concern for phone queue
+CL-100587,60+,Customer Service Representative,,Rejected,"Requested extra time on assessment - could not be scored, moved on"
+CL-105116,25-39,Dispatcher,Advance,Hired,Large gap in employment - ask about childcare situation
+CL-105540,50-59,Logistics Coordinator,Advance,Rejected,Probably close to retiring
+CL-103029,25-39,Warehouse Associate,Do Not Advance,Hired,Manager override - known to team
+CL-106365,50-59,Warehouse Associate,Advance,Rejected,Not a long-term fit for the team
+CL-106871,25-39,Driver,Do Not Advance,Hired,Referred by site lead - override score
+CL-100949,25-39,Warehouse Associate,Advance,Hired,Young and hungry - great culture add
+CL-103134,18-24,Warehouse Associate,,Rejected,Asked for alt format of WorkFit test. No score = no advance
+CL-104855,25-39,Warehouse Associate,,Rejected,Did not complete standard assessment (accommodation request)
+CL-105020,25-39,Operations Manager,Advance,Hired,"High energy, digital native"
+CL-107175,25-39,Dispatcher,Do Not Advance,Hired,Referred by site lead - override score
+CL-104640,60+,Warehouse Associate,Advance,Rejected,Would not take direction well from younger supervisors
+CL-103224,18-24,Driver,Advance,Hired,"High energy, digital native"
+CL-100105,50-59,Warehouse Associate,Do Not Advance,Hired,Referred by site lead - override score
+CL-105360,60+,Warehouse Associate,Advance,Rejected,Overqualified - likely to leave once something better comes along
+CL-102766,25-39,Driver,Advance,Hired,"Recent grad, great growth potential"
+CL-108154,18-24,Forklift Operator,Do Not Advance,Hired,Referred by site lead - override score
+CL-104453,25-39,HR Generalist,Advance,Hired,Young and hungry - great culture add
+CL-105201,40-49,Dispatcher,Do Not Advance,Hired,Referred by site lead - override score
+CL-102708,50-59,Warehouse Associate,Advance,Rejected,Overqualified - likely to leave once something better comes along
+CL-100843,40-49,Dispatcher,,Rejected,Asked for alt format of WorkFit test. No score = no advance
+CL-107631,40-49,Warehouse Supervisor,Do Not Advance,Hired,Referred by site lead - override score

@@ -1,0 +1,55 @@
+attribute,group,n,selected,rate,comparator,impact_ratio,z,p_fisher,shortfall,small_n,p_holm,flag_4_5ths,flag_sig,population
+Age 40+ (self-reported band),40+,444.0,148.0,0.3333333333333333,<40,0.6345991561181434,-6.441074031095456,1.1013354502736555e-10,85.21808510638297,False,1.1013354502736555e-10,True,True,"A: scored, AEDT Advance"
+Age 40+ (self-reported band),<40,752.0,395.0,0.5252659574468085,<40,1.0,,,0.0,False,,False,False,"A: scored, AEDT Advance"
+Age 40+ (self-reported band),40+,464.0,148.0,0.31896551724137934,<40,0.6242034046268006,-6.589073922691825,4.3238137134299495e-11,89.10219922380338,False,4.3238137134299495e-11,True,True,"B: all, unscored=not selected"
+Age 40+ (self-reported band),<40,773.0,395.0,0.5109961190168176,<40,1.0,,,0.0,False,,False,False,"B: all, unscored=not selected"
+Age band,18-24,235.0,123.0,0.5234042553191489,25-39,0.9948529411764706,-0.06892756868589407,1.0,0.636363636363626,False,1.0,False,False,"A: scored, AEDT Advance"
+Age band,25-39,517.0,272.0,0.5261121856866537,25-39,1.0,,,0.0,False,,False,False,"A: scored, AEDT Advance"
+Age band,40-49,213.0,80.0,0.3755868544600939,25-39,0.7138911902789284,-3.699890432643505,0.00024025616034237883,32.06189555125725,False,0.00048051232068475766,True,True,"A: scored, AEDT Advance"
+Age band,50-59,161.0,52.0,0.32298136645962733,25-39,0.6139020825721593,-4.505829358475763,5.977680383545857e-06,32.70406189555125,False,1.793304115063757e-05,True,True,"A: scored, AEDT Advance"
+Age band,60+,70.0,16.0,0.22857142857142856,25-39,0.43445378151260505,-4.673346343060954,2.893817773885727e-06,20.827852998065765,False,1.1575271095542907e-05,True,True,"A: scored, AEDT Advance"
+Age band,18-24,240.0,123.0,0.5125,18-24,1.0,,,0.0,False,,False,False,"B: all, unscored=not selected"
+Age band,25-39,533.0,272.0,0.5103189493433395,18-24,0.9957442914016382,-0.05612809173193004,1.0,1.162499999999966,False,1.0,False,False,"B: all, unscored=not selected"
+Age band,40-49,222.0,80.0,0.36036036036036034,18-24,0.7031421665568007,-3.2919071568242013,0.0010454347263536183,33.77499999999999,False,0.0020908694527072367,True,True,"B: all, unscored=not selected"
+Age band,50-59,169.0,52.0,0.3076923076923077,18-24,0.600375234521576,-4.122208346063022,4.630447006340346e-05,34.6125,False,0.0001389134101902104,True,True,"B: all, unscored=not selected"
+Age band,60+,73.0,16.0,0.2191780821917808,18-24,0.42766455061810893,-4.416738747609873,7.640136860448885e-06,21.412499999999994,False,3.056054744179554e-05,True,True,"B: all, unscored=not selected"
+Race/ethnicity (BISG proxy),Asian,72.0,32.0,0.4444444444444444,White,0.8934707903780068,-0.8487078110687823,0.4539330415397905,3.815384615384616,False,0.4539330415397905,False,False,"A: scored, AEDT Advance"
+Race/ethnicity (BISG proxy),Black,250.0,100.0,0.4,White,0.8041237113402062,-2.5842248654480997,0.010120976429886503,24.358974358974365,False,0.03036292928965951,False,True,"A: scored, AEDT Advance"
+Race/ethnicity (BISG proxy),Hispanic,264.0,103.0,0.39015151515151514,White,0.7843252108716026,-2.9014589956038455,0.003780538545731106,28.32307692307694,False,0.015122154182924424,True,True,"A: scored, AEDT Advance"
+Race/ethnicity (BISG proxy),Other/Multiracial,25.0,17.0,0.68,White,1.3670103092783505,1.7879254723535711,0.1009647366328692,-4.564102564102564,True,0.2019294732657384,False,False,"A: scored, AEDT Advance"
+Race/ethnicity (BISG proxy),White,585.0,291.0,0.49743589743589745,White,1.0,,,0.0,False,,False,False,"A: scored, AEDT Advance"
+Race/ethnicity (BISG proxy),Asian,74.0,32.0,0.43243243243243246,White,0.9049874616884926,-0.7386504444591694,0.5378387963803981,3.35960591133005,False,0.5378387963803981,False,False,"B: all, unscored=not selected"
+Race/ethnicity (BISG proxy),Black,263.0,100.0,0.38022813688212925,White,0.7957351730626003,-2.6598254239408146,0.009352815631183387,25.669950738916256,False,0.03741126252473355,True,True,"B: all, unscored=not selected"
+Race/ethnicity (BISG proxy),Hispanic,266.0,103.0,0.38721804511278196,White,0.8103635377102549,-2.478165937345704,0.014755630601054668,24.10344827586208,False,0.044266891803164,False,True,"B: all, unscored=not selected"
+Race/ethnicity (BISG proxy),Other/Multiracial,25.0,17.0,0.68,White,1.4230927835051546,1.982213526911522,0.0646441123428648,-5.054187192118226,True,0.1292882246857296,False,False,"B: all, unscored=not selected"
+Race/ethnicity (BISG proxy),White,609.0,291.0,0.47783251231527096,White,1.0,,,0.0,False,,False,False,"B: all, unscored=not selected"
+Sex (name-inferred proxy),F,378.0,175.0,0.46296296296296297,F,1.0,,,0.0,False,,False,False,"A: scored, AEDT Advance"
+Sex (name-inferred proxy),M,739.0,336.0,0.4546684709066306,F,0.9820838971583221,-0.263292045834111,0.7998919442867177,6.129629629629619,False,0.7998919442867177,False,False,"A: scored, AEDT Advance"
+Sex (name-inferred proxy),Unknown,79.0,32.0,0.4050632911392405,F,0.8749367088607595,-0.9402394534206123,0.3853254527275389,4.574074074074076,False,0.7706509054550778,False,False,"A: scored, AEDT Advance"
+Sex (name-inferred proxy),F,392.0,175.0,0.44642857142857145,F,1.0,,,0.0,False,,False,False,"B: all, unscored=not selected"
+Sex (name-inferred proxy),M,765.0,336.0,0.4392156862745098,F,0.9838431372549019,-0.23384211951838774,0.8512003422341707,5.517857142857167,False,0.9222942159230852,False,False,"B: all, unscored=not selected"
+Sex (name-inferred proxy),Unknown,80.0,32.0,0.4,F,0.896,-0.7626692519905469,0.4611471079615426,3.7142857142857153,False,0.9222942159230852,False,False,"B: all, unscored=not selected"
+Disability proxy: hiring accommodation,No request,1171.0,537.0,0.45858240819812124,No request,1.0,,,0.0,False,,False,False,"A: scored, AEDT Advance"
+Disability proxy: hiring accommodation,Requested accommodation,25.0,6.0,0.24,No request,0.5233519553072625,-2.1720646255306533,0.0405265360864034,5.464560204953031,True,0.0405265360864034,True,True,"A: scored, AEDT Advance"
+Disability proxy: hiring accommodation,No request,1193.0,537.0,0.4501257334450964,No request,1.0,,,0.0,False,,False,False,"B: all, unscored=not selected"
+Disability proxy: hiring accommodation,Requested accommodation,44.0,6.0,0.13636363636363635,No request,0.302945657694261,-4.118624881980756,1.8153382503758336e-05,13.80553227158424,False,1.8153382503758336e-05,True,True,"B: all, unscored=not selected"
+Sex proxy - physical roles only,F,50.0,18.0,0.36,M,0.8040875912408758,-1.1597594544695675,0.2829846954879357,4.385620915032682,False,0.2829846954879357,False,False,"A: scored, AEDT Advance"
+Sex proxy - physical roles only,M,306.0,137.0,0.4477124183006536,M,1.0,,,0.0,False,,False,False,"A: scored, AEDT Advance"
+Sex proxy - physical roles only,Unknown,25.0,7.0,0.28,M,0.6254014598540146,-1.6263270532804228,0.14127540046988055,4.192810457516341,True,0.2825508009397611,True,False,"A: scored, AEDT Advance"
+Age 40+ (self-reported band),40+,442.0,111.0,0.251131221719457,<40,0.6004244845018939,-5.7993759843104025,6.302600757865481e-09,73.8692098092643,False,6.302600757865481e-09,True,True,C: final hire (withdrawn excluded)
+Age 40+ (self-reported band),<40,734.0,307.0,0.41825613079019075,<40,1.0,,,0.0,False,,False,False,C: final hire (withdrawn excluded)
+Age band,18-24,231.0,97.0,0.4199134199134199,18-24,1.0,,,0.0,False,,False,False,C: final hire (withdrawn excluded)
+Age band,25-39,503.0,210.0,0.41749502982107356,18-24,0.9942407411202886,-0.06168523763458166,1.0,1.2164502164501982,False,1.0,False,False,C: final hire (withdrawn excluded)
+Age band,40-49,214.0,62.0,0.2897196261682243,18-24,0.6899508623181424,-2.863528998959536,0.005493216773802,27.861471861471856,False,0.010986433547604,True,True,C: final hire (withdrawn excluded)
+Age band,50-59,161.0,36.0,0.2236024844720497,18-24,0.5324966382787988,-4.038599167947349,5.6490057497874906e-05,31.60606060606061,False,0.00022596022999149963,True,True,C: final hire (withdrawn excluded)
+Age band,60+,67.0,13.0,0.19402985074626866,18-24,0.4620710878596707,-3.3733460696113373,0.0008469303266903974,15.134199134199132,False,0.002540790980071192,True,True,C: final hire (withdrawn excluded)
+Race/ethnicity (BISG proxy),Asian,72.0,27.0,0.375,Asian,1.0,,,0.0,False,,False,False,C: final hire (withdrawn excluded)
+Race/ethnicity (BISG proxy),Black,251.0,88.0,0.350597609561753,Asian,0.9349269588313414,-0.3812028632626807,0.7802452041218308,6.125,False,1.0,False,False,C: final hire (withdrawn excluded)
+Race/ethnicity (BISG proxy),Hispanic,251.0,76.0,0.30278884462151395,Asian,0.8074369189907039,-1.1589873908968273,0.25407473796246816,18.125,False,0.7622242138874045,False,False,C: final hire (withdrawn excluded)
+Race/ethnicity (BISG proxy),Other/Multiracial,21.0,13.0,0.6190476190476191,Asian,1.650793650793651,1.987577237475972,0.0779862111125591,-5.125,True,0.3119448444502364,False,False,C: final hire (withdrawn excluded)
+Race/ethnicity (BISG proxy),White,581.0,214.0,0.3683304647160069,Asian,0.9822145725760184,-0.11062399804731268,0.8978229552930193,3.875,False,1.0,False,False,C: final hire (withdrawn excluded)
+Sex (name-inferred proxy),F,365.0,138.0,0.3780821917808219,F,1.0,,,0.0,False,,False,False,C: final hire (withdrawn excluded)
+Sex (name-inferred proxy),M,737.0,257.0,0.3487109905020353,F,0.9223153009655282,-0.9569393825000425,0.350532290414292,21.64657534246578,False,0.5855199930338417,False,False,C: final hire (withdrawn excluded)
+Sex (name-inferred proxy),Unknown,74.0,23.0,0.3108108108108108,F,0.822072072072072,-1.0949380783340659,0.29275999651692086,4.978082191780821,False,0.5855199930338417,False,False,C: final hire (withdrawn excluded)
+Disability proxy: hiring accommodation,No request,1135.0,412.0,0.3629955947136564,No request,1.0,,,0.0,False,,False,False,C: final hire (withdrawn excluded)
+Disability proxy: hiring accommodation,Requested accommodation,41.0,6.0,0.14634146341463414,No request,0.403149419843713,-2.8473296538043713,0.00419943534666531,8.882819383259912,False,0.00419943534666531,True,True,C: final hire (withdrawn excluded)

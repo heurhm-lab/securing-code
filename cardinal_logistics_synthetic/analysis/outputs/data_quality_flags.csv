@@ -1,0 +1,32 @@
+applicant_id,issue
+CL-105449,exact duplicate row
+CL-103909,exact duplicate row
+CL-108259,exact duplicate row
+CL-100601,exact duplicate row
+CL-102735,exact duplicate row
+CL-107554,exact duplicate row
+CL-106172,conflicting duplicate (AEDT score differs) - excluded from AEDT stats
+CL-106477,conflicting duplicate (AEDT score differs) - excluded from AEDT stats
+CL-104284,conflicting duplicate (AEDT score differs) - excluded from AEDT stats
+CL-102135,age_band vs hs_grad_year mismatch
+CL-107460,age_band vs hs_grad_year mismatch
+CL-102748,age_band vs hs_grad_year mismatch
+CL-100317,age_band vs hs_grad_year mismatch
+CL-106399,age_band vs hs_grad_year mismatch
+CL-100565,age_band vs hs_grad_year mismatch
+CL-107071,age_band vs hs_grad_year mismatch
+CL-108531,age_band vs hs_grad_year mismatch
+CL-103433,rejected applicant with employee record
+CL-108582,rejected applicant with employee record
+CL-103935,hours/week > 100
+CL-107929,regular+OT != hours
+CL-103935,regular+OT != hours
+CL-106345,negative OT pay
+CL-101497,badge hours missing
+CL-104032,DE-5100 dated before hire
+CL-108225,DE-5196 dated before hire
+CL-104225,discipline_event_count mismatch
+CL-100123,discipline_event_count mismatch
+CL-102680,discipline_event_count mismatch
+CL-104092,discipline_event_count mismatch
+CL-107134,discipline_event_count mismatch

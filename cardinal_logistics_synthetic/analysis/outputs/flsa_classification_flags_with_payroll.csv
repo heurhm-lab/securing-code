@@ -1,0 +1,54 @@
+applicant_id,job_title,site,annual_salary,base_hourly_rate,hrs_wk,overtime_hours_period,flag,exp_low,exp_high
+CL-105150,Dispatcher,Hub 1 - Riverside DC,45700.0,,45.85,76.0,F6 admin duties look clerical/rule-following (review),728.44,2504.71
+CL-102279,Logistics Coordinator,Hub 2 - Northgate Cross-Dock,33700.0,,42.96,39.75,"F1 salary below $35,568 floor",299.82,966.04
+CL-102259,Dispatcher,Hub 1 - Riverside DC,41800.0,,48.75,52.5,F6 admin duties look clerical/rule-following (review),432.84,1582.57
+CL-103263,Dispatcher,Hub 2 - Northgate Cross-Dock,46600.0,,48.87,115.25,F6 admin duties look clerical/rule-following (review),1056.8,3873.06
+CL-108114,Final-Mile Van Driver,Hub 2 - Northgate Cross-Dock,,23.75,48.9,115.75,"F5 MCA claimed but vehicle <=10,000 lbs",4384.03,4384.03
+CL-106784,Dispatcher,Hub 2 - Northgate Cross-Dock,46100.0,,49.46,123.0,F6 admin duties look clerical/rule-following (review),1102.31,4089.16
+CL-105933,Dispatcher,Hub 1 - Riverside DC,45300.0,,47.9,102.75,F6 admin duties look clerical/rule-following (review),934.28,3356.66
+CL-102896,Final-Mile Van Driver,Hub 3 - Airport Fleet Yard,,27.25,52.73,152.75,"F5 MCA claimed but vehicle <=10,000 lbs",6750.29,6750.29
+CL-107629,Dispatcher,Hub 3 - Airport Fleet Yard,46600.0,,48.63,112.25,F6 admin duties look clerical/rule-following (review),1034.17,3772.25
+CL-106572,Dispatcher,Hub 2 - Northgate Cross-Dock,40400.0,,53.37,173.75,F6 admin duties look clerical/rule-following (review),1264.77,5062.14
+CL-103530,Logistics Coordinator,Hub 2 - Northgate Cross-Dock,33200.0,,45.17,68.75,"F1 salary below $35,568 floor",485.85,1646.03
+CL-107996,Final-Mile Van Driver,Hub 1 - Riverside DC,,26.25,46.93,76.25,"F5 MCA claimed but vehicle <=10,000 lbs",3057.73,3057.73
+CL-107950,Dispatcher,Hub 3 - Airport Fleet Yard,41100.0,,49.59,105.5,F6 admin duties look clerical/rule-following (review),840.73,3126.96
+CL-101191,Dispatcher,Hub 3 - Airport Fleet Yard,46500.0,,50.71,139.25,F6 admin duties look clerical/rule-following (review),1227.74,4669.56
+CL-101632,Dispatcher,Hub 3 - Airport Fleet Yard,42000.0,,47.92,103.0,F6 admin duties look clerical/rule-following (review),867.98,3119.71
+CL-100724,Logistics Coordinator,Hub 1 - Riverside DC,33500.0,,46.29,81.75,"F1 salary below $35,568 floor",568.89,1974.97
+CL-102695,Dispatcher,Hub 1 - Riverside DC,46500.0,,51.81,153.5,F6 admin duties look clerical/rule-following (review),1324.75,5147.42
+CL-102311,Shift Lead,Hub 2 - Northgate Cross-Dock,56800.0,,47.92,103.0,F4 executive w/ <2 direct reports,1173.84,4219.04
+CL-107922,Logistics Coordinator,Hub 3 - Airport Fleet Yard,33400.0,,44.67,61.5,"F1 salary below $35,568 floor",442.12,1481.32
+CL-103371,Final-Mile Van Driver,Hub 3 - Airport Fleet Yard,,23.25,46.1,79.25,"F5 MCA claimed but vehicle <=10,000 lbs",2942.16,2942.16
+CL-107512,Logistics Coordinator,Hub 3 - Airport Fleet Yard,33700.0,,43.52,51.0,"F1 salary below $35,568 floor",379.74,1239.45
+CL-105755,Dispatcher,Hub 1 - Riverside DC,42400.0,,46.72,53.75,F6 admin duties look clerical/rule-following (review),469.05,1643.51
+CL-102680,Logistics Coordinator,Hub 1 - Riverside DC,35500.0,,46.1,79.25,"F1 salary below $35,568 floor",586.85,2028.88
+CL-104699,Dispatcher,Hub 3 - Airport Fleet Yard,44700.0,,52.07,84.5,F6 admin duties look clerical/rule-following (review),697.48,2723.91
+CL-105593,Final-Mile Van Driver,Hub 3 - Airport Fleet Yard,,27.5,40.0,0.0,"F5 MCA claimed but vehicle <=10,000 lbs",0.0,0.0
+CL-106399,Dispatcher,Hub 2 - Northgate Cross-Dock,40500.0,,52.29,159.75,F6 admin duties look clerical/rule-following (review),1189.75,4665.78
+CL-106331,Logistics Coordinator,Hub 2 - Northgate Cross-Dock,33300.0,,48.73,113.5,"F1 salary below $35,568 floor",745.77,2725.64
+CL-101219,Dispatcher,Hub 2 - Northgate Cross-Dock,46700.0,,46.35,82.5,F6 admin duties look clerical/rule-following (review),799.33,2778.43
+CL-103011,Final-Mile Van Driver,Hub 3 - Airport Fleet Yard,,25.0,46.52,84.75,"F5 MCA claimed but vehicle <=10,000 lbs",3272.72,3272.72
+CL-102438,Logistics Coordinator,Hub 2 - Northgate Cross-Dock,33300.0,,49.37,121.75,"F1 salary below $35,568 floor",789.69,2923.76
+CL-105116,Dispatcher,Hub 2 - Northgate Cross-Dock,40000.0,,49.48,123.25,F6 admin duties look clerical/rule-following (review),958.03,3555.29
+CL-107453,Logistics Coordinator,Hub 1 - Riverside DC,34000.0,,47.29,94.75,"F1 salary below $35,568 floor",655.04,2323.2
+CL-101746,Logistics Coordinator,Hub 2 - Northgate Cross-Dock,33800.0,,47.87,102.25,"F1 salary below $35,568 floor",694.26,2492.34
+CL-108430,Logistics Coordinator,Hub 1 - Riverside DC,35100.0,,45.62,73.0,"F1 salary below $35,568 floor",540.11,1847.81
+CL-105326,Dispatcher,Hub 2 - Northgate Cross-Dock,40300.0,,47.65,99.5,F6 admin duties look clerical/rule-following (review),809.09,2891.72
+CL-102082,Logistics Coordinator,Hub 2 - Northgate Cross-Dock,34100.0,,44.63,60.5,"F1 salary below $35,568 floor",444.43,1487.78
+CL-107175,Dispatcher,Hub 2 - Northgate Cross-Dock,41400.0,,46.38,83.0,F6 admin duties look clerical/rule-following (review),712.31,2478.03
+CL-100794,Shift Lead,Hub 2 - Northgate Cross-Dock,50400.0,,56.62,216.0,F4 executive w/ <2 direct reports,1848.91,7850.77
+CL-105856,Logistics Coordinator,Hub 1 - Riverside DC,35100.0,,47.04,91.5,"F1 salary below $35,568 floor",656.51,2316.09
+CL-101263,Dispatcher,Hub 3 - Airport Fleet Yard,41000.0,,51.94,155.25,F6 admin duties look clerical/rule-following (review),1178.31,4590.32
+CL-101351,Dispatcher,Hub 3 - Airport Fleet Yard,41000.0,,52.48,162.25,F6 admin duties look clerical/rule-following (review),1218.81,4797.3
+CL-104436,Dispatcher,Hub 2 - Northgate Cross-Dock,46100.0,,46.65,86.5,F6 admin duties look clerical/rule-following (review),821.86,2875.71
+CL-100384,Final-Mile Van Driver,Hub 3 - Airport Fleet Yard,,24.25,49.4,122.25,"F5 MCA claimed but vehicle <=10,000 lbs",4532.5,4532.5
+CL-102237,Final-Mile Van Driver,Hub 3 - Airport Fleet Yard,,26.0,40.0,0.0,"F5 MCA claimed but vehicle <=10,000 lbs",0.0,0.0
+CL-100390,Dispatcher,Hub 1 - Riverside DC,44800.0,,46.06,72.75,F6 admin duties look clerical/rule-following (review),680.35,2350.38
+CL-103287,Shift Lead,Hub 1 - Riverside DC,47900.0,,52.0,156.0,F4 executive w/ <2 direct reports,1381.73,5388.75
+CL-105201,Dispatcher,Hub 1 - Riverside DC,43400.0,,49.31,121.0,F6 admin duties look clerical/rule-following (review),1024.06,3787.07
+CL-105338,Logistics Coordinator,Hub 1 - Riverside DC,33900.0,,44.23,55.75,"F1 salary below $35,568 floor",410.85,1362.93
+CL-106553,Dispatcher,Hub 3 - Airport Fleet Yard,41200.0,,47.94,103.25,F6 admin duties look clerical/rule-following (review),853.17,3067.72
+CL-104602,Dispatcher,Hub 2 - Northgate Cross-Dock,44400.0,,53.71,178.25,F6 admin duties look clerical/rule-following (review),1416.81,5707.43
+CL-100456,Logistics Coordinator,Hub 1 - Riverside DC,34700.0,,49.35,121.5,"F1 salary below $35,568 floor",821.52,3040.42
+CL-106337,Shift Lead,Hub 2 - Northgate Cross-Dock,46500.0,,56.98,220.75,F4 executive w/ <2 direct reports,1732.18,7402.55
+CL-105739,Logistics Coordinator,Hub 2 - Northgate Cross-Dock,35500.0,,43.63,51.25,"F1 salary below $35,568 floor",400.92,1312.05

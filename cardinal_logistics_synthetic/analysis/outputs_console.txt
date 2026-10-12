@@ -1,0 +1,443 @@
+
+====================================================================================================
+0. DATA QUALITY
+====================================================================================================
+raw rows 1249; exact-duplicate rows removed 6 (IDs ['CL-105449', 'CL-103909', 'CL-108259', 'CL-100601', 'CL-102735', 'CL-107554']); IDs with conflicting rows ['CL-106172', 'CL-106477', 'CL-104284']
+    applicant_id  aedt_score aedt_recommendation hire_decision
+544    CL-104284        64.0      Do Not Advance      Rejected
+887    CL-104284        68.1      Do Not Advance      Rejected
+86     CL-106172        54.7      Do Not Advance      Rejected
+848    CL-106172        63.6      Do Not Advance      Rejected
+481    CL-106477        58.6      Do Not Advance      Rejected
+784    CL-106477        54.6      Do Not Advance      Rejected
+unique applicants analysed: 1237 (+3 conflicting IDs excluded)
+rows where recommendation != (score>=65): 0
+FLSA label variants: {'Non-Exempt': 217, 'Exempt': 124, 'NE': 13, 'EXEMPT': 13, 'exempt': 13, 'Nonexempt': 12, 'non exempt': 12, 'NON-EXEMPT': 9, 'E': 7}
+age_band inconsistent with hs_grad_year by >=2 bands: 8 -> ['CL-102135', 'CL-107460', 'CL-102748', 'CL-100317', 'CL-106399', 'CL-100565', 'CL-107071', 'CL-108531']
+non-hired rows carrying employee data: ['CL-103433', 'CL-108582']
+    applicant_id                   dq  hours_worked_period  regular_hours_period  overtime_hours_period  overtime_pay_period
+546    CL-103935     hours/week > 100              2184.00                520.00                 130.25                 0.00
+389    CL-107929  regular+OT != hours               589.75                559.75                  70.00              2047.50
+546    CL-103935  regular+OT != hours              2184.00                520.00                 130.25                 0.00
+301    CL-106345      negative OT pay               301.25                240.00                  61.25              -312.75
+793    CL-101497  badge hours missing               560.50                518.75                  41.75                 0.00
+discipline events dated before hire: [['DE-5100', 'CL-104032', Timestamp('2024-07-03 00:00:00'), Timestamp('2024-07-10 00:00:00')], ['DE-5196', 'CL-108225', Timestamp('2024-12-29 00:00:00'), Timestamp('2025-01-06 00:00:00')]]
+discipline_event_count != events file: [['CL-104225', 0.0, 1], ['CL-100123', 0.0, 1], ['CL-102680', 3.0, 1], ['CL-104092', 2.0, 1], ['CL-107134', 3.0, 1]]
+
+====================================================================================================
+1. AEDT FOUR-FIFTHS ANALYSIS
+====================================================================================================
+population A (scored): n=1196; population B (all, unscored = not selected): n=1237; unscored n=41
+                            population                               attribute                    group       n  selected    rate  comparator  impact_ratio       z  p_fisher  p_holm  shortfall  small_n
+0              A: scored, AEDT Advance            Age 40+ (self-reported band)                      40+   444.0     148.0  0.3333         <40        0.6346 -6.4411    0.0000  0.0000    85.2181    False
+1              A: scored, AEDT Advance            Age 40+ (self-reported band)                      <40   752.0     395.0  0.5253         <40        1.0000     NaN       NaN     NaN     0.0000    False
+2        B: all, unscored=not selected            Age 40+ (self-reported band)                      40+   464.0     148.0  0.3190         <40        0.6242 -6.5891    0.0000  0.0000    89.1022    False
+3        B: all, unscored=not selected            Age 40+ (self-reported band)                      <40   773.0     395.0  0.5110         <40        1.0000     NaN       NaN     NaN     0.0000    False
+4              A: scored, AEDT Advance                                Age band                    18-24   235.0     123.0  0.5234       25-39        0.9949 -0.0689    1.0000  1.0000     0.6364    False
+5              A: scored, AEDT Advance                                Age band                    25-39   517.0     272.0  0.5261       25-39        1.0000     NaN       NaN     NaN     0.0000    False
+6              A: scored, AEDT Advance                                Age band                    40-49   213.0      80.0  0.3756       25-39        0.7139 -3.6999    0.0002  0.0005    32.0619    False
+7              A: scored, AEDT Advance                                Age band                    50-59   161.0      52.0  0.3230       25-39        0.6139 -4.5058    0.0000  0.0000    32.7041    False
+8              A: scored, AEDT Advance                                Age band                      60+    70.0      16.0  0.2286       25-39        0.4345 -4.6733    0.0000  0.0000    20.8279    False
+9        B: all, unscored=not selected                                Age band                    18-24   240.0     123.0  0.5125       18-24        1.0000     NaN       NaN     NaN     0.0000    False
+10       B: all, unscored=not selected                                Age band                    25-39   533.0     272.0  0.5103       18-24        0.9957 -0.0561    1.0000  1.0000     1.1625    False
+11       B: all, unscored=not selected                                Age band                    40-49   222.0      80.0  0.3604       18-24        0.7031 -3.2919    0.0010  0.0021    33.7750    False
+12       B: all, unscored=not selected                                Age band                    50-59   169.0      52.0  0.3077       18-24        0.6004 -4.1222    0.0000  0.0001    34.6125    False
+13       B: all, unscored=not selected                                Age band                      60+    73.0      16.0  0.2192       18-24        0.4277 -4.4167    0.0000  0.0000    21.4125    False
+14             A: scored, AEDT Advance             Race/ethnicity (BISG proxy)                    Asian    72.0      32.0  0.4444       White        0.8935 -0.8487    0.4539  0.4539     3.8154    False
+15             A: scored, AEDT Advance             Race/ethnicity (BISG proxy)                    Black   250.0     100.0  0.4000       White        0.8041 -2.5842    0.0101  0.0304    24.3590    False
+16             A: scored, AEDT Advance             Race/ethnicity (BISG proxy)                 Hispanic   264.0     103.0  0.3902       White        0.7843 -2.9015    0.0038  0.0151    28.3231    False
+17             A: scored, AEDT Advance             Race/ethnicity (BISG proxy)        Other/Multiracial    25.0      17.0  0.6800       White        1.3670  1.7879    0.1010  0.2019    -4.5641     True
+18             A: scored, AEDT Advance             Race/ethnicity (BISG proxy)                    White   585.0     291.0  0.4974       White        1.0000     NaN       NaN     NaN     0.0000    False
+19       B: all, unscored=not selected             Race/ethnicity (BISG proxy)                    Asian    74.0      32.0  0.4324       White        0.9050 -0.7387    0.5378  0.5378     3.3596    False
+20       B: all, unscored=not selected             Race/ethnicity (BISG proxy)                    Black   263.0     100.0  0.3802       White        0.7957 -2.6598    0.0094  0.0374    25.6700    False
+21       B: all, unscored=not selected             Race/ethnicity (BISG proxy)                 Hispanic   266.0     103.0  0.3872       White        0.8104 -2.4782    0.0148  0.0443    24.1034    False
+22       B: all, unscored=not selected             Race/ethnicity (BISG proxy)        Other/Multiracial    25.0      17.0  0.6800       White        1.4231  1.9822    0.0646  0.1293    -5.0542     True
+23       B: all, unscored=not selected             Race/ethnicity (BISG proxy)                    White   609.0     291.0  0.4778       White        1.0000     NaN       NaN     NaN     0.0000    False
+24             A: scored, AEDT Advance               Sex (name-inferred proxy)                        F   378.0     175.0  0.4630           F        1.0000     NaN       NaN     NaN     0.0000    False
+25             A: scored, AEDT Advance               Sex (name-inferred proxy)                        M   739.0     336.0  0.4547           F        0.9821 -0.2633    0.7999  0.7999     6.1296    False
+26             A: scored, AEDT Advance               Sex (name-inferred proxy)                  Unknown    79.0      32.0  0.4051           F        0.8749 -0.9402    0.3853  0.7707     4.5741    False
+27       B: all, unscored=not selected               Sex (name-inferred proxy)                        F   392.0     175.0  0.4464           F        1.0000     NaN       NaN     NaN     0.0000    False
+28       B: all, unscored=not selected               Sex (name-inferred proxy)                        M   765.0     336.0  0.4392           F        0.9838 -0.2338    0.8512  0.9223     5.5179    False
+29       B: all, unscored=not selected               Sex (name-inferred proxy)                  Unknown    80.0      32.0  0.4000           F        0.8960 -0.7627    0.4611  0.9223     3.7143    False
+30             A: scored, AEDT Advance  Disability proxy: hiring accommodation               No request  1171.0     537.0  0.4586  No request        1.0000     NaN       NaN     NaN     0.0000    False
+31             A: scored, AEDT Advance  Disability proxy: hiring accommodation  Requested accommodation    25.0       6.0  0.2400  No request        0.5234 -2.1721    0.0405  0.0405     5.4646     True
+32       B: all, unscored=not selected  Disability proxy: hiring accommodation               No request  1193.0     537.0  0.4501  No request        1.0000     NaN       NaN     NaN     0.0000    False
+33       B: all, unscored=not selected  Disability proxy: hiring accommodation  Requested accommodation    44.0       6.0  0.1364  No request        0.3029 -4.1186    0.0000  0.0000    13.8055    False
+34             A: scored, AEDT Advance         Sex proxy - physical roles only                        F    50.0      18.0  0.3600           M        0.8041 -1.1598    0.2830  0.2830     4.3856    False
+35             A: scored, AEDT Advance         Sex proxy - physical roles only                        M   306.0     137.0  0.4477           M        1.0000     NaN       NaN     NaN     0.0000    False
+36             A: scored, AEDT Advance         Sex proxy - physical roles only                  Unknown    25.0       7.0  0.2800           M        0.6254 -1.6263    0.1413  0.2826     4.1928     True
+37  C: final hire (withdrawn excluded)            Age 40+ (self-reported band)                      40+   442.0     111.0  0.2511         <40        0.6004 -5.7994    0.0000  0.0000    73.8692    False
+38  C: final hire (withdrawn excluded)            Age 40+ (self-reported band)                      <40   734.0     307.0  0.4183         <40        1.0000     NaN       NaN     NaN     0.0000    False
+39  C: final hire (withdrawn excluded)                                Age band                    18-24   231.0      97.0  0.4199       18-24        1.0000     NaN       NaN     NaN     0.0000    False
+40  C: final hire (withdrawn excluded)                                Age band                    25-39   503.0     210.0  0.4175       18-24        0.9942 -0.0617    1.0000  1.0000     1.2165    False
+41  C: final hire (withdrawn excluded)                                Age band                    40-49   214.0      62.0  0.2897       18-24        0.6900 -2.8635    0.0055  0.0110    27.8615    False
+42  C: final hire (withdrawn excluded)                                Age band                    50-59   161.0      36.0  0.2236       18-24        0.5325 -4.0386    0.0001  0.0002    31.6061    False
+43  C: final hire (withdrawn excluded)                                Age band                      60+    67.0      13.0  0.1940       18-24        0.4621 -3.3733    0.0008  0.0025    15.1342    False
+44  C: final hire (withdrawn excluded)             Race/ethnicity (BISG proxy)                    Asian    72.0      27.0  0.3750       Asian        1.0000     NaN       NaN     NaN     0.0000    False
+45  C: final hire (withdrawn excluded)             Race/ethnicity (BISG proxy)                    Black   251.0      88.0  0.3506       Asian        0.9349 -0.3812    0.7802  1.0000     6.1250    False
+46  C: final hire (withdrawn excluded)             Race/ethnicity (BISG proxy)                 Hispanic   251.0      76.0  0.3028       Asian        0.8074 -1.1590    0.2541  0.7622    18.1250    False
+47  C: final hire (withdrawn excluded)             Race/ethnicity (BISG proxy)        Other/Multiracial    21.0      13.0  0.6190       Asian        1.6508  1.9876    0.0780  0.3119    -5.1250     True
+48  C: final hire (withdrawn excluded)             Race/ethnicity (BISG proxy)                    White   581.0     214.0  0.3683       Asian        0.9822 -0.1106    0.8978  1.0000     3.8750    False
+49  C: final hire (withdrawn excluded)               Sex (name-inferred proxy)                        F   365.0     138.0  0.3781           F        1.0000     NaN       NaN     NaN     0.0000    False
+50  C: final hire (withdrawn excluded)               Sex (name-inferred proxy)                        M   737.0     257.0  0.3487           F        0.9223 -0.9569    0.3505  0.5855    21.6466    False
+51  C: final hire (withdrawn excluded)               Sex (name-inferred proxy)                  Unknown    74.0      23.0  0.3108           F        0.8221 -1.0949    0.2928  0.5855     4.9781    False
+52  C: final hire (withdrawn excluded)  Disability proxy: hiring accommodation               No request  1135.0     412.0  0.3630  No request        1.0000     NaN       NaN     NaN     0.0000    False
+53  C: final hire (withdrawn excluded)  Disability proxy: hiring accommodation  Requested accommodation    41.0       6.0  0.1463  No request        0.4031 -2.8473    0.0042  0.0042     8.8828    False
+
+sensitivity, age40 excluding inconsistent age rows:
+  group      n    rate  impact_ratio  p_fisher
+0   40+  437.0  0.3295        0.6265       0.0
+1   <40  751.0  0.5260        1.0000       NaN
+
+Age 40+ impact ratio within job group (population A):
+                         job_group  n_40plus  n_under40     ir      p
+0  Customer Service Representative        43         86  0.478  0.003
+1                       Dispatcher        25         54  0.576  0.058
+2                           Driver        66        114  0.536  0.003
+3     Fleet Maintenance Technician        27         58  0.346  0.004
+4                Forklift Operator        45         71  0.967  1.000
+5                    HR Generalist        12         17  0.607  0.449
+6            Logistics Coordinator        26         48  0.725  0.227
+7               Operations Manager        13         32  0.352  0.094
+8              Warehouse Associate       159        237  0.707  0.001
+9             Warehouse Supervisor        28         35  0.583  0.186
+
+====================================================================================================
+1b. AEDT SCORE DRIVERS AND JOB-RELATEDNESS
+====================================================================================================
+=========================================================================================================================================
+                                                                            coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                73.6809      0.982     74.995      0.000      71.753      75.608
+C(age_band, Treatment('25-39'))[T.18-24]                                 -0.4514      0.919     -0.491      0.624      -2.255       1.353
+C(age_band, Treatment('25-39'))[T.40-49]                                 -5.0213      0.955     -5.259      0.000      -6.895      -3.148
+C(age_band, Treatment('25-39'))[T.50-59]                                 -5.9835      1.056     -5.665      0.000      -8.056      -3.911
+C(age_band, Treatment('25-39'))[T.60+]                                   -9.6429      1.506     -6.401      0.000     -12.598      -6.687
+C(race_ethnicity_proxy_bisg, Treatment('White'))[T.Asian]                -0.5227      1.464     -0.357      0.721      -3.394       2.349
+C(race_ethnicity_proxy_bisg, Treatment('White'))[T.Black]                -0.7971      0.944     -0.844      0.399      -2.649       1.055
+C(race_ethnicity_proxy_bisg, Treatment('White'))[T.Hispanic]             -0.4144      0.908     -0.456      0.648      -2.196       1.367
+C(race_ethnicity_proxy_bisg, Treatment('White'))[T.Other/Multiracial]     4.8649      2.395      2.032      0.042       0.167       9.563
+C(name_inferred_gender, Treatment('M'))[T.F]                             -0.5129      0.757     -0.678      0.498      -1.998       0.972
+C(name_inferred_gender, Treatment('M'))[T.Unknown]                       -0.5675      1.389     -0.409      0.683      -3.292       2.157
+commute_miles                                                            -0.4780      0.061     -7.848      0.000      -0.597      -0.358
+employment_gap_months                                                    -0.2850      0.071     -4.009      0.000      -0.425      -0.146
+hiring_accommodation_requested                                           -5.9747      2.390     -2.500      0.013     -10.664      -1.286
+=========================================================================================================================================
+
+commute by race proxy:
+                            mean  median  size
+race_ethnicity_proxy_bisg                    
+Asian                      13.0    12.4    74
+Black                      16.4    16.8   263
+Hispanic                   15.5    16.3   266
+Other/Multiracial          11.9    11.0    25
+White                      11.2    10.1   609
+
+gap months by gender proxy:
+                       mean  size
+name_inferred_gender            
+F                      5.0   392
+M                      2.9   765
+Unknown                4.0    80
+
+hires with 90-day rating: n=393
+=========================================================================================
+                            coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+Intercept                -0.8330      0.310     -2.683      0.008      -1.443      -0.223
+C(age40)[T.<40]          -0.3589      0.084     -4.258      0.000      -0.525      -0.193
+aedt_score                0.0579      0.004     14.595      0.000       0.050       0.066
+commute_miles             0.0308      0.006      4.968      0.000       0.019       0.043
+employment_gap_months     0.0126      0.009      1.461      0.145      -0.004       0.030
+=========================================================================================
+mean 90-day rating by age group: {'mean': {'40+': 3.58, '<40': 3.45}, 'size': {'40+': 104, '<40': 289}}
+r(score, rating)=0.54 p=5.9e-31
+
+Among AEDT 'Advance' applicants, hire rate by age:
+ {'40+': 0.628, '<40': 0.748} n: {'40+': 137, '<40': 373} Fisher p=0.0106
+Among 'Do Not Advance', hire rate referral vs not: {False: 0.026, True: 0.419} n: {False: 534, True: 93} Fisher p=8.61e-25
+referral share by race proxy: {'Asian': 0.095, 'Black': 0.11, 'Hispanic': 0.12, 'Other/Multiracial': 0.08, 'White': 0.177}
+
+recruiter notes matching age-coded terms: 28 | accent: 6 | childcare/kids: 4 | unscored accommodation: 17
+
+====================================================================================================
+2. FLSA CLASSIFICATION AND OVERTIME
+====================================================================================================
+employees: 418 | by normalised class: {'Non-Exempt': 261, 'Exempt': 157}
+flsa                             Exempt                                            Non-Exempt
+flsa_exemption_basis            (blank) Administrative Executive Motor Carrier Act Not exempt
+job_title                                                                                    
+CDL-A Linehaul Driver                 0              0         0                46          0
+Customer Service Representative       0              0         0                 0         40
+Dispatcher                            0             29         0                 0          0
+Final-Mile Van Driver                 0              0         0                 9          0
+Fleet Maintenance Technician          0              0         0                 0         28
+Forklift Operator                     0              0         0                 0         38
+HR Generalist                         0             10         0                 0          0
+Logistics Coordinator                 0             30         0                 0          0
+Operations Manager                    0              0        12                 0          0
+Shift Lead                            0              0         4                 0          0
+Warehouse Associate                   1              0         0                 0        155
+Warehouse Supervisor                  0              0        16                 0          0
+
+exempt-classification flags (employees):
+flag                                                   job_title            
+F1 salary below $35,568 floor                          Logistics Coordinator    18
+F2 paid hourly / no salary basis                       Warehouse Associate       1
+F3 exempt with no exemption basis                      Warehouse Associate       1
+F4 executive w/ <2 direct reports                      Shift Lead                4
+F5 MCA claimed but vehicle <=10,000 lbs                Final-Mile Van Driver     9
+F6 admin duties look clerical/rule-following (review)  Dispatcher               29
+
+not flagged, by title (exempt): {'CDL-A Linehaul Driver': 46, 'Warehouse Supervisor': 16, 'Operations Manager': 12, 'Logistics Coordinator': 12, 'HR Generalist': 10}
+Logistics Coordinator salary distribution: {'count': 30.0, 'mean': 35360.0, 'std': 1733.0, 'min': 33200.0, '25%': 33725.0, '50%': 35100.0, '75%': 36975.0, 'max': 38600.0}
+
+Q2 OT exposure, flagged exempt employees with payroll (low=FWW half-time, high=1.5x salary/40):
+                                                        n  avg_hrs_wk  ot_hrs  exp_low  exp_high
+primary                                                                                         
+F1 salary below $35,568 floor                          16        46.0  1268.0   8922.0   31169.0
+F4 executive w/ <2 direct reports                       4        53.0   696.0   6137.0   24861.0
+F5 MCA claimed but vehicle <=10,000 lbs                 8        46.0   631.0  24939.0   24939.0
+F6 admin duties look clerical/rule-following (review)  25        49.0  2822.0  23643.0   88217.0
+
+non-exempt hourly with clean Q2 payroll: n=180
+site                                  Hub 1 - Riverside DC  Hub 2 - Northgate Cross-Dock  Hub 3 - Airport Fleet Yard  All
+ot_pattern                                                                                                               
+1.5x base rate (diff/bonus excluded)                     0                            51                           0   51
+OT unpaid                                                1                             1                           0    2
+correct (1.5x regular rate)                             61                             8                          19   88
+no OT hours                                              2                             1                          29   32
+straight time (1.0x)                                     4                             3                           0    7
+All                                                     68                            64                          48  180
+                                      size      sum
+ot_pattern                                         
+1.5x base rate (diff/bonus excluded)    51  3269.66
+OT unpaid                                2  2823.86
+correct (1.5x regular rate)             88     0.12
+no OT hours                             32     0.00
+straight time (1.0x)                     7  2447.93
+regular-rate exclusion, Hub 2 vs other hubs (employees with OT and diff/bonus):
+ ot_pattern  False  True 
+site                    
+False          69      0
+True            3     51 
+Fisher p=1.94e-31
+
+badge-minus-paid hours per week, all employees with payroll:  {'count': 314.0, 'mean': 3.4, 'std': 2.21, 'min': 2.51, '25%': 2.73, '50%': 2.76, '75%': 2.79, 'max': 17.95}
+otc                                                           False  True 
+site                         job_title                                    
+Hub 1 - Riverside DC         CDL-A Linehaul Driver                2      0
+                             Customer Service Representative     17      0
+                             Dispatcher                           7      0
+                             Final-Mile Van Driver                1      0
+                             Fleet Maintenance Technician         3      0
+                             Forklift Operator                    9      0
+                             HR Generalist                        7      0
+                             Logistics Coordinator               13      0
+                             Operations Manager                   4      0
+                             Shift Lead                           1      0
+                             Warehouse Associate                 39      0
+                             Warehouse Supervisor                 7      0
+Hub 2 - Northgate Cross-Dock CDL-A Linehaul Driver               11      0
+                             Customer Service Representative      7      0
+                             Dispatcher                          10      0
+                             Final-Mile Van Driver                1      0
+                             Fleet Maintenance Technician         3      0
+                             Forklift Operator                    7      0
+                             HR Generalist                        1      0
+                             Logistics Coordinator               11      0
+                             Operations Manager                   2      0
+                             Shift Lead                           3      0
+                             Warehouse Associate                 47      0
+                             Warehouse Supervisor                 5      0
+Hub 3 - Airport Fleet Yard   CDL-A Linehaul Driver               27      0
+                             Customer Service Representative      2      0
+                             Dispatcher                           8      0
+                             Final-Mile Van Driver                4      2
+                             Fleet Maintenance Technician         0     18
+                             Forklift Operator                    0     10
+                             Logistics Coordinator                3      0
+                             Operations Manager                   3      0
+                             Warehouse Associate                 18      0
+                             Warehouse Supervisor                 1      0
+
+flagged off-the-clock: n=30; paid hrs/wk among flagged: {'count': 30.0, 'mean': 39.6, 'std': 0.57, 'min': 37.9, '25%': 39.43, '50%': 39.93, '75%': 40.0, 'max': 40.0}; OT hours paid among flagged: 0.0
+flagged gap/wk: {'count': 30.0, 'mean': 9.52, 'std': 3.11, 'min': 5.84, '25%': 6.55, '50%': 9.5, '75%': 10.84, 'max': 17.95}
+non-flagged gap/wk: {'count': 284.0, 'mean': 2.75, 'std': 0.05, 'min': 2.51, '25%': 2.72, '50%': 2.75, '75%': 2.78, 'max': 2.97}
+est. unpaid hours 2578; exposure $70,817 (straight) to $106,226 (all at 1.5x)
+Hub 3 vs others Fisher p=9.42e-18
+
+====================================================================================================
+3. ACCOMMODATION / LEAVE -> DISCIPLINE SEQUENCES
+====================================================================================================
+employees with accommodation requests: n=33; outcomes {'Granted': 16, 'Withdrawn': 6, 'Pending': 6, 'Denied': 5}
+interactive_process_documented  N   Y
+accommodation_outcome                
+Denied                          4   1
+Granted                         2  14
+Pending                         4   2
+Withdrawn                       2   4
+Discipline within 90d after accommodation request: windows n=33, 2093 person-days, 15 events -> 2.62/person-yr; rest of workforce 186 events / 134406 person-days -> 0.51/person-yr; rate ratio 5.2; one-sided exact p=6.6e-07
+
+events after an accommodation request:
+    event_id applicant_id        accommodation_type accommodation_outcome  days_after_request   event_category           action_taken  narrative_mentions_condition
+56   DE-5034    CL-101351          Reserved parking               Granted                   7          Conduct         Verbal Warning                         False
+77   DE-5123    CL-105297             Modified duty             Withdrawn                  10      Performance  Final Written Warning                          True
+94   DE-5060    CL-102159       Ergonomic equipment             Withdrawn                  12      Performance        Written Warning                          True
+112  DE-5159    CL-106878     Schedule modification               Granted                  14      Performance        Written Warning                          True
+86   DE-5175    CL-107471             Modified duty                Denied                  19      Performance            Termination                          True
+105  DE-5001    CL-100013  Pregnancy-related (PWFA)                Denied                  22      Performance        Written Warning                          True
+175  DE-5120    CL-105080       Lifting restriction               Granted                  31      Performance  Final Written Warning                          True
+194  DE-5006    CL-100390  Pregnancy-related (PWFA)               Granted                  33          Conduct            Termination                         False
+18   DE-5107    CL-104323       Ergonomic equipment               Granted                  35      Performance        Written Warning                          True
+45   DE-5170    CL-107219  Pregnancy-related (PWFA)               Granted                  37  Insubordination            Termination                         False
+34   DE-5031    CL-101211     Schedule modification               Granted                  38      Performance            Termination                          True
+91   DE-5042    CL-101593       Lifting restriction             Withdrawn                  39      Performance  Final Written Warning                          True
+162  DE-5168    CL-107175       Ergonomic equipment               Granted                  47      Performance        Written Warning                          True
+125  DE-5078    CL-103029     Schedule modification               Pending                  56      Performance        Written Warning                          True
+132  DE-5177    CL-107512       Lifting restriction                Denied                  57      Performance        Written Warning                          True
+154  DE-5079    CL-103029     Schedule modification               Pending                 111       Attendance        Written Warning                         False
+170  DE-5080    CL-103029     Schedule modification               Pending                 130       Attendance  Final Written Warning                         False
+186  DE-5081    CL-103029     Schedule modification               Pending                 152  Insubordination            Termination                         False
+151  DE-5184    CL-107950             Modified duty               Granted                 172          Conduct         Verbal Warning                         False
+181  DE-5185    CL-107950             Modified duty               Granted                 207       Attendance  Final Written Warning                         False
+
+denied w/o documented interactive process, or pending >60 days:
+     applicant_id     accommodation_type accommodation_request_date accommodation_outcome interactive_process_documented
+600     CL-107512    Lifting restriction                 2026-01-24                Denied                              N
+658     CL-107471          Modified duty                 2025-11-04                Denied                              N
+700     CL-108326    Lifting restriction                 2026-01-30               Pending                              Y
+793     CL-101497       Reserved parking                 2026-02-27                Denied                              N
+890     CL-103029  Schedule modification                 2026-01-05               Pending                              N
+1048    CL-100105          Modified duty                 2025-12-23                Denied                              N
+1232    CL-100247    Lifting restriction                 2025-07-13               Pending                              N
+
+events whose narrative references a restriction/medical/pregnancy (any employee): 12; of these, employee has accommodation flag: 12
+
+employees with leave requests: n=112
+leave_status                         Approved  Denied
+leave_type                                           
+FMLA - Bonding                              7      12
+FMLA - Family care                          2      18
+FMLA - Own serious health condition         6      25
+Military (USERRA)                           7       0
+Personal (unpaid)                          18       1
+Workers' comp                              14       2
+Discipline within 60d after approved FMLA leave ends: windows n=13, 530 person-days, 13 events -> 8.95/person-yr; rest of workforce 188 events / 135969 person-days -> 0.50/person-yr; rate ratio 17.7; one-sided exact p=2.2e-12
+
+events on/after an FMLA leave start (FMLA requesters):
+    event_id applicant_id                           leave_type leave_status  days_after_leave_end                   event_category           action_taken  absence_in_leave_window
+95   DE-5088    CL-103568                       FMLA - Bonding       Denied                   -45  Policy Violation - Social Media         Verbal Warning                     True
+126  DE-5126    CL-105338                       FMLA - Bonding       Denied                   -44                       Attendance         Verbal Warning                     True
+154  DE-5079    CL-103029                   FMLA - Family care     Approved                    -5                       Attendance        Written Warning                     True
+84   DE-5052    CL-102082                       FMLA - Bonding     Approved                     1                       Attendance  Final Written Warning                     True
+193  DE-5070    CL-102680  FMLA - Own serious health condition       Denied                     1                          Conduct        Written Warning                    False
+181  DE-5185    CL-107950  FMLA - Own serious health condition     Approved                     4                       Attendance  Final Written Warning                     True
+83   DE-5010    CL-100642  FMLA - Own serious health condition       Denied                     4                      Performance         Verbal Warning                    False
+167  DE-5113    CL-104798  FMLA - Own serious health condition     Approved                     7                       Attendance  Final Written Warning                     True
+93   DE-5172    CL-107414                       FMLA - Bonding     Approved                     9                       Attendance  Final Written Warning                     True
+146  DE-5135    CL-105745  FMLA - Own serious health condition     Approved                     9                       Attendance  Final Written Warning                     True
+195  DE-5037    CL-101458  FMLA - Own serious health condition     Approved                     9                      Performance         Verbal Warning                    False
+145  DE-5075    CL-102896                   FMLA - Family care     Approved                    12                       Attendance  Final Written Warning                     True
+166  DE-5040    CL-101541                       FMLA - Bonding     Approved                    12                       Attendance  Final Written Warning                     True
+200  DE-5191    CL-108125                       FMLA - Bonding       Denied                    12  Policy Violation - Social Media  Final Written Warning                    False
+198  DE-5092    CL-103820  FMLA - Own serious health condition     Approved                    13                       Attendance  Final Written Warning                     True
+170  DE-5080    CL-103029                   FMLA - Family care     Approved                    14                       Attendance  Final Written Warning                     True
+156  DE-5076    CL-102896                   FMLA - Family care     Approved                    26                       Attendance        Written Warning                    False
+21   DE-5167    CL-107173                   FMLA - Family care       Denied                    33                           Safety         Verbal Warning                    False
+186  DE-5081    CL-103029                   FMLA - Family care     Approved                    36                  Insubordination            Termination                    False
+163  DE-5190    CL-108105                       FMLA - Bonding     Approved                    46                          Conduct         Verbal Warning                    False
+192  DE-5127    CL-105338                       FMLA - Bonding       Denied                    58                       Attendance  Final Written Warning                    False
+191  DE-5067    CL-102438  FMLA - Own serious health condition       Denied                   180                  Insubordination  Final Written Warning                    False
+
+attendance events citing a family/medical reason: 9; employee had approved FMLA covering those dates: 9; no FMLA request on file: 0
+Empty DataFrame
+Columns: [event_id, applicant_id, event_date, action_taken, narrative]
+Index: []
+
+FMLA denied for '<12 months' but tenure >=365 days at leave start:
+     applicant_id      leave_type  hire_date leave_start_date  tenure_days_at_leave
+1086    CL-105915  FMLA - Bonding 2024-10-05       2026-03-30                   541
+non-FMLA leave denials: [['CL-103459', "Workers' comp", 'Insufficient notice'], ['CL-103838', "Workers' comp", 'Business needs'], ['CL-104528', 'Personal (unpaid)', 'Business needs']]
+
+====================================================================================================
+4. NLRA SECTION 7 SCREEN OF DISCIPLINE NARRATIVES
+====================================================================================================
+events: 203
+nlra_risk_adj
+None                         157
+High                          33
+Medium                         6
+Low                            5
+Low (supervisor, s.2(11))      2
+action_taken               Final Written Warning  Termination  Verbal Warning  Written Warning
+nlra_risk_adj                                                                                 
+High                                          18            7               0                8
+Low                                            0            0               5                0
+Low (supervisor, s.2(11))                      1            0               1                0
+Medium                                         0            0               3                3
+None                                          15           19              94               29
+nlra_risk_adj                       High  Low  Low (supervisor, s.2(11))  Medium  None
+event_category                                                                        
+Attendance                             0    0                          0       0    53
+Conduct                                1    0                          1       6    36
+Insubordination                       12    2                          0       0     0
+Performance                            0    0                          0       0    49
+Policy Violation - Confidentiality     6    0                          1       0     0
+Policy Violation - Recording           8    0                          0       0     0
+Policy Violation - Social Media        4    3                          0       0     0
+Safety                                 0    0                          0       0    19
+Solicitation                           2    0                          0       0     0
+
+rules invoked in High/Medium events: {'': 14, 'no-recording': 8, 'chain of command / attitude': 7, 'investigation confidentiality': 4, 'pay confidentiality': 3, 'social media / disparagement': 3, 'no-solicitation / union talk ban': 2}
+subjects in High/Medium events: {'wages/pay': 17, 'safety/heat': 10, 'hours/OT/schedule': 9, 'agency complaint': 5, 'investigation discussion': 4, 'union': 2}
+
+Medium / Low / supervisor events (all printed for manual review):
+    event_id              job_group           action_taken              nlra_risk_adj                                                                                                                                                                                                            narrative
+1    DE-5150   Warehouse Supervisor         Verbal Warning  Low (supervisor, s.2(11))                          During group meeting about schedule changes on 8/12/24, EE swore at supervisor ('this is f***ing ridiculous') and threw clipboard on table. Others in meeting had raised the same concerns.
+2    DE-5085             Dispatcher         Verbal Warning                     Medium  During group meeting about schedule changes on 8/14/24, EE swore at supervisor ('this is f***ing ridiculous') and threw clipboard on table. Others in meeting had raised the same concerns. Witness: lead on shift.
+50   DE-5062    Warehouse Associate        Written Warning                     Medium                                   EE posted on TikTok 07/26/2025 a video from inside the warehouse showing a customer's product labels and complaining about short staffing. Customer names visible. Reviewed w/ HR.
+82   DE-5032      Forklift Operator         Verbal Warning                     Medium                         During group meeting about schedule changes on 11/14/25, EE swore at supervisor ('this is f***ing ridiculous') and threw clipboard on table. Others in meeting had raised the same concerns.
+94   DE-5158             Dispatcher         Verbal Warning                        Low                                      EE posted on Facebook 12/19/25 that their supervisor is 'an idiot' and 'I hate this place.' No coworker engagement, no reference to working conditions. Witness: lead on shift.
+97   DE-5088    Warehouse Associate         Verbal Warning                        Low                                      EE posted on Facebook 12/27/25 that their supervisor is 'an idiot' and 'I hate this place.' No coworker engagement, no reference to working conditions. Witness: lead on shift.
+121  DE-5059    Warehouse Associate        Written Warning                     Medium                          During group meeting about schedule changes on 2/20/26, EE swore at supervisor ('this is f***ing ridiculous') and threw clipboard on table. Others in meeting had raised the same concerns.
+132  DE-5183  Logistics Coordinator         Verbal Warning                        Low                                                                 EE complained repeatedly about own schedule being moved to 2nd shift and refused to work the assigned shift on 3/19/26. No other employees involved.
+140  DE-5007    Warehouse Associate         Verbal Warning                        Low                                                                  EE complained repeatedly about own schedule being moved to 2nd shift and refused to work the assigned shift on Apr 04. No other employees involved.
+165  DE-5190          HR Generalist         Verbal Warning                     Medium                           During group meeting about schedule changes on 5/2/26, EE swore at supervisor ('this is f***ing ridiculous') and threw clipboard on table. Others in meeting had raised the same concerns.
+182  DE-5179   Warehouse Supervisor  Final Written Warning  Low (supervisor, s.2(11))                              EE asked coworkers what they make and posted the numbers on whiteboard in breakroom (5/30/26). Whiteboard erased. Wage confidentiality policy reviewed with EE. Witness: lead on shift.
+192  DE-5064    Warehouse Associate         Verbal Warning                        Low                                                 EE posted on Facebook 06/12/2026 that their supervisor is 'an idiot' and 'I hate this place.' No coworker engagement, no reference to working conditions. EE signed.
+195  DE-5070  Logistics Coordinator        Written Warning                     Medium            During group meeting about schedule changes on 06/20/2026, EE swore at supervisor ('this is f***ing ridiculous') and threw clipboard on table. Others in meeting had raised the same concerns. EE signed.
+
+None-rated events mentioning coworkers/group (manual check):
+    event_id event_category                                                                                                                                                                                         narrative
+22   DE-5093        Conduct  Verbal altercation with coworker in breakroom on 03/04/2025; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation. Witness: lead on shift.
+34   DE-5128        Conduct  Verbal altercation with coworker in breakroom on 05/08/2025; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation. Witness: lead on shift.
+43   DE-5043        Conduct          Verbal altercation with coworker in breakroom on 7/8/25; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation. EE refused to sign.
+55   DE-5039        Conduct                          Verbal altercation with coworker in breakroom on 09/01/2025; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation.
+58   DE-5034        Conduct          Verbal altercation with coworker in breakroom on 09/15/2025; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation. Reviewed w/ HR.
+69   DE-5119        Conduct      Verbal altercation with coworker in breakroom on 10/19/2025; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation. EE refused to sign.
+76   DE-5008        Conduct                             Verbal altercation with coworker in breakroom on 11/7/25; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation.
+105  DE-5011        Conduct                              Verbal altercation with coworker in breakroom on Jan 23; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation.
+113  DE-5181        Conduct                          Verbal altercation with coworker in breakroom on 02/10/2026; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation.
+120  DE-5018        Conduct                             Verbal altercation with coworker in breakroom on 2/20/26; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation.
+126  DE-5068        Conduct                          Verbal altercation with coworker in breakroom on 03/02/2026; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation.
+131  DE-5189        Conduct                             Verbal altercation with coworker in breakroom on 3/13/26; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation.
+137  DE-5193        Conduct      Verbal altercation with coworker in breakroom on 04/01/2026; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation. EE refused to sign.
+153  DE-5184        Conduct                          Verbal altercation with coworker in breakroom on 04/25/2026; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation.
+154  DE-5029        Conduct      Verbal altercation with coworker in breakroom on 04/26/2026; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation. EE refused to sign.
+170  DE-5016        Conduct     Verbal altercation with coworker in breakroom on 5/14/26; EE threatened to 'meet him in the parking lot.' Witnessed by 2 associates. Sent home pending investigation. Witness: lead on shift.
+
+FIRST-offense events: share above Verbal Warning, High-risk vs other: {False: 0.25, True: 1.0} n: {False: 136, True: 21} Fisher p=1.34e-11
+High-risk events by action: {'Final Written Warning': 18, 'Written Warning': 8, 'Termination': 7}
+
+pca_flag vs having a High/Medium Section 7 narrative:
+ s7_narrative  False  True  All
+pca_flag                      
+0.0             360    11  371
+1.0              27    20   47
+All             387    31  418
+unflagged employees with High/Medium narrative: ['CL-101320', 'CL-102142', 'CL-102198', 'CL-102680', 'CL-103263', 'CL-103648', 'CL-104243', 'CL-104880', 'CL-107007', 'CL-108105', 'CL-108125']
+disc rate by pca_flag: {0.0: 0.348, 1.0: 0.596} n: {0.0: 371, 1.0: 47} Fisher p=0.00129
+invol rate by pca_flag: {0.0: 0.049, 1.0: 0.17} n: {0.0: 371, 1.0: 47} Fisher p=0.00458
+
+outputs written to /home/user/securing-code/cardinal_logistics_synthetic/analysis/outputs
