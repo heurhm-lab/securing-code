@@ -12,15 +12,74 @@ python3 monitor.py --month 2026-08  # report on a specific month
 
 The output goes to `reports/fairness_report_<month>.html` (open it in any browser)
 and `reports/fairness_metrics_<month>.csv` (every number in the report, for the minutes).
-The only requirements are Python 3.9+, `pandas` and `numpy`.
+Requirements: Python 3.9+ and `pip install -r requirements.txt` (pandas, numpy,
+and matplotlib for the analyzer's charts).
+
+## Monitoring analyzer: charts and one-page flag summary
+
+```
+python3 analyzer.py                    # latest month, comparing ZIP community groups
+python3 analyzer.py --month 2026-07
+python3 analyzer.py --group-col state  # compare the four states instead
+```
+
+It writes everything to `reports/<month>/`. Runs with `--group-col` go to a
+`by_<column>/` subfolder so they don't overwrite the default run.
+
+| Output | What it shows |
+|---|---|
+| `flag_summary_<month>.md` | **One-page plain-language flag summary**: overall status, each flag in a sentence, what to do, the key numbers |
+| `chart_selection_rates.png` | Selection rate per group for each queue (fast-pay, standard, investigation) |
+| `chart_disparity_ratios.png` | Four-fifths-rule impact ratios by month, with the 0.80 line |
+| `chart_false_investigation.png` | False-investigation rate by group and month |
+| `chart_drift_vs_baseline.png` | This month against the rolling 3-month baseline, per group and metric |
+| `analyzer_metrics_<month>.csv` | Every number behind the summary, including the drift baselines and p-values |
+
+**Definitions**
+
+- **Selection rate**: the share of a group's claims routed to each queue.
+- **Disparity ratio (four-fifths rule)**:
+  - Fast-pay is a favourable outcome. The ratio is a group's fast-pay rate divided by
+    the rate of the group that gets fast-pay most.
+  - Investigation is an adverse outcome. The ratio is the least-investigated group's
+    rate divided by this group's rate, so 0.50 means investigated twice as often.
+  - Below 0.80 fails the rule. A FLAG also needs p < 0.05.
+  - The four-fifths rule compares raw rates. So each disparity flag is also
+    risk-adjusted, using the same method as `monitor.py`. A raw gap that disappears
+    once claim size, tenure, vehicle age and prior claims are accounted for is
+    shown as WATCH, not FLAG.
+- **False-investigation rate**: of the claims a group had investigated, the share
+  that did not end in confirmed fraud. It is flagged when it exceeds the best
+  group's rate by 10 points or more and the difference is significant. The CSV also
+  holds the share of each group's legitimate claims that were investigated.
+- **Drift**: each metric above, and the model-score distribution (PSI), compared
+  with the previous three months pooled. Rates are flagged when they move 5 points
+  or more and the change is significant. Impact ratios are flagged when they fall
+  by 0.10 or more. A month with fewer than three earlier months has no drift section.
+
+**On the sample data**
+
+- **July:** the v2.4 refresh trips drift flags against the April–June baseline. The
+  higher-minority investigation rate goes from 14.2% to 27.8%, and its impact ratio
+  from 0.40 to 0.22.
+- **September:** the rolling baseline has absorbed the new level, so drift goes
+  quiet, but the disparity flags stay red. Investigation impact ratio is 0.26, still
+  3.1× after risk adjustment, and 90% of investigations found no fraud against 68%
+  elsewhere. This is why the summary tells readers not to rely on drift alone.
+- **Control data** (bias switched off) never reaches FLAG. Its raw four-fifths
+  failures show as WATCH because the risk adjustment explains them.
+
+All analyzer settings are in the `analyzer` section of `thresholds.json`.
 
 ## Monthly routine
 
 1. Drop the new month's extract into `data/claims.csv` (same columns; see below).
 2. Run `python3 monitor.py`.
-3. Open the HTML report. The banner gives the overall status, the findings in one
-   sentence each, and the recommended action.
-4. File the HTML and CSV with the meeting minutes.
+3. Run `python3 analyzer.py` for the charts and the one-page flag summary.
+4. Open the HTML report and `reports/<month>/flag_summary_<month>.md`. Each
+   gives the overall status, the findings one sentence apiece, and the
+   recommended action.
+5. File the reports, charts and CSVs with the meeting minutes.
 
 ## What it checks
 

@@ -95,19 +95,20 @@ def add_strata(m):
     return s
 
 
-def risk_adjusted_ratio(m, target, ref):
+def risk_adjusted_ratio(m, target, ref, outcome="is_inv"):
     """
     Indirect standardisation: how many monitored-group claims WOULD have gone to
-    investigation if each were treated like a reference-group claim with the same
-    claim size, tenure, vehicle age and prior-claims band? Ratio = observed / expected.
+    investigation (or another queue, via `outcome`) if each were treated like a
+    reference-group claim with the same claim size, tenure, vehicle age and
+    prior-claims band? Ratio = observed / expected.
     """
     s = add_strata(m)
     keys = ["amt_band", "tenure_band", "veh_band", "prior_band"]
-    ref_rates = s[s["community_group"] == ref].groupby(keys)["is_inv"].agg(["mean", "size"])
+    ref_rates = s[s["community_group"] == ref].groupby(keys)[outcome].agg(["mean", "size"])
     ref_rates = ref_rates[ref_rates["size"] >= 5]["mean"].rename("ref_rate")
     t = s[s["community_group"] == target].join(ref_rates, on=keys)
     covered = t["ref_rate"].notna()
-    observed = int(t.loc[covered, "is_inv"].sum())
+    observed = int(t.loc[covered, outcome].sum())
     expected = float(t.loc[covered, "ref_rate"].sum())
     r = ratio(observed, expected)
     if observed > 0 and expected > 0:

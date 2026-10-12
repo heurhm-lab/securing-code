@@ -1,0 +1,86 @@
+month,section,group,metric,value
+2026-07,current,higher-minority,claims,478.0
+2026-07,current,higher-minority,sel_fast_pay,0.20502092050209206
+2026-07,current,higher-minority,sel_standard,0.5167364016736402
+2026-07,current,higher-minority,sel_investigation,0.27824267782426776
+2026-07,current,higher-minority,n_fast_pay,98.0
+2026-07,current,higher-minority,n_standard,247.0
+2026-07,current,higher-minority,n_investigation,133.0
+2026-07,current,higher-minority,investigated,133.0
+2026-07,current,higher-minority,false_investigations,115.0
+2026-07,current,higher-minority,false_investigation_rate,0.8646616541353384
+2026-07,current,higher-minority,legit_claims,460.0
+2026-07,current,higher-minority,legit_investigated,115.0
+2026-07,current,higher-minority,legit_investigation_rate,0.25
+2026-07,current,higher-minority,fast_pay_ratio,0.5804370060437006
+2026-07,current,higher-minority,investigation_ratio,0.22003989565751114
+2026-07,current,higher-minority,fast_pay_p,6.70868627217385e-08
+2026-07,current,higher-minority,investigation_p,3.119589155444457e-23
+2026-07,current,higher-minority,false_inv_gap,0.19799498746867172
+2026-07,current,higher-minority,false_inv_p,0.004673820179675245
+2026-07,current,other,claims,637.0
+2026-07,current,other,sel_fast_pay,0.3532182103610675
+2026-07,current,other,sel_standard,0.5855572998430141
+2026-07,current,other,sel_investigation,0.061224489795918366
+2026-07,current,other,n_fast_pay,225.0
+2026-07,current,other,n_standard,373.0
+2026-07,current,other,n_investigation,39.0
+2026-07,current,other,investigated,39.0
+2026-07,current,other,false_investigations,26.0
+2026-07,current,other,false_investigation_rate,0.6666666666666666
+2026-07,current,other,legit_claims,622.0
+2026-07,current,other,legit_investigated,26.0
+2026-07,current,other,legit_investigation_rate,0.04180064308681672
+2026-07,current,other,fast_pay_ratio,1.0
+2026-07,current,other,investigation_ratio,1.0
+2026-07,current,other,fast_pay_p,1.0
+2026-07,current,other,investigation_p,1.0
+2026-07,current,other,false_inv_gap,0.0
+2026-07,current,other,false_inv_p,1.0
+2026-07,drift_baseline,higher-minority,sel_investigation,0.1417058428475487
+2026-07,drift_change,higher-minority,sel_investigation,0.13653683497671906
+2026-07,drift_p_value,higher-minority,sel_investigation,8.078663509922098e-12
+2026-07,drift_baseline,higher-minority,sel_fast_pay,0.25789120214909333
+2026-07,drift_change,higher-minority,sel_fast_pay,-0.05287028164700128
+2026-07,drift_p_value,higher-minority,sel_fast_pay,0.019375005490955763
+2026-07,drift_baseline,higher-minority,false_investigation_rate,0.8056872037914692
+2026-07,drift_change,higher-minority,false_investigation_rate,0.05897445034386917
+2026-07,drift_p_value,higher-minority,false_investigation_rate,0.1576369996440772
+2026-07,drift_baseline,higher-minority,legit_investigation_rate,0.11748445058742225
+2026-07,drift_change,higher-minority,legit_investigation_rate,0.13251554941257776
+2026-07,drift_p_value,higher-minority,legit_investigation_rate,3.812453704824291e-12
+2026-07,drift_baseline,higher-minority,fast_pay_ratio,0.702660087014921
+2026-07,drift_change,higher-minority,fast_pay_ratio,-0.12222308097122037
+2026-07,drift_p_value,higher-minority,fast_pay_ratio,
+2026-07,drift_baseline,higher-minority,investigation_ratio,0.3962191747056121
+2026-07,drift_change,higher-minority,investigation_ratio,-0.17617927904810093
+2026-07,drift_p_value,higher-minority,investigation_ratio,
+2026-07,drift_baseline,other,sel_investigation,0.05614657210401891
+2026-07,drift_change,other,sel_investigation,0.005077917691899456
+2026-07,drift_p_value,other,sel_investigation,0.6389941425702175
+2026-07,drift_baseline,other,sel_fast_pay,0.3670212765957447
+2026-07,drift_change,other,sel_fast_pay,-0.013803066234677197
+2026-07,drift_p_value,other,sel_fast_pay,0.5369635821156351
+2026-07,drift_baseline,other,false_investigation_rate,0.5789473684210527
+2026-07,drift_change,other,false_investigation_rate,0.08771929824561397
+2026-07,drift_p_value,other,false_investigation_rate,0.34551484163891355
+2026-07,drift_baseline,other,legit_investigation_rate,0.03349573690621194
+2026-07,drift_change,other,legit_investigation_rate,0.008304906180604782
+2026-07,drift_p_value,other,legit_investigation_rate,0.34226593754093343
+2026-07,drift_baseline,other,fast_pay_ratio,1.0
+2026-07,drift_change,other,fast_pay_ratio,0.0
+2026-07,drift_p_value,other,fast_pay_ratio,
+2026-07,drift_baseline,other,investigation_ratio,1.0
+2026-07,drift_change,other,investigation_ratio,0.0
+2026-07,drift_p_value,other,investigation_ratio,
+2026-07,drift,all,score_psi,0.05921373025057802
+2026-07,flag,Disparity — fast-pay,FLAG,"**higher-minority** claims reach fast-pay at 0.58× the rate of the best-treated group (20.5% vs 35.3%). Fails the four-fifths rule. After adjusting for claim size, tenure, vehicle age and prior claims, the gap is still 1.4× (risk-adjusted ratio 0.71, 95% CI 0.58–0.88): the claims themselves do not explain it."
+2026-07,flag,Disparity — investigation,FLAG,"**higher-minority** claims are sent to investigation 4.5× as often as the least-investigated group (27.8% vs 6.1%); impact ratio 0.22. Fails the four-fifths rule. After adjusting for claim size, tenure, vehicle age and prior claims, the gap is still 3.0× (risk-adjusted ratio 2.97, 95% CI 2.44–3.62): the claims themselves do not explain it."
+2026-07,flag,False investigations,FLAG,"**higher-minority**: 86% of investigations found no fraud, against 67% for other (115 of 133 investigated claims). Honest claimants in this group are investigated far more often."
+2026-07,flag,Drift,FLAG,**higher-minority** investigation rate moved from 14.2% (rolling 3-month baseline) to 27.8% this month (+13.7 points).
+2026-07,flag,Drift,FLAG,**higher-minority** fast-pay rate moved from 25.8% (rolling 3-month baseline) to 20.5% this month (-5.3 points).
+2026-07,flag,Drift,FLAG,**higher-minority** legitimate claims investigated moved from 11.7% (rolling 3-month baseline) to 25.0% this month (+13.3 points).
+2026-07,flag,Drift,FLAG,**higher-minority** fast-pay impact ratio fell from 0.70 to 0.58 against the rolling baseline.
+2026-07,flag,Drift,FLAG,**higher-minority** investigation impact ratio fell from 0.40 to 0.22 against the rolling baseline.
+2026-07,flag,Drift,WATCH,**higher-minority** false-investigation rate moved from 80.6% (rolling 3-month baseline) to 86.5% this month (+5.9 points); not statistically significant.
+2026-07,flag,Drift,WATCH,**other** false-investigation rate moved from 57.9% (rolling 3-month baseline) to 66.7% this month (+8.8 points); not statistically significant.

@@ -3,18 +3,60 @@
   "monitored_group": "higher-minority",
   "reference_group": "other",
   "min_group_claims": 100,
-  "model_inputs": ["claim_amount", "vehicle_age_years", "policy_tenure_years", "prior_claims_3yr", "zip_risk_index"],
+  "model_inputs": [
+    "claim_amount",
+    "vehicle_age_years",
+    "policy_tenure_years",
+    "prior_claims_3yr",
+    "zip_risk_index"
+  ],
   "checks": {
-    "investigation_rate_ratio":  {"direction": "high", "amber": 1.25, "red": 1.50},
-    "risk_adjusted_investigation_ratio": {"direction": "high", "amber": 1.15, "red": 1.30},
-    "fast_pay_rate_ratio":       {"direction": "low",  "amber": 0.90, "red": 0.80},
-    "investigation_hit_rate_ratio": {"direction": "low", "amber": 0.80, "red": 0.67},
-    "withdrawal_rate_ratio":     {"direction": "high", "amber": 1.50, "red": 2.00},
-    "score_psi_vs_baseline":     {"direction": "high", "amber": 0.10, "red": 0.25}
+    "investigation_rate_ratio": {
+      "direction": "high",
+      "amber": 1.25,
+      "red": 1.5
+    },
+    "risk_adjusted_investigation_ratio": {
+      "direction": "high",
+      "amber": 1.15,
+      "red": 1.3
+    },
+    "fast_pay_rate_ratio": {
+      "direction": "low",
+      "amber": 0.9,
+      "red": 0.8
+    },
+    "investigation_hit_rate_ratio": {
+      "direction": "low",
+      "amber": 0.8,
+      "red": 0.67
+    },
+    "withdrawal_rate_ratio": {
+      "direction": "high",
+      "amber": 1.5,
+      "red": 2.0
+    },
+    "score_psi_vs_baseline": {
+      "direction": "high",
+      "amber": 0.1,
+      "red": 0.25
+    }
   },
   "proxy_screen": {
     "group_separation_smd": 0.8,
     "max_within_group_fraud_correlation": 0.035,
     "window_months": 6
+  },
+  "analyzer": {
+    "_comment": "Settings for analyzer.py. Rates are proportions (0.05 = 5 percentage points).",
+    "four_fifths_threshold": 0.8,
+    "four_fifths_watch": 0.9,
+    "false_investigation_gap_flag": 0.1,
+    "baseline_months": 3,
+    "drift_rate_change_flag": 0.05,
+    "drift_ratio_change_flag": 0.1,
+    "drift_psi_watch": 0.1,
+    "drift_psi_flag": 0.25,
+    "significance_p": 0.05
   }
 }
