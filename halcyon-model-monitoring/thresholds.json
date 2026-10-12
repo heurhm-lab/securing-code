@@ -1,0 +1,20 @@
+{
+  "_comment": "Alert thresholds for the monthly triage-model fairness monitor. Edit values here; no code changes needed. Ratios compare higher-minority ZIP3s to all other ZIP3s.",
+  "monitored_group": "higher-minority",
+  "reference_group": "other",
+  "min_group_claims": 100,
+  "model_inputs": ["claim_amount", "vehicle_age_years", "policy_tenure_years", "prior_claims_3yr", "zip_risk_index"],
+  "checks": {
+    "investigation_rate_ratio":  {"direction": "high", "amber": 1.25, "red": 1.50},
+    "risk_adjusted_investigation_ratio": {"direction": "high", "amber": 1.15, "red": 1.30},
+    "fast_pay_rate_ratio":       {"direction": "low",  "amber": 0.90, "red": 0.80},
+    "investigation_hit_rate_ratio": {"direction": "low", "amber": 0.80, "red": 0.67},
+    "withdrawal_rate_ratio":     {"direction": "high", "amber": 1.50, "red": 2.00},
+    "score_psi_vs_baseline":     {"direction": "high", "amber": 0.10, "red": 0.25}
+  },
+  "proxy_screen": {
+    "group_separation_smd": 0.8,
+    "max_within_group_fraud_correlation": 0.035,
+    "window_months": 6
+  }
+}
