@@ -1,6 +1,6 @@
 # Triage model flag summary: 2026-09
 
-**🔴 ACTION NEEDED**  ·  1,007 claims  ·  groups compared by ZIP community group  ·  drift baseline: 2026-06 to 2026-08
+**🔴 ACTION NEEDED**  ·  incident tier **SEV-1** (see `INCIDENT_RESPONSE.md`)  ·  1,007 claims  ·  groups compared by ZIP community group  ·  drift baseline: 2026-06 to 2026-08
 
 **What to do:** Escalate to the model owner and the Chief Actuary. Ask for a written explanation of each flag and a remediation date before the next committee meeting.
 

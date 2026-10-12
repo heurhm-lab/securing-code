@@ -17,7 +17,7 @@ For the chosen month it computes:
   3. False-investigation rates
                          of the claims each group had investigated, the share that did
                          NOT end in confirmed fraud; and the share of each group's
-                         legitimate claims that were sent to investigation
+                         claims NOT confirmed as fraud that were sent to investigation
   4. Drift               every metric above, plus the model-score distribution, compared
                          with a rolling baseline of the previous three months pooled
 
@@ -58,7 +58,9 @@ def group_metrics(m, group_col):
     rows = []
     for g, d in m.groupby(group_col):
         inv = d[d["is_inv"]]
-        legit = d[~d["is_confirmed"]]
+        # Denominator is every claim NOT confirmed as fraud. That is not the same as
+        # "legitimate": fast-pay claims are never examined, so undetected fraud sits here too.
+        unconfirmed = d[~d["is_confirmed"]]
         rows.append({
             "group": g,
             "claims": len(d),
@@ -67,9 +69,9 @@ def group_metrics(m, group_col):
             "investigated": len(inv),
             "false_investigations": int((~inv["is_confirmed"]).sum()),
             "false_investigation_rate": (~inv["is_confirmed"]).mean() if len(inv) else float("nan"),
-            "legit_claims": len(legit),
-            "legit_investigated": int(legit["is_inv"].sum()),
-            "legit_investigation_rate": legit["is_inv"].mean() if len(legit) else float("nan"),
+            "unconfirmed_claims": len(unconfirmed),
+            "unconfirmed_investigated": int(unconfirmed["is_inv"].sum()),
+            "unconfirmed_investigation_rate": unconfirmed["is_inv"].mean() if len(unconfirmed) else float("nan"),
         })
     return pd.DataFrame(rows).set_index("group")
 
@@ -125,8 +127,8 @@ def build_flags(month, gm, dp, adj, drift, score_psi, cfg, min_claims, baseline_
     p_sig = a["significance_p"]
     flags = []
 
-    def add(level, area, text):
-        flags.append({"level": level, "area": area, "text": text})
+    def add(level, area, text, group=None):
+        flags.append({"level": level, "area": area, "text": text, "group": group})
 
     for g in gm.index:
         if gm.loc[g, "claims"] < min_claims:
@@ -161,7 +163,7 @@ def build_flags(month, gm, dp, adj, drift, score_psi, cfg, min_claims, baseline_
                         text += f" However, after adjusting for claim size, tenure, vehicle age and prior claims the ratio is {ar:.2f} (95% CI {lo:.2f}–{hi:.2f})"
                         text += (", so the gap is largely explained by legitimate risk factors." if 0.9 <= ar <= 1.1 else
                                  ": a smaller gap may remain, but it is not statistically significant this month.")
-                add(lvl, f"Disparity — {kind.lower()}", text)
+                add(lvl, f"Disparity — {kind.lower()}", text, g)
             elif r < a["four_fifths_watch"] and p < p_sig:
                 add("WATCH", f"Disparity — {kind.lower()}",
                     f"**{g}** {kind.lower()} impact ratio is {r:.2f}: passes the four-fifths rule but is close to it.")
@@ -169,12 +171,12 @@ def build_flags(month, gm, dp, adj, drift, score_psi, cfg, min_claims, baseline_
         if gap >= a["false_investigation_gap_flag"]:
             lvl = "FLAG" if p < p_sig else "WATCH"
             best = dp.attrs["best_fir"]
-            add(lvl, "False investigations",
+            add(lvl, "False investigations", group=g, text=(
                 f"**{g}**: {gm.loc[g, 'false_investigation_rate']:.0%} of investigations found no fraud, "
                 f"against {gm.loc[best, 'false_investigation_rate']:.0%} for {best} "
                 f"({gm.loc[g, 'false_investigations']} of {gm.loc[g, 'investigated']} investigated claims). "
                 + ("Honest claimants in this group are investigated far more often." if lvl == "FLAG"
-                   else "Not statistically significant this month."))
+                   else "Not statistically significant this month.")))
 
     if drift is not None:
         for _, d in drift.iterrows():
@@ -194,8 +196,34 @@ def build_flags(month, gm, dp, adj, drift, score_psi, cfg, min_claims, baseline_
         elif score_psi >= a["drift_psi_watch"]:
             add("WATCH", "Drift", f"Model score distribution shifted moderately from the baseline (PSI {score_psi:.2f}).")
     order = {"FLAG": 0, "WATCH": 1}
-    flags.sort(key=lambda f: order[f["level"]])
+    flags.sort(key=lambda f: (order[f["level"]], f["area"] != "Data"))
     return flags
+
+
+def unmapped_flag(month_all, group_col, cfg):
+    """Claims with no group label are excluded from every comparison: say so loudly."""
+    miss = month_all[month_all[group_col].isna()]
+    if miss.empty:
+        return None
+    share = len(miss) / len(month_all)
+    zips = ", ".join(sorted(miss["zip3"].astype(str).unique())[:8])
+    level = "FLAG" if share >= cfg["analyzer"].get("unmapped_flag_share", 0.01) else "WATCH"
+    return {"level": level, "area": "Data", "group": None,
+            "text": f"{len(miss):,} of {len(month_all):,} claims ({share:.1%}) have no `{group_col}` "
+                    f"(ZIP3 not in the reference table: {zips}) and are left out of every comparison below. "
+                    "Add them to `zip_reference.csv` and re-run before relying on this summary."}
+
+
+def incident_tier(flags):
+    """Map flags to the severity tiers in INCIDENT_RESPONSE.md."""
+    flagged = [f for f in flags if f["level"] == "FLAG"]
+    inv = {f["group"] for f in flagged if f["area"] == "Disparity — investigation"}
+    fir = {f["group"] for f in flagged if f["area"] == "False investigations"}
+    if inv & fir:
+        return "SEV-1"
+    if flagged:
+        return "SEV-2"
+    return "SEV-3" if flags else "None"
 
 
 # --------------------------------------------------------------------------- drift
@@ -204,7 +232,7 @@ DRIFT_METRICS = [
     ("sel_investigation", "Investigation rate", "rate", "n_investigation", "claims"),
     ("sel_fast_pay", "Fast-pay rate", "rate", "n_fast_pay", "claims"),
     ("false_investigation_rate", "False-investigation rate", "rate", "false_investigations", "investigated"),
-    ("legit_investigation_rate", "Legitimate claims investigated", "rate", "legit_investigated", "legit_claims"),
+    ("unconfirmed_investigation_rate", "Investigated, of claims not confirmed as fraud", "rate", "unconfirmed_investigated", "unconfirmed_claims"),
     ("fast_pay_ratio", "Fast-pay impact ratio", "ratio", None, None),
     ("investigation_ratio", "Investigation impact ratio", "ratio", None, None),
 ]
@@ -369,7 +397,7 @@ def chart_no_baseline(month, path):
 
 # --------------------------------------------------------------------------- summary
 
-def write_summary(path, month, group_col, gm, dp, adj, flags, baseline_label, score_psi, n_claims, cfg):
+def write_summary(path, month, group_col, gm, dp, adj, flags, baseline_label, score_psi, n_claims, n_analysed, tier, cfg):
     overall = flag_level([f["level"] for f in flags])
     headline = {"FLAG": "🔴 ACTION NEEDED", "WATCH": "🟡 WATCH", "OK": "🟢 NO FLAGS"}[overall]
     action = {
@@ -382,7 +410,10 @@ def write_summary(path, month, group_col, gm, dp, adj, flags, baseline_label, sc
     lines = [
         f"# Triage model flag summary: {month}",
         "",
-        f"**{headline}**  ·  {n_claims:,} claims  ·  groups compared by {group_name}  ·  drift baseline: {baseline_label}",
+        f"**{headline}**  ·  incident tier **{tier}** (see `INCIDENT_RESPONSE.md`)  ·  "
+        + (f"{n_claims:,} claims" if n_analysed == n_claims
+           else f"{n_claims:,} claims, **only {n_analysed:,} analysed** ({n_claims - n_analysed:,} have no group)")
+        + f"  ·  groups compared by {group_name}  ·  drift baseline: {baseline_label}",
         "",
         f"**What to do:** {action}",
         "",
@@ -445,6 +476,7 @@ def run(claims_path, zip_path, config_path, month=None, group_col="community_gro
     df = load(claims_path, zip_path)
     if group_col not in df.columns:
         raise SystemExit(f"ERROR: no column '{group_col}' in the claims or ZIP reference data")
+    all_df = df
     df = df[df[group_col].notna()]
     months = sorted(df["month"].unique())
     month = month or months[-1]
@@ -478,6 +510,11 @@ def run(claims_path, zip_path, config_path, month=None, group_col="community_gro
 
     adj = adjusted_ratios(cur, group_col, dp)
     flags = build_flags(month, gm, dp, adj, drift, score_psi, cfg, min_claims, a["baseline_months"])
+    month_all = all_df[all_df["month"] == month]
+    data_flag = unmapped_flag(month_all, group_col, cfg)
+    if data_flag:
+        flags.insert(0, data_flag)
+    tier = incident_tier(flags)
 
     if out_dir is None:
         out_dir = os.path.join(HERE, "reports", month)
@@ -495,7 +532,8 @@ def run(claims_path, zip_path, config_path, month=None, group_col="community_gro
         chart_no_baseline(month, os.path.join(out_dir, "chart_drift_vs_baseline.png"))
 
     summary_path = os.path.join(out_dir, f"flag_summary_{month}.md")
-    overall = write_summary(summary_path, month, group_col, gm, dp, adj, flags, baseline_label, score_psi, len(cur), cfg)
+    overall = write_summary(summary_path, month, group_col, gm, dp, adj, flags, baseline_label, score_psi,
+                            len(month_all), len(cur), tier, cfg)
 
     metrics = []
     for g in gm.index:
@@ -510,7 +548,7 @@ def run(claims_path, zip_path, config_path, month=None, group_col="community_gro
         metrics.append({"month": month, "section": "flag", "group": f["area"], "metric": f["level"], "value": f["text"]})
     pd.DataFrame(metrics).to_csv(os.path.join(out_dir, f"analyzer_metrics_{month}.csv"), index=False)
 
-    return {"month": month, "overall": overall, "flags": flags, "gm": gm, "dp": dp, "drift": drift,
+    return {"month": month, "overall": overall, "tier": tier, "n_claims": len(month_all), "n_analysed": len(cur), "flags": flags, "gm": gm, "dp": dp, "drift": drift,
             "score_psi": score_psi, "trend": trend, "out_dir": out_dir, "summary": summary_path}
 
 
@@ -528,7 +566,10 @@ def main():
     res = run(args.claims, args.zip_ref, args.config, args.month, args.group_col, args.out_dir)
     n_flag = sum(f["level"] == "FLAG" for f in res["flags"])
     n_watch = sum(f["level"] == "WATCH" for f in res["flags"])
-    print(f"\nHalcyon triage analyzer -- {res['month']}: {res['overall']}  ({n_flag} flags, {n_watch} watch items)")
+    print(f"\nHalcyon triage analyzer -- {res['month']}: {res['overall']}  ·  incident tier {res['tier']}  "
+          f"({n_flag} flags, {n_watch} watch items)")
+    if res["n_analysed"] != res["n_claims"]:
+        print(f"  WARNING: only {res['n_analysed']:,} of {res['n_claims']:,} claims could be assigned to a group.")
     for f in res["flags"]:
         print(f"  [{f['level']:5}] {f['area']}: {f['text'].replace('**', '')}")
     print(f"\nOne-page summary: {res['summary']}\nCharts and metrics: {res['out_dir']}\n")

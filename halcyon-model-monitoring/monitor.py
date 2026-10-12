@@ -227,12 +227,14 @@ def month_metrics(df, month, cfg, baseline_month):
         status[k] = s
     # Raw rate gaps that disappear once legitimate risk factors are accounted for are
     # worth watching but are not, on their own, evidence the model treats areas unfairly.
-    explained = status["risk_adjusted_investigation_ratio"] == "green"
-    for k in ("investigation_rate_ratio", "fast_pay_rate_ratio"):
-        if explained and status[k] == "red":
-            status[k] = "amber"
+    # Each raw ratio is judged against its OWN risk adjustment (same rule as analyzer.py).
+    if status["investigation_rate_ratio"] == "red" and status["risk_adjusted_investigation_ratio"] == "green":
+        status["investigation_rate_ratio"] = "amber"
+    fast_adj = risk_adjusted_ratio(comp, target, ref, outcome="is_fast")
+    if status["fast_pay_rate_ratio"] == "red" and not fast_adj["ci_high"] < 1:
+        status["fast_pay_rate_ratio"] = "amber"
     return {"month": month, "claims": len(m), "dq": data_quality(m), "target": t, "ref": r,
-            "adj": adj, "values": values, "pvals": pvals, "status": status,
+            "adj": adj, "fast_adj": fast_adj, "values": values, "pvals": pvals, "status": status,
             "proxy": proxy_screen(window, cfg["model_inputs"], target, ref, cfg["proxy_screen"]),
             "proxy_window": (window["month"].min(), window["month"].max(), len(window)),
             "model_versions": sorted(m["model_version"].dropna().unique()) if "model_version" in m else []}
@@ -352,7 +354,11 @@ def render(res, trend, cfg, baseline_month):
         op = "&ge;" if rule["direction"] == "high" else "&le;"
         p = res["pvals"].get(k)
         extra = ""
-        if k == "risk_adjusted_investigation_ratio":
+        if k == "fast_pay_rate_ratio":
+            fa = res["fast_adj"]
+            extra = (f"<div class='muted'>p = {fmt(p, 'p')}</div><div class='muted'>risk-adjusted {fmt(fa['ratio'])} "
+                     f"(CI {fmt(fa['ci_low'])}&ndash;{fmt(fa['ci_high'])})</div>")
+        elif k == "risk_adjusted_investigation_ratio":
             extra = f"<div class='muted'>95% CI {fmt(res['adj']['ci_low'])}&ndash;{fmt(res['adj']['ci_high'])}</div>"
         elif p is not None:
             extra = f"<div class='muted'>p = {fmt(p, 'p')}</div>"
@@ -463,8 +469,8 @@ but, within each group, barely tracks confirmed fraud (|correlation| &lt; {cfg['
 <h2>How to read this report</h2>
 <p class="muted">The model never sees race or ethnicity. ZIP3 areas are labelled using census-based population estimates in <code>zip_reference.csv</code>
 so the committee can test whether location-based inputs reproduce a protected-class disparity. A red status requires both the threshold breach and statistical
-significance (p &lt; 0.05, or a confidence interval that excludes parity). The raw referral and fast-pay ratios are capped at amber when the
-risk-adjusted ratio is green, because that gap is explained by the claims themselves; otherwise it is shown as amber. An amber needs p &lt; 0.10, so ordinary month-to-month noise stays green. Thresholds are set in <code>thresholds.json</code>.</p>
+significance (p &lt; 0.05, or a confidence interval that excludes parity). The raw referral and fast-pay ratios are each capped at amber when their own
+risk-adjusted ratio shows no significant gap, because that gap may be explained by the claims themselves; otherwise it is shown as amber. An amber needs p &lt; 0.10, so ordinary month-to-month noise stays green. Thresholds are set in <code>thresholds.json</code>.</p>
 </main><div id="tip" role="status"></div>
 <script>const tip=document.getElementById('tip');document.querySelectorAll('.hit').forEach(c=>{{c.addEventListener('mousemove',e=>{{tip.textContent=c.dataset.tip;tip.style.display='block';tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY+12)+'px'}});c.addEventListener('mouseleave',()=>tip.style.display='none')}});</script>
 </body></html>"""

@@ -83,6 +83,30 @@ class Analyzer(unittest.TestCase):
             res = self.run_month("control", month)
             self.assertNotEqual(res["overall"], "FLAG", (month, [f["text"] for f in res["flags"]]))
 
+    def test_unmapped_zip_claims_are_reported_not_silently_dropped(self):
+        # Regression: claims whose ZIP3 is missing from zip_reference.csv used to vanish
+        # from every comparison with no warning.
+        import pandas as pd
+        d = self.dirs["bias"]
+        claims = pd.read_csv(os.path.join(d, "claims.csv"), dtype={"zip3": str})
+        sept = claims.index[claims["month"] == "2026-09"][:150]
+        claims.loc[sept, "zip3"] = "486"
+        bad = os.path.join(d, "claims_unmapped.csv")
+        claims.to_csv(bad, index=False)
+        res = analyzer.run(bad, os.path.join(d, "zip_reference.csv"), CONFIG, month="2026-09",
+                           out_dir=os.path.join(d, "out", "unmapped"))
+        self.assertEqual(res["n_claims"] - res["n_analysed"], 150)
+        data = [f for f in res["flags"] if f["area"] == "Data"]
+        self.assertEqual(data[0]["level"], "FLAG")
+        self.assertIn("486", data[0]["text"])
+        with open(res["summary"]) as fh:
+            self.assertIn("only", fh.read())
+
+    def test_incident_tier(self):
+        self.assertEqual(self.run_month("bias", "2026-09")["tier"], "SEV-1")
+        for month in ["2026-07", "2026-08", "2026-09"]:
+            self.assertIn(self.run_month("control", month)["tier"], ("SEV-3", "None"))
+
     def test_other_group_column(self):
         res = self.run_month("bias", "2026-09", group_col="state")
         self.assertEqual(set(res["gm"].index), {"OH", "IN", "KY", "MI"})

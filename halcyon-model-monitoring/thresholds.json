@@ -57,6 +57,7 @@
     "drift_ratio_change_flag": 0.1,
     "drift_psi_watch": 0.1,
     "drift_psi_flag": 0.25,
-    "significance_p": 0.05
+    "significance_p": 0.05,
+    "unmapped_flag_share": 0.01
   }
 }

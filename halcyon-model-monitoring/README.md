@@ -51,7 +51,9 @@ It writes everything to `reports/<month>/`. Runs with `--group-col` go to a
 - **False-investigation rate**: of the claims a group had investigated, the share
   that did not end in confirmed fraud. It is flagged when it exceeds the best
   group's rate by 10 points or more and the difference is significant. The CSV also
-  holds the share of each group's legitimate claims that were investigated.
+  holds the share of each group's claims *not confirmed as fraud* that were investigated.
+  That denominator is not "legitimate claims": fast-pay claims are never examined, so
+  undetected fraud sits in it too.
 - **Drift**: each metric above, and the model-score distribution (PSI), compared
   with the previous three months pooled. Rates are flagged when they move 5 points
   or more and the change is significant. Impact ratios are flagged when they fall
@@ -70,6 +72,15 @@ It writes everything to `reports/<month>/`. Runs with `--group-col` go to a
   failures show as WATCH because the risk adjustment explains them.
 
 All analyzer settings are in the `analyzer` section of `thresholds.json`.
+
+## Incident response and walkthrough
+
+- `INCIDENT_RESPONSE.md` is the trigger table. It sets which metric thresholds page
+  whom, the response clocks, and the interim actions that protect claimants while a
+  flag is investigated. Each flag summary prints its incident tier.
+- `RECORDING_GUIDE.md` is the walkthrough for the Chief Actuary. It has the prompts
+  used to build this, the defects caught and fixed, the live-run script, and what
+  the numbers do **not** prove.
 
 ## Monthly routine
 
@@ -101,7 +112,7 @@ protected-class disparity anyway.
 How the statuses are set, to avoid false alarms:
 
 - A red needs statistical significance (p < 0.05, or a CI that excludes parity). An amber needs p < 0.10.
-- If the risk-adjusted ratio is green, the raw referral and fast-pay gaps are capped at amber. That gap is explained by the claims themselves.
+- The raw referral and fast-pay gaps are each capped at amber when their own risk adjustment shows no significant remaining gap. This is the same rule `analyzer.py` uses, so the two tools never disagree on one number.
 - A group with fewer than 100 claims in the month shows grey (insufficient data).
 - The proxy screen uses a trailing 6-month window, because one month has too few confirmed frauds.
 
