@@ -64,3 +64,13 @@ Data is as of **2026-09-30**. Hours and pay cover the **13 weeks** before each p
 - Some race groups are very small among AEDT applicants (a handful of American Indian/Alaska Native and Native Hawaiian/Pacific Islander applicants), as is the accommodation group. Treat ratios on small groups with care.
 - Incumbents have no AEDT score, so they belong in workforce analyses but not in AEDT selection-rate analyses.
 - Not every employee with overtime hours is owed overtime pay, and not everyone who discusses working conditions is covered by the NLRA.
+
+## Running the audit
+
+```
+python3 generate_dataset.py   # step 1: the synthetic data
+python3 analyze.py            # step 2: results/*.csv and results/step2_findings.md (doesn't read the answer keys)
+python3 build_summary.py      # step 3: results/findings_register.csv and results/audit_summary.md
+```
+
+The ranked summary is `results/audit_summary.md`. It scores each finding on likelihood (1–5), severity (1–5) and reversibility (Low, Medium, High), pairs each with a proportionate remediation step, and includes a log of corrections to the analysis.
